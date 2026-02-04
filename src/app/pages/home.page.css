@@ -1,0 +1,4 @@
+:host(app-home) {
+    background-color: var(--color-primary);
+    min-height: 100dvh;
+}

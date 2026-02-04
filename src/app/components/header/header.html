@@ -1,0 +1,64 @@
+<header class="header">
+  <div class="container">
+    <div class="logo">
+      <span class="logo-text">BRUNO DONATELLI</span>
+    </div>
+
+    <!-- Desktop Navigation -->
+    <nav class="nav desktop-nav" aria-label="Primary navigation">
+      <ul class="nav-list">
+        @for (link of navLinks; track link.id) {
+        <li class="nav-item">
+          <a [href]="link.href" class="nav-link">
+            {{ link.label }}
+          </a>
+        </li>
+        }
+      </ul>
+    </nav>
+
+    <!-- Desktop Social Links -->
+    <div class="social desktop-social" aria-label="Social media links">
+      @for (social of socialLinks; track social.id) {
+      <a [href]="social.url" [attr.aria-label]="social.label" class="social-link" target="_blank"
+        rel="noopener noreferrer">
+        <img [src]="'/assets/icons/' + social.icon + '.svg'" [alt]="social.label + ' icon'" class="social-icon"
+          width="24" height="24" />
+      </a>
+      }
+    </div>
+
+    <!-- Mobile Hamburger Button -->
+    <button class="hamburger" [class.active]="isMenuOpen()" (click)="toggleMenu()" [attr.aria-expanded]="isMenuOpen()"
+      aria-label="Toggle menu" type="button">
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+      <span class="hamburger-line"></span>
+    </button>
+  </div>
+
+  <!-- Mobile Menu -->
+  <div class="mobile-menu" [class.open]="isMenuOpen()">
+    <nav class="mobile-nav" aria-label="Mobile navigation">
+      <ul class="mobile-nav-list">
+        @for (link of navLinks; track link.id) {
+        <li class="mobile-nav-item">
+          <a [href]="link.href" class="mobile-nav-link" (click)="closeMenu()">
+            {{ link.label }}
+          </a>
+        </li>
+        }
+      </ul>
+
+      <div class="mobile-social" aria-label="Social media links">
+        @for (social of socialLinks; track social.id) {
+        <a [href]="social.url" [attr.aria-label]="social.label" class="social-link" target="_blank"
+          rel="noopener noreferrer">
+          <img [src]="'/assets/icons/' + social.icon + '.svg'" [alt]="social.label + ' icon'" class="social-icon"
+            width="24" height="24" />
+        </a>
+        }
+      </div>
+    </nav>
+  </div>
+</header>

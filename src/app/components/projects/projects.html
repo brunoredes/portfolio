@@ -1,0 +1,42 @@
+<section class="projects" id="projects">
+  <div class="container">
+    <div class="projects-header">
+      <p class="section-label">PROJETOS</p>
+      <h2 class="section-title">Projetos em destaque</h2>
+    </div>
+
+    <div class="projects-grid">
+      @for (project of projects; track project.id) {
+      <article class="project-card">
+        <div class="card-header">
+          <span class="card-number">{{ project.number }}</span>
+          <span class="card-label">REPOSITÓRIO</span>
+        </div>
+
+        <div class="card-preview">
+          <!-- Placeholder for project image/mockup -->
+          <div class="preview-placeholder">
+            <div class="preview-grid"></div>
+          </div>
+        </div>
+
+        <div class="card-content">
+          <h3 class="card-title">{{ project.title }}</h3>
+          <p class="card-description">{{ project.description }}</p>
+
+          <div class="card-technologies">
+            @for (tech of project.technologies; track tech) {
+            <span class="tech-badge">{{ tech }}</span>
+            }
+          </div>
+
+          <a [href]="project.repoUrl" class="card-cta" target="_blank" rel="noopener noreferrer"
+            [attr.aria-label]="'Ver mais sobre ' + project.title">
+            SAIBA MAIS
+          </a>
+        </div>
+      </article>
+      }
+    </div>
+  </div>
+</section>

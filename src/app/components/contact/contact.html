@@ -1,0 +1,65 @@
+<section class="contact" id="contact">
+  <div class="container">
+    <div class="contact-layout">
+      <div class="contact-sidebar">
+        <p class="section-label">CONTATO</p>
+        <h2 class="contact-title">FALE COMIGO</h2>
+
+        <div class="contact-decoration">
+          <div class="deco-circle large"></div>
+          <div class="deco-circle small"></div>
+        </div>
+      </div>
+
+      <div class="contact-form-wrapper">
+        <form class="contact-form" (ngSubmit)="onSubmit($event)" novalidate>
+          <div class="form-group">
+            <label for="name" class="form-label">Nome Completo</label>
+            <input type="text" id="name" name="name" class="form-input" placeholder="Nome Completo"
+              [value]="formData().name" (input)="updateFormData('name', $any($event.target).value)" required
+              [disabled]="isSubmitting()" />
+          </div>
+
+          <div class="form-group">
+            <label for="email" class="form-label">Email</label>
+            <input type="email" id="email" name="email" class="form-input" placeholder="Email"
+              [value]="formData().email" (input)="updateFormData('email', $any($event.target).value)" required
+              [disabled]="isSubmitting()" />
+          </div>
+
+          <div class="form-group">
+            <label for="message" class="form-label">Mensagem</label>
+            <textarea id="message" name="message" class="form-textarea" placeholder="Mensagem" rows="5"
+              [value]="formData().message" (input)="updateFormData('message', $any($event.target).value)" required
+              [disabled]="isSubmitting()"></textarea>
+          </div>
+
+          <!-- Honeypot field (hidden from users, visible to bots) -->
+          <input type="text" name="website" class="honeypot" [value]="formData().website"
+            (input)="updateFormData('website', $any($event.target).value)" tabindex="-1" autocomplete="off"
+            aria-hidden="true" />
+
+          <button type="submit" class="form-submit" [disabled]="isSubmitting()" [class.loading]="isSubmitting()">
+            @if (isSubmitting()) {
+            <span>ENVIANDO...</span>
+            } @else {
+            <span>ENVIAR</span>
+            }
+          </button>
+
+          @if (submitStatus() === 'success') {
+          <div class="form-message success" role="alert">
+            ✓ Mensagem enviada com sucesso! Obrigado pelo contato.
+          </div>
+          }
+
+          @if (submitStatus() === 'error') {
+          <div class="form-message error" role="alert">
+            ✕ {{ errorMessage() }}
+          </div>
+          }
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

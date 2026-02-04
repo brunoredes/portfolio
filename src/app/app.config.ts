@@ -1,14 +1,16 @@
+import { provideFileRouter, requestContextInterceptor } from '@analogjs/router';
 import {
   provideHttpClient,
   withFetch,
   withInterceptors,
 } from '@angular/common/http';
-import {
+import type {
   ApplicationConfig,
+} from '@angular/core';
+import {
   provideBrowserGlobalErrorListeners,
 } from '@angular/core';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
-import { provideFileRouter, requestContextInterceptor } from '@analogjs/router';
 
 export const appConfig: ApplicationConfig = {
   providers: [

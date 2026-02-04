@@ -1,0 +1,50 @@
+<section class="blog" id="blog">
+  <div class="container">
+    <div class="blog-layout">
+      <div class="blog-sidebar">
+        <p class="section-label">BLOG POSTS</p>
+        <h2 class="blog-title">ÚLTIMAS PUBLICAÇÕES</h2>
+
+        <div class="blog-navigation">
+          <button class="nav-button" aria-label="Ver post anterior" disabled>
+            <span class="material-icons">chevron_left</span>
+          </button>
+          <button class="nav-button" aria-label="Ver próximo post" disabled>
+            <span class="material-icons">chevron_right</span>
+          </button>
+        </div>
+      </div>
+
+      <div class="blog-content">
+        <div class="posts-grid">
+          @for (post of posts; track post.id; let i = $index) {
+          <article class="post-card" [class.featured]="i === 0">
+            <a [href]="post.url" class="post-link" target="_blank" rel="noopener noreferrer"
+              [attr.aria-label]="'Ler artigo - Abre nova aba: ' + post.title">
+              <div class="post-icon">
+                <span class="icon-circle"></span>
+              </div>
+
+              <div class="post-content">
+                <h3 class="post-title">{{ post.title }}</h3>
+
+                @if (post.excerpt) {
+                <p class="post-excerpt">{{ post.excerpt }}</p>
+                }
+
+                <div class="post-meta">
+                  <span class="post-platform">{{ post.platform }}</span>
+                  <span class="post-divider">•</span>
+                  <time class="post-date" [attr.datetime]="post.date">
+                    {{ post.date }}
+                  </time>
+                </div>
+              </div>
+            </a>
+          </article>
+          }
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
