@@ -1,11 +1,14 @@
+import { NgOptimizedImage } from '@angular/common';
 import { Component } from '@angular/core';
 
 @Component({
   selector: 'app-hero',
-  imports: [],
+  imports: [NgOptimizedImage],
   templateUrl: './hero.html',
   styleUrl: './hero.css',
 })
 export class Hero {
-
+  protected readonly photoUrl = '/assets/images/bruno-donatelli.jpg';
+  protected readonly photoWidth = 400;  // 2:3 portrait ratio
+  protected readonly photoHeight = 600;
 }

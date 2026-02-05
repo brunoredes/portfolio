@@ -1,3 +1,4 @@
+/* src/app/components/hero/hero.css */
 .hero {
     min-height: calc(100vh - 80px);
     display: flex;
@@ -27,19 +28,21 @@
 .hero-subtitle {
     font-family: var(--font-body);
     font-size: var(--font-caption);
-    font-weight: 700;
-    letter-spacing: 0.3em;
+    font-weight: var(--font-weight-bold);
+    letter-spacing: var(--letter-spacing-widest);
     color: var(--color-secondary);
     text-transform: uppercase;
 }
 
 .hero-title {
     font-family: var(--font-heading);
-    font-size: 3.75rem;
-    line-height: 1.1;
+    font-size: var(--font-h1);
+    font-weight: var(--font-weight-medium);
+    line-height: var(--line-height-tight);
     color: var(--color-secondary);
     max-width: 600px;
     margin: 0;
+    letter-spacing: 3px;
 }
 
 .hero-cta {
@@ -47,29 +50,43 @@
     align-items: center;
     justify-content: center;
     padding: 1rem 2.5rem;
-    background-color: var(--color-accent-purple);
-    color: var(--color-white);
+    background-color: transparent;
+    border: 2px solid var(--color-secondary);
+    color: var(--color-secondary);
     font-family: var(--font-body);
-    font-size: 0.875rem;
-    font-weight: 700;
-    letter-spacing: 0.2em;
+    font-size: var(--font-button);
+    font-weight: var(--font-weight-bold);
+    letter-spacing: var(--letter-spacing-wider);
     text-transform: uppercase;
     text-decoration: none;
-    border-radius: 4px;
-    transition: transform 0.2s ease, background-color 0.2s ease;
+    border-radius: var(--radius-sm);
+    transition: transform var(--transition-base),
+        background-color var(--transition-base),
+        box-shadow var(--transition-base);
     width: fit-content;
+    box-shadow: var(--shadow-md);
 }
 
-.hero-cta:hover,
-.hero-cta:focus {
-    background-color: var(--color-secondary);
+.hero-cta:hover {
+    background-color: var(--color-secondary-60);
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(243, 127, 28, 0.3);
+    box-shadow: 0 8px 16px rgba(243, 127, 28, 0.3);
 }
 
 .hero-cta:focus {
-    outline: 2px solid var(--color-secondary);
+    outline: 3px solid var(--color-secondary);
     outline-offset: 4px;
+    background-color: var(--color-secondary-50);
+}
+
+.hero-cta:focus-visible {
+    outline: 3px solid var(--color-secondary);
+    outline-offset: 4px;
+    box-shadow: 0 0 0 6px rgba(243, 127, 28, 0.2);
+}
+
+.hero-cta:active {
+    transform: translateY(0);
 }
 
 .hero-visual {
@@ -81,33 +98,38 @@
 
 .hero-mockup {
     width: 100%;
-    max-width: 600px;
-    aspect-ratio: 16 / 10;
+    max-width: 400px;
+    /* Matches portrait width */
+    aspect-ratio: 2 / 3;
+    /* Portrait 2:3 ratio */
     background: linear-gradient(135deg, var(--color-accent-purple), var(--color-accent-light));
-    border-radius: 12px;
+    border-radius: var(--radius-lg);
     position: relative;
     transform: perspective(1000px) rotateY(-5deg);
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.5),
+        0 0 0 1px var(--color-white-10);
     overflow: hidden;
 }
 
-.mockup-screen {
+.hero-photo {
     width: 100%;
     height: 100%;
-    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05));
-    backdrop-filter: blur(10px);
-    position: relative;
+    object-fit: cover;
+    object-position: center;
+    display: block;
 }
 
-/* Add a subtle grid pattern */
-.mockup-screen::before {
+/* Optional: Add subtle overlay on photo */
+.hero-mockup::after {
     content: '';
     position: absolute;
     inset: 0;
-    background-image:
-        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-    background-size: 20px 20px;
+    background: linear-gradient(135deg,
+            rgba(76, 37, 216, 0.1),
+            rgba(148, 80, 243, 0.1));
+    pointer-events: none;
+    z-index: 1;
 }
 
 /* Animations */
@@ -138,7 +160,16 @@
 /* Responsive */
 @media (max-width: 1024px) {
     .hero-title {
-        font-size: 3rem;
+        font-size: var(--font-h2);
+    }
+
+    .container {
+        gap: 3rem;
+    }
+
+    .hero-mockup {
+        max-width: 350px;
+        /* Slightly smaller on tablets */
     }
 }
 
@@ -155,11 +186,90 @@
     }
 
     .hero-title {
-        font-size: 2rem;
+        font-size: var(--font-h2);
     }
 
     .hero-mockup {
         transform: none;
-        max-width: 100%;
+        max-width: 300px;
+        /* Smaller on mobile */
+        margin: 0 auto;
+        /* Center on mobile */
+    }
+
+    .hero-cta {
+        padding: 0.875rem 2rem;
+        font-size: 0.8125rem;
+    }
+}
+
+@media (max-width: 480px) {
+    .hero-title {
+        font-size: var(--font-h3);
+    }
+
+    .hero-subtitle {
+        font-size: 0.625rem;
+    }
+
+    .hero-mockup {
+        max-width: 250px;
+        /* Even smaller on small mobile */
+    }
+}
+
+/* ========================================
+   HIGH CONTRAST MODE
+   ======================================== */
+@media (prefers-contrast: high) {
+    .hero-cta {
+        border: 2px solid var(--color-white);
+    }
+
+    .hero-cta:focus {
+        outline-width: 4px;
+    }
+}
+
+/* ========================================
+   REDUCED MOTION
+   ======================================== */
+@media (prefers-reduced-motion: reduce) {
+
+    .hero-content,
+    .hero-visual {
+        animation: none;
+    }
+
+    .hero-cta:hover,
+    .hero-cta:active {
+        transform: none;
+    }
+
+    .hero-mockup {
+        transform: none;
+    }
+}
+
+/* ========================================
+   PRINT STYLES
+   ======================================== */
+@media print {
+    .hero {
+        min-height: auto;
+        padding: 2rem 0;
+    }
+
+    .hero-mockup {
+        transform: none;
+        max-width: 300px;
+    }
+
+    .container {
+        grid-template-columns: 1fr;
+    }
+
+    .hero-cta {
+        display: none;
     }
 }

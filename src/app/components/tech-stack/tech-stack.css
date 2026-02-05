@@ -20,8 +20,8 @@
 .section-label {
     font-family: var(--font-body);
     font-size: var(--font-caption);
-    font-weight: 700;
-    letter-spacing: 0.3em;
+    font-weight: var(--font-weight-bold);
+    letter-spacing: var(--letter-spacing-widest);
     color: var(--color-white);
     text-transform: uppercase;
     margin-bottom: 1rem;
@@ -35,11 +35,15 @@
     margin: 0;
 }
 
+/* Semantic list - no ARIA roles needed */
 .tech-grid {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
     gap: 2rem;
+    margin: 0 0 3rem 0;
     margin-bottom: 3rem;
+    list-style: none;
+    padding: 0;
 }
 
 .tech-item {
@@ -49,15 +53,18 @@
     gap: 1rem;
     padding: 1.5rem;
     background-color: rgba(255, 255, 255, 0.05);
-    border-radius: 8px;
+    border-radius: var(--radius-md);
     border: 1px solid rgba(255, 255, 255, 0.1);
-    transition: transform 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+    transition: transform var(--transition-base),
+        background-color var(--transition-base),
+        border-color var(--transition-base);
     animation: fadeInUp 0.8s ease-out;
     animation-fill-mode: both;
     position: relative;
     overflow: hidden;
 }
 
+/* Top border animation */
 .tech-item::before {
     content: '';
     position: absolute;
@@ -80,6 +87,7 @@
     transform: translateX(100%);
 }
 
+/* Category-specific hover colors */
 .tech-item[data-category="frontend"]:hover {
     border-color: var(--color-accent-purple);
 }
@@ -103,14 +111,15 @@
     align-items: center;
     justify-content: center;
     background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 50%;
-    transition: transform 0.3s ease;
+    border-radius: var(--radius-full);
+    transition: transform var(--transition-base);
 }
 
 .tech-item:hover .tech-icon-wrapper {
     transform: scale(1.1) rotate(5deg);
 }
 
+/* Monochrome white icons filter */
 .tech-icon {
     width: 2.5rem;
     height: 2.5rem;
@@ -121,12 +130,26 @@
 .tech-name {
     font-family: var(--font-body);
     font-size: 0.875rem;
-    font-weight: 600;
+    font-weight: var(--font-weight-semibold);
     color: var(--color-white);
     text-align: center;
     margin: 0;
 }
 
+/* Screen reader only text */
+.sr-only {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    padding: 0;
+    margin: -1px;
+    overflow: hidden;
+    clip: rect(0, 0, 0, 0);
+    white-space: nowrap;
+    border: 0;
+}
+
+/* Category legend */
 .tech-categories {
     display: flex;
     justify-content: center;
@@ -146,7 +169,7 @@
 .category-dot {
     width: 0.75rem;
     height: 0.75rem;
-    border-radius: 50%;
+    border-radius: var(--radius-full);
     display: block;
 }
 
@@ -169,7 +192,7 @@
 .category-label {
     font-family: var(--font-body);
     font-size: 0.875rem;
-    font-weight: 500;
+    font-weight: var(--font-weight-medium);
     color: rgba(255, 255, 255, 0.8);
 }
 
@@ -240,5 +263,56 @@
 
     .category-label {
         font-size: 0.75rem;
+    }
+}
+
+/* ========================================
+   HIGH CONTRAST MODE
+   ======================================== */
+@media (prefers-contrast: high) {
+    .tech-item {
+        border-width: 2px;
+    }
+
+    .tech-icon {
+        /* Ensure icons remain visible in high contrast */
+        filter: brightness(0) invert(1) contrast(2);
+    }
+}
+
+/* ========================================
+   REDUCED MOTION
+   ======================================== */
+@media (prefers-reduced-motion: reduce) {
+
+    .tech-item,
+    .tech-header,
+    .tech-categories {
+        animation: none;
+    }
+
+    .tech-item:hover,
+    .tech-item:hover .tech-icon-wrapper {
+        transform: none;
+    }
+
+    .tech-item::before {
+        transition: none;
+    }
+}
+
+/* ========================================
+   PRINT STYLES
+   ======================================== */
+@media print {
+    .tech-item {
+        break-inside: avoid;
+        box-shadow: none;
+        border: 1px solid var(--color-black-20);
+    }
+
+    .tech-grid {
+        grid-template-columns: repeat(auto-fit, minmax(80px, 1fr));
+        gap: 1rem;
     }
 }

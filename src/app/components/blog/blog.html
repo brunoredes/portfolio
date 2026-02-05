@@ -1,16 +1,16 @@
-<section class="blog" id="blog">
+<section class="blog" id="blog" aria-labelledby="blog-heading">
   <div class="container">
     <div class="blog-layout">
       <div class="blog-sidebar">
         <p class="section-label">BLOG POSTS</p>
-        <h2 class="blog-title">ÚLTIMAS PUBLICAÇÕES</h2>
+        <h2 id="blog-heading" class="blog-title">ÚLTIMAS PUBLICAÇÕES</h2>
 
-        <div class="blog-navigation">
+        <div class="blog-navigation" role="group" aria-label="Navegação de posts">
           <button class="nav-button" aria-label="Ver post anterior" disabled>
-            <span class="material-icons">chevron_left</span>
+            <span class="material-icons" aria-hidden="true">chevron_left</span>
           </button>
           <button class="nav-button" aria-label="Ver próximo post" disabled>
-            <span class="material-icons">chevron_right</span>
+            <span class="material-icons" aria-hidden="true">chevron_right</span>
           </button>
         </div>
       </div>
@@ -19,28 +19,41 @@
         <div class="posts-grid">
           @for (post of posts; track post.id; let i = $index) {
           <article class="post-card" [class.featured]="i === 0">
-            <a [href]="post.url" class="post-link" target="_blank" rel="noopener noreferrer"
-              [attr.aria-label]="'Ler artigo - Abre nova aba: ' + post.title">
-              <div class="post-icon">
-                <span class="icon-circle"></span>
-              </div>
+            <div class="post-icon" aria-hidden="true">
+              <span class="icon-circle"></span>
+            </div>
 
-              <div class="post-content">
-                <h3 class="post-title">{{ post.title }}</h3>
+            <div class="post-content">
+              <h3 class="post-title">{{ post.title }}</h3>
 
-                @if (post.excerpt) {
-                <p class="post-excerpt">{{ post.excerpt }}</p>
-                }
+              @if (post.excerpt) {
+              <p class="post-excerpt">{{ post.excerpt }}</p>
+              }
 
-                <div class="post-meta">
-                  <span class="post-platform">{{ post.platform }}</span>
-                  <span class="post-divider">•</span>
-                  <time class="post-date" [attr.datetime]="post.date">
-                    {{ post.date }}
-                  </time>
+              <div class="post-meta">
+                <!-- Platform links with flags -->
+                <div class="post-platforms">
+                  @for (platform of post.platforms; track platform.url; let last = $last) {
+                  <a [href]="platform.url" class="platform-link" target="_blank" rel="noopener noreferrer"
+                    [attr.aria-label]="getPlatformLabel(platform, post.title)">
+                    <span class="platform-name">{{ getPlatformName(platform) }}</span>
+                    <span class="platform-flag" role="img" [attr.aria-label]="getLanguageName(platform.language)">
+                      {{ getLanguageFlag(platform.language) }}
+                    </span>
+                  </a>
+                  @if (!last) {
+                  <span class="platform-divider" aria-hidden="true">•</span>
+                  }
+                  }
                 </div>
+
+                <!-- Time element with datetime -->
+                <time class="post-date" [attr.datetime]="post.date"
+                  [attr.aria-label]="'Publicado em ' + getAccessibleDate(post.date)">
+                  {{ post.date | timeAgo }}
+                </time>
               </div>
-            </a>
+            </div>
           </article>
           }
         </div>

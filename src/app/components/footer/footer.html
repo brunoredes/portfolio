@@ -2,15 +2,15 @@
   <div class="container">
     <div class="footer-content">
       <div class="footer-brand">
-        <div class="footer-logo">
+        <a href="/" class="footer-logo" aria-label="Bruno Donatelli - Ir para página inicial">
           <span class="logo-text">BRUNO DONATELLI</span>
-        </div>
+        </a>
         <p class="footer-tagline">
           Desenvolvedor Full Stack
         </p>
       </div>
 
-      <nav class="footer-nav" aria-label="Footer navigation">
+      <nav class="footer-nav" aria-label="Navegação do rodapé">
         <h3 class="footer-nav-title">Navegação</h3>
         <ul class="footer-nav-list">
           @for (link of navLinks; track link.id) {
@@ -23,26 +23,26 @@
         </ul>
       </nav>
 
-      <div class="footer-social">
-        <h3 class="footer-social-title">onde me encontrar</h3>
+      <nav class="footer-social" aria-label="Redes sociais">
+        <h3 class="footer-social-title">Redes Sociais</h3>
         <div class="social-links">
           @for (social of socialLinks; track social.id) {
-          <a [href]="social.url" [attr.aria-label]="social.label" class="social-link" target="_blank"
-            rel="noopener noreferrer">
-            <img [src]="'/assets/icons/' + social.icon + '.svg'" [alt]="social.label + ' icon'" class="social-icon"
-              width="24" height="24" />
+          <a [href]="social.url" [attr.aria-label]="social.label + ' - abrir em nova aba'" class="social-link"
+            target="_blank" rel="noopener noreferrer">
+            <img [src]="'/assets/icons/' + social.icon + '.svg'" alt="" class="social-icon" width="24" height="24"
+              role="presentation" />
           </a>
           }
         </div>
-      </div>
+      </nav>
     </div>
 
     <div class="footer-bottom">
       <p class="footer-copyright">
-        {{ currentYear }} - ALL RIGHTS RESERVED
+        © {{ currentYear }} Bruno Donatelli
       </p>
       <p class="footer-built">
-        Feito com <span class="heart">♥</span> usando AnalogJS
+        Feito com <span class="heart" aria-hidden="true">♥</span> usando AnalogJS
       </p>
     </div>
   </div>

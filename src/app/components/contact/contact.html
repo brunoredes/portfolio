@@ -1,45 +1,77 @@
-<section class="contact" id="contact">
+<!-- src/app/components/contact/contact.html -->
+<section class="contact" id="contact" aria-labelledby="contact-heading">
   <div class="container">
     <div class="contact-layout">
       <div class="contact-sidebar">
         <p class="section-label">CONTATO</p>
-        <h2 class="contact-title">FALE COMIGO</h2>
+        <h2 id="contact-heading" class="contact-title">FALE COMIGO</h2>
 
-        <div class="contact-decoration">
+        <div class="contact-decoration" aria-hidden="true">
           <div class="deco-circle large"></div>
           <div class="deco-circle small"></div>
         </div>
       </div>
 
       <div class="contact-form-wrapper">
-        <form class="contact-form" (ngSubmit)="onSubmit($event)" novalidate>
+        <form class="contact-form" (ngSubmit)="onSubmit($event)" novalidate aria-label="Formulário de contato">
+          <!-- Name Field -->
           <div class="form-group">
-            <label for="name" class="form-label">Nome Completo</label>
-            <input type="text" id="name" name="name" class="form-input" placeholder="Nome Completo"
-              [value]="formData().name" (input)="updateFormData('name', $any($event.target).value)" required
-              [disabled]="isSubmitting()" />
+            <label for="name" class="form-label">
+              Nome Completo
+            </label>
+            <input type="text" id="name" name="name" class="form-input" [class.has-error]="hasFieldError('name')"
+              [value]="formData().name" (input)="updateFormData('name', $any($event.target).value)"
+              (blur)="onFieldBlur('name')" required autocomplete="name" [disabled]="isSubmitting()"
+              [attr.aria-invalid]="hasFieldError('name')"
+              [attr.aria-describedby]="hasFieldError('name') ? 'name-error' : null" />
+            @if (hasFieldError('name')) {
+            <p id="name-error" class="field-error" role="alert">
+              {{ getFieldError('name') }}
+            </p>
+            }
           </div>
 
+          <!-- Email Field -->
           <div class="form-group">
-            <label for="email" class="form-label">Email</label>
-            <input type="email" id="email" name="email" class="form-input" placeholder="Email"
-              [value]="formData().email" (input)="updateFormData('email', $any($event.target).value)" required
-              [disabled]="isSubmitting()" />
+            <label for="email" class="form-label">
+              Email
+            </label>
+            <input type="email" id="email" name="email" class="form-input" [class.has-error]="hasFieldError('email')"
+              [value]="formData().email" (input)="updateFormData('email', $any($event.target).value)"
+              (blur)="onFieldBlur('email')" required autocomplete="email" [disabled]="isSubmitting()"
+              [attr.aria-invalid]="hasFieldError('email')"
+              [attr.aria-describedby]="hasFieldError('email') ? 'email-error' : null" />
+            @if (hasFieldError('email')) {
+            <p id="email-error" class="field-error" role="alert">
+              {{ getFieldError('email') }}
+            </p>
+            }
           </div>
 
+          <!-- Message Field -->
           <div class="form-group">
-            <label for="message" class="form-label">Mensagem</label>
-            <textarea id="message" name="message" class="form-textarea" placeholder="Mensagem" rows="5"
-              [value]="formData().message" (input)="updateFormData('message', $any($event.target).value)" required
-              [disabled]="isSubmitting()"></textarea>
+            <label for="message" class="form-label">
+              Mensagem
+            </label>
+            <textarea id="message" name="message" class="form-textarea" [class.has-error]="hasFieldError('message')"
+              rows="5" [value]="formData().message" (input)="updateFormData('message', $any($event.target).value)"
+              (blur)="onFieldBlur('message')" required [disabled]="isSubmitting()"
+              [attr.aria-invalid]="hasFieldError('message')"
+              [attr.aria-describedby]="hasFieldError('message') ? 'message-error' : null"></textarea>
+            @if (hasFieldError('message')) {
+            <p id="message-error" class="field-error" role="alert">
+              {{ getFieldError('message') }}
+            </p>
+            }
           </div>
 
           <!-- Honeypot field (hidden from users, visible to bots) -->
           <input type="text" name="website" class="honeypot" [value]="formData().website"
             (input)="updateFormData('website', $any($event.target).value)" tabindex="-1" autocomplete="off"
-            aria-hidden="true" />
+            aria-hidden="true" readonly />
 
-          <button type="submit" class="form-submit" [disabled]="isSubmitting()" [class.loading]="isSubmitting()">
+          <button type="submit" class="form-submit" [disabled]="isSubmitting()" [class.loading]="isSubmitting()"
+            [attr.aria-busy]="isSubmitting()">
             @if (isSubmitting()) {
             <span>ENVIANDO...</span>
             } @else {
@@ -48,14 +80,8 @@
           </button>
 
           @if (submitStatus() === 'success') {
-          <div class="form-message success" role="alert">
+          <div class="form-message success" role="status" aria-live="polite">
             ✓ Mensagem enviada com sucesso! Obrigado pelo contato.
-          </div>
-          }
-
-          @if (submitStatus() === 'error') {
-          <div class="form-message error" role="alert">
-            ✕ {{ errorMessage() }}
           </div>
           }
         </form>

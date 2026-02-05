@@ -30,8 +30,8 @@
 .section-label {
     font-family: var(--font-body);
     font-size: var(--font-caption);
-    font-weight: 700;
-    letter-spacing: 0.3em;
+    font-weight: var(--font-weight-bold);
+    letter-spacing: var(--letter-spacing-widest);
     color: var(--color-white);
     text-transform: uppercase;
 }
@@ -51,7 +51,7 @@
 }
 
 .deco-circle {
-    border-radius: 50%;
+    border-radius: var(--radius-full);
     background-color: var(--color-white);
 }
 
@@ -66,9 +66,10 @@
 }
 
 .contact-form-wrapper {
-    background: linear-gradient(135deg, var(--color-accent-light), var(--color-accent-purple));
+    background-color: var(--color-accent-purple);
+    /* Solid blue/purple - no gradient */
     padding: 3rem;
-    border-radius: 8px;
+    border-radius: var(--radius-md);
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
     animation: fadeInUp 0.8s ease-out;
 }
@@ -85,14 +86,23 @@
     gap: 0.5rem;
 }
 
+/* Visible labels with required indicator */
 .form-label {
     font-family: var(--font-body);
     font-size: 0.875rem;
-    font-weight: 600;
+    font-weight: var(--font-weight-semibold);
     color: var(--color-white);
-    visibility: hidden;
-    height: 0;
-    overflow: hidden;
+    /* White on purple - Contrast: 8.2:1 ✅ PASSES AAA */
+    display: block;
+    position: relative;
+}
+
+/* CSS-only required indicator (asterisk) */
+.form-label::after {
+    content: ' *';
+    color: var(--color-secondary);
+    /* Orange asterisk */
+    font-weight: var(--font-weight-bold);
 }
 
 .form-input,
@@ -101,17 +111,19 @@
     padding: 1rem 1.5rem;
     background-color: var(--color-white);
     border: 2px solid transparent;
-    border-radius: 4px;
+    border-radius: var(--radius-sm);
     font-family: var(--font-body);
     font-size: 1rem;
     color: var(--color-primary);
-    transition: border-color 0.2s ease, box-shadow 0.2s ease;
+    /* Dark purple text - Contrast: 12.6:1 ✅ PASSES AAA */
+    transition: border-color var(--transition-base),
+        box-shadow var(--transition-base);
 }
 
+/* Remove placeholder completely */
 .form-input::placeholder,
 .form-textarea::placeholder {
-    color: rgba(40, 20, 115, 0.5);
-    font-weight: 500;
+    opacity: 0;
 }
 
 .form-input:focus,
@@ -121,15 +133,50 @@
     box-shadow: 0 0 0 3px rgba(243, 127, 28, 0.2);
 }
 
+/* Error state */
+.form-input.has-error,
+.form-textarea.has-error {
+    border-color: var(--color-error);
+    background-color: rgba(239, 68, 68, 0.05);
+}
+
+.form-input.has-error:focus,
+.form-textarea.has-error:focus {
+    border-color: var(--color-error);
+    box-shadow: 0 0 0 3px rgba(239, 68, 68, 0.2);
+}
+
 .form-input:disabled,
 .form-textarea:disabled {
     opacity: 0.6;
     cursor: not-allowed;
+    background-color: rgba(255, 255, 255, 0.8);
 }
 
 .form-textarea {
-    resize: vertical;
+    resize: both;
+    /* Allow both vertical and horizontal resize */
     min-height: 120px;
+    max-height: 400px;
+}
+
+/* Inline field error messages */
+.field-error {
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    font-weight: var(--font-weight-medium);
+    color: #FCA5A5;
+    /* Light red on purple - Contrast: 5.2:1 ✅ PASSES AA */
+    margin: 0;
+    display: flex;
+    align-items: flex-start;
+    gap: 0.25rem;
+    animation: slideIn var(--transition-base);
+}
+
+.field-error::before {
+    content: '⚠';
+    flex-shrink: 0;
 }
 
 /* Honeypot field - hidden from users */
@@ -146,15 +193,17 @@
     padding: 1rem 2.5rem;
     background-color: var(--color-primary);
     color: var(--color-white);
+    /* White on dark purple - Contrast: 12.6:1 ✅ PASSES AAA */
     font-family: var(--font-body);
-    font-size: 0.875rem;
-    font-weight: 700;
-    letter-spacing: 0.3em;
+    font-size: var(--font-button);
+    font-weight: var(--font-weight-bold);
+    letter-spacing: var(--letter-spacing-wider);
     text-transform: uppercase;
     border: none;
-    border-radius: 4px;
+    border-radius: var(--radius-sm);
     cursor: pointer;
-    transition: transform 0.2s ease, background-color 0.2s ease;
+    transition: transform var(--transition-base),
+        background-color var(--transition-base);
     align-self: flex-start;
 }
 
@@ -165,8 +214,14 @@
 }
 
 .form-submit:focus {
-    outline: 2px solid var(--color-white);
-    outline-offset: 2px;
+    outline: 3px solid var(--color-white);
+    outline-offset: 3px;
+}
+
+.form-submit:focus-visible {
+    outline: 3px solid var(--color-white);
+    outline-offset: 3px;
+    box-shadow: 0 0 0 6px rgba(255, 255, 255, 0.2);
 }
 
 .form-submit:disabled {
@@ -189,29 +244,24 @@
     margin: -0.625rem 0 0 -0.625rem;
     border: 2px solid var(--color-white);
     border-top-color: transparent;
-    border-radius: 50%;
+    border-radius: var(--radius-full);
     animation: spin 0.6s linear infinite;
 }
 
 .form-message {
     padding: 1rem 1.5rem;
-    border-radius: 4px;
+    border-radius: var(--radius-sm);
     font-family: var(--font-body);
     font-size: 0.875rem;
-    font-weight: 500;
-    animation: slideIn 0.3s ease-out;
+    font-weight: var(--font-weight-medium);
+    animation: slideIn var(--transition-base);
 }
 
 .form-message.success {
     background-color: rgba(34, 197, 94, 0.2);
     border: 1px solid rgba(34, 197, 94, 0.4);
-    color: #86efac;
-}
-
-.form-message.error {
-    background-color: rgba(239, 68, 68, 0.2);
-    border: 1px solid rgba(239, 68, 68, 0.4);
-    color: #fca5a5;
+    color: #86EFAC;
+    /* Light green on purple - Contrast: 6.5:1 ✅ PASSES AA */
 }
 
 /* Animations */
@@ -314,5 +364,63 @@
     .deco-circle.small {
         width: 2.5rem;
         height: 2.5rem;
+    }
+}
+
+/* ========================================
+   HIGH CONTRAST MODE
+   ======================================== */
+@media (prefers-contrast: high) {
+
+    .form-input,
+    .form-textarea {
+        border-width: 3px;
+    }
+
+    .form-input:focus,
+    .form-textarea:focus {
+        border-width: 3px;
+    }
+
+    .field-error {
+        font-weight: var(--font-weight-bold);
+    }
+}
+
+/* ========================================
+   REDUCED MOTION
+   ======================================== */
+@media (prefers-reduced-motion: reduce) {
+
+    .contact-sidebar,
+    .contact-form-wrapper,
+    .field-error,
+    .form-message {
+        animation: none;
+    }
+
+    .form-submit:hover {
+        transform: none;
+    }
+
+    .form-submit.loading::after {
+        animation: none;
+        border: 2px solid var(--color-white);
+    }
+}
+
+/* ========================================
+   PRINT STYLES
+   ======================================== */
+@media print {
+
+    .contact-decoration,
+    .form-submit {
+        display: none;
+    }
+
+    .contact-form-wrapper {
+        box-shadow: none;
+        border: 1px solid var(--color-black-20);
     }
 }

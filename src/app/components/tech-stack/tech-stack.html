@@ -1,37 +1,42 @@
-<section class="tech-stack" id="expertise">
+<!-- src/app/components/tech-stack/tech-stack.html -->
+<section class="tech-stack" id="expertise" aria-labelledby="tech-heading">
   <div class="container">
     <div class="tech-header">
       <p class="section-label">EXPERTISE</p>
-      <h2 class="tech-title">Tecnologias e ferramentas</h2>
+      <h2 id="tech-heading" class="tech-title">Tecnologias e ferramentas</h2>
     </div>
 
-    <div class="tech-grid">
+    <!-- Removed redundant role="list" - <ul> is already semantic -->
+    <ul class="tech-grid" aria-label="Lista de tecnologias">
       @for (tech of techStack; track tech.id; let i = $index) {
-      <div class="tech-item" [attr.data-category]="tech.category" [style.animation-delay.s]="i * 0.05">
+      <!-- Removed redundant role="listitem" - <li> is already semantic -->
+      <li class="tech-item" [attr.data-category]="tech.category" [style.animation-delay.s]="i * 0.05">
         <div class="tech-icon-wrapper">
-          <img [src]="tech.iconUrl" [alt]="tech.name + ' logo'" class="tech-icon" loading="lazy" width="64"
-            height="64" />
+          <img [src]="tech.iconUrl" alt="" class="tech-icon" loading="lazy" decoding="async" width="64" height="64" />
         </div>
-        <p class="tech-name">{{ tech.name }}</p>
-      </div>
+        <p class="tech-name">
+          {{ tech.name }}
+          <span class="sr-only">, categoria {{ getCategoryLabel(tech.category) }}</span>
+        </p>
+      </li>
       }
-    </div>
+    </ul>
 
-    <div class="tech-categories">
+    <div class="tech-categories" role="group" aria-label="Legenda de categorias">
       <div class="category-badge">
-        <span class="category-dot" data-color="frontend"></span>
+        <span class="category-dot" data-color="frontend" aria-hidden="true"></span>
         <span class="category-label">Frontend</span>
       </div>
       <div class="category-badge">
-        <span class="category-dot" data-color="backend"></span>
+        <span class="category-dot" data-color="backend" aria-hidden="true"></span>
         <span class="category-label">Backend</span>
       </div>
       <div class="category-badge">
-        <span class="category-dot" data-color="devops"></span>
+        <span class="category-dot" data-color="devops" aria-hidden="true"></span>
         <span class="category-label">DevOps</span>
       </div>
       <div class="category-badge">
-        <span class="category-dot" data-color="database"></span>
+        <span class="category-dot" data-color="database" aria-hidden="true"></span>
         <span class="category-label">Database</span>
       </div>
     </div>
