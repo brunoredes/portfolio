@@ -1,0 +1,21 @@
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile
+      target: production
+    container_name: donatelli-dev-local
+    restart: unless-stopped
+    read_only: true
+    tmpfs:
+      - /tmp/nginx:noexec,nosuid,size=1m,uid=100,gid=101
+      - /var/cache/nginx:noexec,nosuid,size=10m,uid=100,gid=101
+      - /var/log/nginx:noexec,nosuid,size=5m,uid=100,gid=101
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    ports:
+      - "8090:8090"
+    volumes:
+      - ./infra/nginx/nginx.local.conf:/etc/nginx/nginx.conf:ro

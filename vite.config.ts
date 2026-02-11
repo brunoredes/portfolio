@@ -16,7 +16,7 @@ export default defineConfig(({ mode }) => ({
       ssr: false,
       static: true,
       prerender: {
-        routes: async () => ['/home', {
+        routes: async () => ['/', '/home', {
           route: '/home',
           staticData: true
         }]

@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://donatelli.dev/sitemap.xml
