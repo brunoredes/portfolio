@@ -124,7 +124,7 @@
     width: 2.5rem;
     height: 2.5rem;
     object-fit: contain;
-    filter: brightness(0) invert(1);
+    /* filter: brightness(0) invert(1); */
 }
 
 .tech-name {
@@ -187,6 +187,9 @@
 
 .category-dot[data-color="database"] {
     background-color: var(--color-brand-30);
+}
+.category-dot[data-color="tools"] {
+    background-color: var(--color-brand-60);
 }
 
 .category-label {

@@ -12,7 +12,7 @@
       <!-- Removed redundant role="listitem" - <li> is already semantic -->
       <li class="tech-item" [attr.data-category]="tech.category" [style.animation-delay.s]="i * 0.05">
         <div class="tech-icon-wrapper">
-          <img [src]="tech.iconUrl" alt="" class="tech-icon" loading="lazy" decoding="async" width="64" height="64" />
+          <img [ngSrc]="tech.iconUrl" alt="" class="tech-icon" loading="lazy" decoding="async" width="64" height="64" />
         </div>
         <p class="tech-name">
           {{ tech.name }}
@@ -38,6 +38,10 @@
       <div class="category-badge">
         <span class="category-dot" data-color="database" aria-hidden="true"></span>
         <span class="category-label">Database</span>
+      </div>
+      <div class="category-badge">
+        <span class="category-dot" data-color="tools" aria-hidden="true"></span>
+        <span class="category-label">Ferramentas</span>
       </div>
     </div>
   </div>

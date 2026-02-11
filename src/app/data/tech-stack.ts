@@ -7,23 +7,26 @@ export interface TechItem {
 
 export const TECH_STACK: TechItem[] = [
   // Frontend
-  { id: 'angular', name: 'Angular', category: 'frontend', iconUrl: '/assets/icons/angular.svg' },
-  { id: 'react', name: 'React', category: 'frontend', iconUrl: '/assets/icons/react.svg' },
-  { id: 'typescript', name: 'TypeScript', category: 'frontend', iconUrl: '/assets/icons/typescript.svg' },
-  { id: 'javascript', name: 'JavaScript', category: 'frontend', iconUrl: '/assets/icons/javascript.svg' },
+  { id: 'angular', name: 'Angular', category: 'frontend', iconUrl: '/techs/angular.avif' },
+  { id: 'react', name: 'React', category: 'frontend', iconUrl: '/techs/react.avif' },
+  { id: 'typescript', name: 'TypeScript', category: 'frontend', iconUrl: '/techs/typescript.avif' },
+  { id: 'javascript', name: 'JavaScript', category: 'frontend', iconUrl: '/techs/js.avif' },
+  { id: 'css', name: 'CSS', category: 'frontend', iconUrl: '/techs/css.avif' },
+  { id: 'scss', name: 'SCSS', category: 'frontend', iconUrl: '/techs/scss.avif' },
+  { id: 'webcomponents', name: 'Web Components', category: 'frontend', iconUrl: '/techs/webcomponents.avif' },
 
   // Backend
-  { id: 'nodejs', name: 'Node.js', category: 'backend', iconUrl: '/assets/icons/nodejs.svg' },
-  { id: 'python', name: 'Python', category: 'backend', iconUrl: '/assets/icons/python.svg' },
-  { id: 'express', name: 'Express', category: 'backend', iconUrl: '/assets/icons/express.svg' },
+  { id: 'csharp', name: 'C#', category: 'backend', iconUrl: '/techs/csharp.avif' },
 
   // DevOps
-  { id: 'docker', name: 'Docker', category: 'devops', iconUrl: '/assets/icons/docker.svg' },
-  { id: 'kubernetes', name: 'Kubernetes', category: 'devops', iconUrl: '/assets/icons/kubernetes.svg' },
-  { id: 'git', name: 'Git', category: 'devops', iconUrl: '/assets/icons/git.svg' },
+  { id: 'docker', name: 'Docker', category: 'devops', iconUrl: '/techs/docker.avif' },
+  { id: 'git', name: 'Git', category: 'devops', iconUrl: '/techs/git.avif' },
+  { id: 'github', name: 'GitHub', category: 'devops', iconUrl: '/techs/github.avif' },
+  { id: 'gitlab', name: 'GitLab', category: 'devops', iconUrl: '/techs/gitlab.avif' },
 
   // Database
-  { id: 'postgresql', name: 'PostgreSQL', category: 'database', iconUrl: '/assets/icons/postgresql.svg' },
-  { id: 'mongodb', name: 'MongoDB', category: 'database', iconUrl: '/assets/icons/mongodb.svg' },
-  { id: 'redis', name: 'Redis', category: 'database', iconUrl: '/assets/icons/redis.svg' },
+  { id: 'postgresql', name: 'PostgreSQL', category: 'database', iconUrl: '/techs/pgsql.avif' },
+  
+  // Tools
+  { id: 'nvda', name: 'NVDA', category: 'tools', iconUrl: '/techs/nvda.avif' },
 ];
