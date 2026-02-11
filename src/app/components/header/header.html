@@ -1,9 +1,11 @@
 <!-- src/app/components/header/header.html -->
 <header class="header">
   <div class="container">
-    <!-- Logo - Now clickable -->
-    <a href="/" class="logo" aria-label="Donatelli dev - Ir para página inicial">
-      <span class="logo-text">DONATELLI DEV</span>
+    <!-- Logo with terminal animation -->
+    <a href="/" class="logo" aria-label="Bruno Donatelli - Ir para página inicial">
+      <span class="logo-text" [class.show-cursor]="showCursor()">
+        {{ logoText() }}
+      </span>
     </a>
 
     <!-- Desktop Navigation -->
@@ -20,7 +22,7 @@
     </nav>
 
     <!-- Desktop Social Links -->
-    <div class="social desktop-social" role="navigation" aria-label="Redes sociais">
+    <div class="desktop-social" role="navigation" aria-label="Redes sociais">
       @for (social of socialLinks; track social.id) {
       <a [href]="social.url" [attr.aria-label]="social.label + ' - abrir em nova aba'" class="social-link"
         target="_blank" rel="noopener noreferrer">
@@ -57,7 +59,7 @@
         @for (social of socialLinks; track social.id) {
         <a [href]="social.url" [attr.aria-label]="social.label + ' - abrir em nova aba'" class="social-link"
           target="_blank" rel="noopener noreferrer" [attr.tabindex]="isMenuOpen() ? '0' : '-1'">
-          <img [src]="'/assets/icons/' + social.icon + '.svg'" [alt]="''" class="social-icon" width="24" height="24"
+          <img [src]="'/assets/icons/' + social.icon + '.svg'" alt="" class="social-icon" width="24" height="24"
             role="presentation" />
         </a>
         }
@@ -65,7 +67,6 @@
     </nav>
   </div>
 
-  <!-- Mobile Menu Overlay (for closing when clicking outside) -->
   @if (isMenuOpen()) {
   <div class="mobile-overlay" (click)="closeMenu()" aria-hidden="true"></div>
   }

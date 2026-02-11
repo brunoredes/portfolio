@@ -11,7 +11,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link defer
-    href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
+    href="https://fonts.googleapis.com/css2?family=Alfa+Slab+One&family=Inter&family=Poppins:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap"
     rel="stylesheet">
   <link defer href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
@@ -19,6 +19,40 @@
 <body>
   <app-root></app-root>
   <script type="module" src="/src/main.ts"></script>
+
+  <svg style="position: absolute; width: 0; height: 0; overflow: hidden;" aria-hidden="true">
+      <defs>
+        <!-- Deuteranopia Filter (Green color blindness) -->
+        <filter id="deuteranopia-filter">
+          <feColorMatrix type="matrix" values="
+            0.625  0.375  0      0  0
+            0.7    0.3    0      0  0
+            0      0.3    0.7    0  0
+            0      0      0      1  0
+          "/>
+        </filter>
+
+        <!-- Protanopia Filter (Red color blindness) -->
+        <filter id="protanopia-filter">
+          <feColorMatrix type="matrix" values="
+            0.567  0.433  0      0  0
+            0.558  0.442  0      0  0
+            0      0.242  0.758  0  0
+            0      0      0      1  0
+          "/>
+        </filter>
+
+        <!-- Tritanopia Filter (Blue color blindness - optional) -->
+        <filter id="tritanopia-filter">
+          <feColorMatrix type="matrix" values="
+            0.95   0.05   0      0  0
+            0      0.433  0.567  0  0
+            0      0.475  0.525  0  0
+            0      0      0      1  0
+          "/>
+        </filter>
+      </defs>
+    </svg>
 </body>
 
 </html>

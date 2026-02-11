@@ -1,235 +1,371 @@
 /* You can add global styles to this file, and also import other style files */
 :root {
-  /* ========================================
+   /* ========================================
      BRAND COLORS - Primary Purple Scale
      ======================================== */
-  --color-brand-60: #281473;      /* Darkest purple - main background */
-  --color-brand-50: #48368D;      /* Dark purple - footer, sections */
-  --color-brand-40: #6B57A6;      /* Medium purple */
-  --color-brand-30: #8779C0;      /* Light purple */
-  --color-brand-20: #A79AD9;      /* Lighter purple */
-  --color-brand-10: #C7BCF3;      /* Lightest purple */
+   --color-brand-60: #281473;
+   /* Darkest purple - main background */
+   --color-brand-50: #48368D;
+   /* Dark purple - footer, sections */
+   --color-brand-40: #6B57A6;
+   /* Medium purple */
+   --color-brand-30: #8779C0;
+   /* Light purple */
+   --color-brand-20: #A79AD9;
+   /* Lighter purple */
+   --color-brand-10: #C7BCF3;
+   /* Lightest purple */
 
-  /* ========================================
+   /* ========================================
      SECONDARY COLORS - Orange Scale
      ======================================== */
-  --color-secondary-50: #F2600B;  /* Dark orange */
-  --color-secondary-40: #F5803C;  /* Medium orange */
-  --color-secondary-30: #F7A06D;  /* Light orange */
-  --color-secondary-20: #FABF9D;  /* Lighter orange */
-  --color-secondary-10: #FCDFCE;  /* Lightest orange */
+   --color-secondary-50: #F2600B;
+   /* Dark orange */
+   --color-secondary-40: #F5803C;
+   /* Medium orange */
+   --color-secondary-30: #F7A06D;
+   /* Light orange */
+   --color-secondary-20: #FABF9D;
+   /* Lighter orange */
+   --color-secondary-10: #FCDFCE;
+   /* Lightest orange */
 
-  /* ========================================
+   /* ========================================
      MAIN COLORS - Primary Usage
      ======================================== */
-  --color-primary: #281473;       /* Main background */
-  --color-secondary: #F37F1C;     /* Main accent (headings, CTAs) */
-  --color-accent-purple: #4C25D8; /* Interactive elements */
-  --color-accent-light: #9450F3;  /* Hover states, gradients */
+   --color-primary: #281473;
+   /* Main background */
+   --color-secondary: #F37F1C;
+   /* Main accent (headings, CTAs) */
+   --color-accent-purple: #4C25D8;
+   /* Interactive elements */
+   --color-accent-light: #9450F3;
+   /* Hover states, gradients */
 
-  /* ========================================
+   /* ========================================
      NEUTRAL COLORS
      ======================================== */
-  --color-neutral-50: #5d4f54;    /* Dark neutral */
-  --color-neutral-40: #66D271;    /* Medium neutral */
-  --color-neutral-30: #8C8B8E;    /* Medium neutral */
-  --color-neutral-20: #A9A8AC;    /* Light neutral */
-  --color-neutral-10: #C7C7C9;    /* Lighter neutral */
-  --color-white: #FFFFFF;         /* White text */
-  --color-black: #000000;         /* Black (rarely used) */
+   --color-neutral-50: #5d4f54;
+   /* Dark neutral */
+   --color-neutral-40: #66D271;
+   /* Medium neutral */
+   --color-neutral-30: #8C8B8E;
+   /* Medium neutral */
+   --color-neutral-20: #A9A8AC;
+   /* Light neutral */
+   --color-neutral-10: #C7C7C9;
+   /* Lighter neutral */
+   --color-white: #FFFFFF;
+   /* White text */
+   --color-black: #000000;
+   /* Black (rarely used) */
 
-  /* ========================================
+   /* ========================================
      SEMANTIC COLORS
      ======================================== */
-  --color-success: #22C55E;       /* Success states */
-  --color-error: #EF4444;         /* Error states */
-  --color-warning: #F59E0B;       /* Warning states */
-  --color-info: #3B82F6;          /* Info states */
+   --color-success: #22C55E;
+   /* Success states */
+   --color-error: #EF4444;
+   /* Error states */
+   --color-warning: #F59E0B;
+   /* Warning states */
+   --color-info: #3B82F6;
+   /* Info states */
 
-  /* ========================================
+   /* ========================================
      OPACITY VARIANTS (For overlays, borders)
      ======================================== */
-  --color-white-10: rgba(255, 255, 255, 0.1);
-  --color-white-20: rgba(255, 255, 255, 0.2);
-  --color-white-30: rgba(255, 255, 255, 0.3);
-  --color-white-40: rgba(255, 255, 255, 0.4);
-  --color-white-50: rgba(255, 255, 255, 0.5);
-  --color-white-60: rgba(255, 255, 255, 0.6);
-  --color-white-70: rgba(255, 255, 255, 0.7);
-  --color-white-80: rgba(255, 255, 255, 0.8);
-  --color-white-90: rgba(255, 255, 255, 0.9);
-  --color-white-95: rgba(255, 255, 255, 0.95);
+   --color-white-10: rgba(255, 255, 255, 0.1);
+   --color-white-20: rgba(255, 255, 255, 0.2);
+   --color-white-30: rgba(255, 255, 255, 0.3);
+   --color-white-40: rgba(255, 255, 255, 0.4);
+   --color-white-50: rgba(255, 255, 255, 0.5);
+   --color-white-60: rgba(255, 255, 255, 0.6);
+   --color-white-70: rgba(255, 255, 255, 0.7);
+   --color-white-80: rgba(255, 255, 255, 0.8);
+   --color-white-90: rgba(255, 255, 255, 0.9);
+   --color-white-95: rgba(255, 255, 255, 0.95);
 
-  --color-black-10: rgba(0, 0, 0, 0.1);
-  --color-black-20: rgba(0, 0, 0, 0.2);
-  --color-black-30: rgba(0, 0, 0, 0.3);
-  --color-black-40: rgba(0, 0, 0, 0.4);
-  --color-black-50: rgba(0, 0, 0, 0.5);
+   --color-black-10: rgba(0, 0, 0, 0.1);
+   --color-black-20: rgba(0, 0, 0, 0.2);
+   --color-black-30: rgba(0, 0, 0, 0.3);
+   --color-black-40: rgba(0, 0, 0, 0.4);
+   --color-black-50: rgba(0, 0, 0, 0.5);
 
-  /* ========================================
+   /* ========================================
      TYPOGRAPHY
      ======================================== */
-  --font-heading: 'Alfa Slab One', serif;
-  --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+   --font-heading: 'Alfa Slab One', serif;
+   --font-body: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
 
-  /* Font Sizes */
-  --font-h1: 3.75rem;     /* 60px */
-  --font-h2: 3rem;        /* 48px */
-  --font-h3: 2.5rem;      /* 40px */
-  --font-h4: 2rem;        /* 32px */
-  --font-h5: 1.5rem;      /* 24px */
-  --font-h6: 1.25rem;     /* 20px */
-  --font-subtitle: 1rem;  /* 16px */
-  --font-body-elements: 1rem;      /* 16px */
-  --font-button: 0.875rem;/* 14px */
-  --font-caption: 0.75rem;/* 12px */
-  --font-small: 0.875rem; /* 14px */
+   /* Font Sizes */
+   --font-h1: 3.75rem;
+   /* 60px */
+   --font-h2: 3rem;
+   /* 48px */
+   --font-h3: 2.5rem;
+   /* 40px */
+   --font-h4: 2rem;
+   /* 32px */
+   --font-h5: 1.5rem;
+   /* 24px */
+   --font-h6: 1.25rem;
+   /* 20px */
+   --font-subtitle: 1rem;
+   /* 16px */
+   --font-body-elements: 1rem;
+   /* 16px */
+   --font-button: 0.875rem;
+   /* 14px */
+   --font-caption: 0.75rem;
+   /* 12px */
+   --font-small: 0.875rem;
+   /* 14px */
 
-  /* Font Weights */
-  --font-weight-regular: 400;
-  --font-weight-medium: 500;
-  --font-weight-semibold: 600;
-  --font-weight-bold: 700;
+   /* Font Weights */
+   --font-weight-regular: 400;
+   --font-weight-medium: 500;
+   --font-weight-semibold: 600;
+   --font-weight-bold: 700;
 
-  /* Line Heights */
-  --line-height-tight: 1.1;
-  --line-height-normal: 1.5;
-  --line-height-relaxed: 1.75;
-  --line-height-loose: 2;
+   /* Line Heights */
+   --line-height-tight: 1.1;
+   --line-height-normal: 1.5;
+   --line-height-relaxed: 1.75;
+   --line-height-loose: 2;
 
-  /* Letter Spacing */
-  --letter-spacing-tight: -0.025em;
-  --letter-spacing-normal: 0;
-  --letter-spacing-wide: 0.025em;
-  --letter-spacing-wider: 0.1em;
-  --letter-spacing-widest: 0.3em;
+   /* Letter Spacing */
+   --letter-spacing-tight: -0.025em;
+   --letter-spacing-normal: 0;
+   --letter-spacing-wide: 0.025em;
+   --letter-spacing-wider: 0.1em;
+   --letter-spacing-widest: 0.3em;
 
-  /* ========================================
+   /* ========================================
      SPACING SCALE
      ======================================== */
-  --spacing-xs: 0.5rem;   /* 8px */
-  --spacing-sm: 1rem;     /* 16px */
-  --spacing-md: 2rem;     /* 32px */
-  --spacing-lg: 4rem;     /* 64px */
-  --spacing-xl: 6rem;     /* 96px */
-  --spacing-2xl: 8rem;    /* 128px */
+   --spacing-xs: 0.5rem;
+   /* 8px */
+   --spacing-sm: 1rem;
+   /* 16px */
+   --spacing-md: 2rem;
+   /* 32px */
+   --spacing-lg: 4rem;
+   /* 64px */
+   --spacing-xl: 6rem;
+   /* 96px */
+   --spacing-2xl: 8rem;
+   /* 128px */
 
-  /* ========================================
+   /* ========================================
      BORDER RADIUS
      ======================================== */
-  --radius-sm: 4px;
-  --radius-md: 8px;
-  --radius-lg: 12px;
-  --radius-xl: 16px;
-  --radius-full: 9999px;
+   --radius-sm: 4px;
+   --radius-md: 8px;
+   --radius-lg: 12px;
+   --radius-xl: 16px;
+   --radius-full: 9999px;
 
-  /* ========================================
+   /* ========================================
      SHADOWS
      ======================================== */
-  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
-  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
-  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-  --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-  --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+   --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+   --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+   --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+   --shadow-xl: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+   --shadow-2xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
 
-  /* ========================================
+   /* ========================================
      TRANSITIONS
      ======================================== */
-  --transition-fast: 150ms ease-in-out;
-  --transition-base: 200ms ease-in-out;
-  --transition-slow: 300ms ease-in-out;
+   --transition-fast: 150ms ease-in-out;
+   --transition-base: 200ms ease-in-out;
+   --transition-slow: 300ms ease-in-out;
 
-  /* ========================================
+   /* ========================================
      Z-INDEX SCALE
      ======================================== */
-  --z-base: 1;
-  --z-dropdown: 100;
-  --z-sticky: 200;
-  --z-fixed: 300;
-  --z-modal-backdrop: 400;
-  --z-modal: 500;
-  --z-popover: 600;
-  --z-tooltip: 700;
-  --z-toast: 800;
+   --z-base: 1;
+   --z-dropdown: 100;
+   --z-sticky: 200;
+   --z-fixed: 300;
+   --z-modal-backdrop: 400;
+   --z-modal: 500;
+   --z-popover: 600;
+   --z-tooltip: 700;
+   --z-toast: 800;
 }
 
 /* ========================================
    RESPONSIVE TYPOGRAPHY
    ======================================== */
 @media (max-width: 768px) {
-  :root {
-    --font-h1: 2.5rem;    /* 40px on mobile */
-    --font-h2: 2rem;      /* 32px on mobile */
-    --font-h3: 1.75rem;   /* 28px on mobile */
-    --font-h4: 1.5rem;    /* 24px on mobile */
-    --font-h5: 1.25rem;   /* 20px on mobile */
-    --font-h6: 1.125rem;  /* 18px on mobile */
-  }
+   :root {
+      --font-h1: 2.5rem;
+      /* 40px on mobile */
+      --font-h2: 2rem;
+      /* 32px on mobile */
+      --font-h3: 1.75rem;
+      /* 28px on mobile */
+      --font-h4: 1.5rem;
+      /* 24px on mobile */
+      --font-h5: 1.25rem;
+      /* 20px on mobile */
+      --font-h6: 1.125rem;
+      /* 18px on mobile */
+   }
 }
 
 @media (max-width: 480px) {
-  :root {
-    --font-h1: 2rem;      /* 32px on small mobile */
-    --font-h2: 1.75rem;   /* 28px on small mobile */
-    --font-h3: 1.5rem;    /* 24px on small mobile */
-  }
+   :root {
+      --font-h1: 2rem;
+      /* 32px on small mobile */
+      --font-h2: 1.75rem;
+      /* 28px on small mobile */
+      --font-h3: 1.5rem;
+      /* 24px on small mobile */
+   }
 }
 
+html.font-normal {
+   font-size: 16px;
+}
+
+html.font-large {
+   font-size: 18px;
+}
+
+html.font-x-large {
+   font-size: 20px;
+}
+
+/* High contrast mode */
+html.high-contrast {
+   --color-primary: #000000;
+   --color-white: #FFFFFF;
+}
+
+html.high-contrast * {
+   border-color: currentColor !important;
+}
+
+/* Reduced motion */
+html.reduce-motion *,
+html.reduce-motion *::before,
+html.reduce-motion *::after {
+   animation-duration: 0.01ms !important;
+   animation-iteration-count: 1 !important;
+   transition-duration: 0.01ms !important;
+}
+
+/* Force link underlines */
+html.force-link-underlines a {
+   text-decoration: underline !important;
+}
+
+/* Enhanced focus indicators */
+html.focus-enhanced *:focus {
+   outline-width: 4px !important;
+   outline-offset: 4px !important;
+}
+
+/* Color schemes */
+html.dyslexia-font h1,
+html.dyslexia-font h2,
+html.dyslexia-font h3,
+html.dyslexia-font h4,
+html.dyslexia-font h5,
+html.dyslexia-font h6,
+html.dyslexia-font .hero-title,
+html.dyslexia-font .section-title,
+html.dyslexia-font .card-title,
+html.dyslexia-font .post-title,
+html.dyslexia-font .contact-title,
+html.dyslexia-font .blog-title,
+html.dyslexia-font .tech-title,
+html.dyslexia-font .footer-nav-title,
+html.dyslexia-font .dialog-title,
+html.dyslexia-font .footer-social-title {
+   font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+   letter-spacing: 0.05em;
+   line-height: 1.5;
+}
+
+/* ========================================
+   COLOR SCHEME FILTERS
+   ======================================== */
+
+/* Monochrome - Grayscale */
+html.scheme-monochrome {
+   filter: grayscale(100%);
+}
+
+/* Deuteranopia - Green color blindness (most common type) */
+html.scheme-deuteranopia {
+   filter: url('#deuteranopia-filter');
+}
+
+/* Protanopia - Red color blindness */
+html.scheme-protanopia {
+   filter: url('#protanopia-filter');
+}
+
+
 * {
-    box-sizing: border-box;
-    font-display: swap;
-    margin: 0;
-    padding: 0;
+   box-sizing: border-box;
+   font-display: swap;
+   margin: 0;
+   padding: 0;
 }
 
 html {
-    scroll-behavior: smooth;
+   scroll-behavior: smooth;
 }
 
 body {
-    font-family: var(--font-body);
-    color: var(--color-white);
-    background-color: var(--color-primary);
-    line-height: 1.6;
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
+   font-family: var(--font-body);
+   color: var(--color-white);
+   background-color: var(--color-primary);
+   line-height: 1.6;
+   -webkit-font-smoothing: antialiased;
+   -moz-osx-font-smoothing: grayscale;
 }
 
 a {
-    color: inherit;
-    text-decoration: none;
+   color: inherit;
+   text-decoration: none;
 }
 
 img {
-    max-width: 100%;
-    height: auto;
-    display: block;
+   max-width: 100%;
+   height: auto;
+   display: block;
 }
 
 button {
-    cursor: pointer;
-    border: none;
-    background: none;
-    font-family: inherit;
+   cursor: pointer;
+   border: none;
+   background: none;
+   font-family: inherit;
 }
 
 /* Utility Classes */
 .container {
-    max-width: 1440px;
-    margin: 0 auto;
-    padding: 0 2rem;
+   max-width: 1440px;
+   margin: 0 auto;
+   padding: 0 2rem;
 }
 
 .section {
-    padding: var(--spacing-xl) 0;
+   padding: var(--spacing-xl) 0;
 }
 
 @media (max-width: 768px) {
-    .container {
-        padding: 0 1rem;
-    }
+   .container {
+      padding: 0 1rem;
+   }
 
-    .section {
-        padding: var(--spacing-lg) 0;
-    }
+   .section {
+      padding: var(--spacing-lg) 0;
+   }
 }
