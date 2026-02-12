@@ -14,47 +14,60 @@ export interface BlogPost {
 
 export const BLOG_POSTS: BlogPost[] = [
   {
-    id: 'scalable-react-apps',
-    title: 'Building Scalable React Apps',
+    id: 'forms-signal',
+    title: 'Angular Forms Signal: O que as documentações não te falam',
     platforms: [
       {
         name: 'dev.to',
-        url: 'https://dev.to/brunoredes/building-scalable-react-apps',
+        url: 'https://dev.to/brunoredes/angular-forms-signal-o-que-as-documentacoes-nao-te-falam-2c3p',
         language: 'pt-BR',
       },
       {
         name: 'medium',
-        url: 'https://medium.com/@brunoredes/building-scalable-react-apps',
+        url: 'https://medium.com/@brunoredes/angular-forms-signal-migration-what-the-docs-wont-tell-you-123f476da9b8',
         language: 'en-US',
       },
     ],
-    date: '2024-01-15',
-    excerpt: 'Best practices for building large-scale React applications with TypeScript',
+    date: '2026-01-07',
+    excerpt: 'A comprehensive guide to migrating Angular forms to signals, covering common pitfalls and best practices',
   },
   {
-    id: 'microservices-architecture',
-    title: 'Microservices Architecture',
-    platforms: [
-      {
-        name: 'medium',
-        url: 'https://medium.com/@brunoredes/microservices-architecture',
-        language: 'en-US',
-      },
-    ],
-    date: '2024-01-08',
-    excerpt: 'A deep dive into microservices patterns and implementation strategies',
-  },
-  {
-    id: 'typescript-tips',
-    title: 'TypeScript Tips',
+    id: 'angular-21',
+    title: 'Conhecendo as novidades do Angular 21',
     platforms: [
       {
         name: 'dev.to',
-        url: 'https://dev.to/brunoredes/typescript-tips',
+        url: 'https://dev.to/brunoredes/conhecendo-as-novidades-do-angular-21-l29',
         language: 'pt-BR',
       },
     ],
-    date: '2023-12-22',
-    excerpt: 'Advanced TypeScript techniques for better type safety and developer experience',
+    date: '2025-11-19',
+    excerpt: 'Angular 21 news',
+  },
+  {
+    id: 'modals',
+    title: 'Simplifique modais com os atributos experimentais "command" e "commandfor"',
+    platforms: [
+      {
+        name: 'dev.to',
+        url: 'https://dev.to/brunoredes/simplifique-modais-com-os-atributos-experimentais-command-e-commandfor-3ahi',
+        language: 'pt-BR',
+      },
+    ],
+    date: '2025-03-05',
+    excerpt: 'Native button attributes "command" and "commandfor" can simplify modal dialogs by eliminating the need for custom JavaScript. Learn how to use them effectively.',
+  },
+  {
+    id: 'content-projection',
+    title: 'Projeção de Conteúdo em Angular: O Guia para ng-content e ngTemplateOutlet',
+    platforms: [
+      {
+        name: 'dev.to',
+        url: 'https://dev.to/brunoredes/projecao-de-conteudo-em-angular-fmg',
+        language: 'pt-BR',
+      },
+    ],
+    date: '2025-03-24',
+    excerpt: 'Projeção de conteúdo em Angular utilizando ng-content e ngTemplateOutlet. Aprenda como criar componentes reutilizáveis e flexíveis.',
   },
 ];

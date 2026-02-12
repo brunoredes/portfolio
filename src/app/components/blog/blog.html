@@ -1,3 +1,4 @@
+<!-- src/app/components/blog/blog.html -->
 <section class="blog" id="blog" aria-labelledby="blog-heading">
   <div class="container">
     <div class="blog-layout">
@@ -6,56 +7,80 @@
         <h2 id="blog-heading" class="blog-title">ÚLTIMAS PUBLICAÇÕES</h2>
 
         <div class="blog-navigation" role="group" aria-label="Navegação de posts">
-          <button class="nav-button" aria-label="Ver post anterior" disabled>
+          <button class="nav-button" [disabled]="!canGoPrev()" (click)="goPrev()" aria-label="Ver post anterior"
+            [attr.aria-disabled]="!canGoPrev()">
             <span class="material-icons" aria-hidden="true">chevron_left</span>
           </button>
-          <button class="nav-button" aria-label="Ver próximo post" disabled>
+          <button class="nav-button" [disabled]="!canGoNext()" (click)="goNext()" aria-label="Ver próximo post"
+            [attr.aria-disabled]="!canGoNext()">
             <span class="material-icons" aria-hidden="true">chevron_right</span>
           </button>
         </div>
+
+        <!-- Page indicator for mobile -->
+        @if (isMobile()) {
+        <div class="page-indicator" aria-live="polite" aria-atomic="true">
+          <span class="sr-only">Página</span>
+          <span>{{ currentPage() }} de {{ totalPages() }}</span>
+        </div>
+        }
+
+        <!-- View All Link (only if more than 6 posts) -->
+        @if (shouldShowViewAll()) {
+        <a href="#all-posts" class="view-all-link">
+          Ver todas as publicações
+          <svg width="16" height="16" viewBox="0 0 16 16" fill="none" aria-hidden="true">
+            <path d="M6 3l5 5-5 5" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+              stroke-linejoin="round" />
+          </svg>
+        </a>
+        }
       </div>
 
       <div class="blog-content">
-        <div class="posts-grid">
-          @for (post of posts; track post.id; let i = $index) {
-          <article class="post-card" [class.featured]="i === 0">
-            <div class="post-icon" aria-hidden="true">
-              <span class="icon-circle"></span>
-            </div>
-
-            <div class="post-content">
-              <h3 class="post-title">{{ post.title }}</h3>
-
-              @if (post.excerpt) {
-              <p class="post-excerpt">{{ post.excerpt }}</p>
-              }
-
-              <div class="post-meta">
-                <!-- Platform links with flags -->
-                <div class="post-platforms">
-                  @for (platform of post.platforms; track platform.url; let last = $last) {
-                  <a [href]="platform.url" class="platform-link" target="_blank" rel="noopener noreferrer"
-                    [attr.aria-label]="getPlatformLabel(platform, post.title)">
-                    <span class="platform-name">{{ getPlatformName(platform) }}</span>
-                    <span class="platform-flag" role="img" [attr.aria-label]="getLanguageName(platform.language)">
-                      {{ getLanguageFlag(platform.language) }}
-                    </span>
-                  </a>
-                  @if (!last) {
-                  <span class="platform-divider" aria-hidden="true">•</span>
-                  }
-                  }
-                </div>
-
-                <!-- Time element with datetime -->
-                <time class="post-date" [attr.datetime]="post.date"
-                  [attr.aria-label]="'Publicado em ' + getAccessibleDate(post.date)">
-                  {{ post.date | timeAgo }}
-                </time>
+        <div class="carousel-wrapper">
+          <div class="posts-carousel" [style.transform]="transformValue()" role="region"
+            aria-label="Carrossel de posts do blog">
+            @for (post of posts; track post.id; let i = $index) {
+            <article class="post-card" [class.is-visible]="isPostVisible(i)" [class.is-mobile]="isMobile()">
+              <div class="post-icon" aria-hidden="true">
+                <span class="icon-circle"></span>
               </div>
-            </div>
-          </article>
-          }
+
+              <div class="post-content">
+                <h3 class="post-title">{{ post.title }}</h3>
+
+                @if (post.excerpt) {
+                <p class="post-excerpt">{{ post.excerpt }}</p>
+                }
+
+                <div class="post-meta">
+                  <!-- Platform links with flags -->
+                  <div class="post-platforms">
+                    @for (platform of post.platforms; track platform.url; let last = $last) {
+                    <a [href]="platform.url" class="platform-link" target="_blank" rel="noopener noreferrer"
+                      [attr.aria-label]="getPlatformLabel(platform, post.title)">
+                      <span class="platform-name">{{ platform.name }}</span>
+                      <span class="platform-flag" role="img" [attr.aria-label]="getLanguageName(platform.language)">
+                        {{ getLanguageFlag(platform.language) }}
+                      </span>
+                    </a>
+                    @if (!last) {
+                    <span class="platform-divider" aria-hidden="true">•</span>
+                    }
+                    }
+                  </div>
+
+                  <!-- Time element with datetime -->
+                  <time class="post-date" [attr.datetime]="post.date"
+                    [attr.aria-label]="'Publicado em ' + getAccessibleDate(post.date)">
+                    {{ getTimeAgo(post.date) }}
+                  </time>
+                </div>
+              </div>
+            </article>
+            }
+          </div>
         </div>
       </div>
     </div>

@@ -1,5 +1,6 @@
-<dialog id="accessibility-dialog" class="accessibility-dialog" cdkTrapFocus aria-labelledby="dialog-title"
-  aria-describedby="dialog-description">
+<!-- src/app/components/accessibility-modal/accessibility-modal.html -->
+<dialog #accessibilityDialog id="accessibility-dialog" class="accessibility-dialog" aria-labelledby="dialog-title"
+  aria-describedby="dialog-description" cdkTrapFocus>
   <div class="dialog-content">
     <header class="dialog-header">
       <h2 id="dialog-title" class="dialog-title">
@@ -16,7 +17,6 @@
     </header>
 
     <form class="dialog-form" (ngSubmit)="onSubmit($event)">
-
       <!-- Font Size -->
       <fieldset class="form-section">
         <legend class="section-title">Tamanho da Fonte</legend>
@@ -101,17 +101,36 @@
         <div class="select-wrapper">
           <select id="colorScheme" [(ngModel)]="formData.colorScheme" name="colorScheme" class="select-input">
             <option value="default">Padrão</option>
-            <option value="monochrome">Monocromático</option>
-            <option value="deuteranopia">Deuteranopia (Dificuldade com verde)</option>
-            <option value="protanopia">Protanopia (Dificuldade com vermelho)</option>
+            <option value="monochrome">Monocromático (Escala de cinza)</option>
+
+            <optgroup label="Daltonismo - Tipo Protan (Vermelho)">
+              <option value="protanopia">Protanopia (Sem cones vermelhos)</option>
+              <option value="protanomaly">Protanomalia (Cones vermelhos fracos)</option>
+            </optgroup>
+
+            <optgroup label="Daltonismo - Tipo Deutan (Verde)">
+              <option value="deuteranopia">Deuteranopia (Sem cones verdes)</option>
+              <option value="deuteranomaly">Deuteranomalia (Cones verdes fracos)</option>
+            </optgroup>
+
+            <optgroup label="Daltonismo - Tipo Tritan (Azul)">
+              <option value="tritanopia">Tritanopia (Sem cones azuis)</option>
+              <option value="tritanomaly">Tritanomalia (Cones azuis fracos)</option>
+            </optgroup>
           </select>
         </div>
-        <p class="color-scheme-note">
-          <small>
-            <strong>Deuteranopia:</strong> Daltonismo vermelho-verde (mais comum)<br>
-            <strong>Protanopia:</strong> Deficiência na percepção de vermelho
-          </small>
-        </p>
+
+        <div class="color-scheme-info">
+          <p class="color-scheme-note">
+            <small>
+              <strong>Tipo Protan (Vermelho):</strong> Dificuldade em distinguir vermelho de verde, vermelho aparece
+              escuro.<br>
+              <strong>Tipo Deutan (Verde):</strong> Dificuldade em distinguir vermelho de verde, mais comum (~6%
+              homens).<br>
+              <strong>Tipo Tritan (Azul):</strong> Dificuldade em distinguir azul de amarelo, muito raro (~0.01%).
+            </small>
+          </p>
+        </div>
       </fieldset>
 
       <!-- Actions -->

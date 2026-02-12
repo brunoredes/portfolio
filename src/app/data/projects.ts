@@ -6,32 +6,35 @@ export interface Project {
   technologies: string[];
   repoUrl: string;
   liveUrl?: string;
+  previewImg: string;
 }
 
 export const PROJECTS: Project[] = [
   {
-    id: 'dashboard',
+    id: 'tft-unit-counter',
     number: '01',
-    title: 'React Dashboard',
-    description: 'Dashboard administrativo completo com gráficos e analytics em tempo real',
-    technologies: ['React', 'TypeScript', 'Chart.js'],
-    repoUrl: 'https://github.com/brunoredes/dashboard',
-    liveUrl: 'https://dashboard-demo.com',
+    title: 'TFT Unit Counter',
+    description: 'Projeto para fazer contagem de unidades em Teamfight Tactics em campeonatos, exportando dados em xlsx',
+    technologies: ['Angular', 'TypeScript'],
+    repoUrl: 'https://github.com/brunoredes/unity-counter',
+    previewImg: '/blog/pingu.avif'
   },
   {
-    id: 'api-gateway',
+    id: 'concertify',
     number: '02',
-    title: 'API Gateway com autenticação',
-    description: 'Gateway de API com autenticação JWT e rate limiting distribuído',
-    technologies: ['Node.js', 'Express', 'Redis'],
-    repoUrl: 'https://github.com/brunoredes/api-gateway',
+    title: 'Concertify',
+    description: 'Gerador de playlists baseado em setlists de shows',
+    technologies: ['Node.js', 'Fastify', 'Angular', 'TypeScript'],
+    repoUrl: 'https://www.concertify.app/',
+    previewImg: ''
   },
   {
-    id: 'ml-pipeline',
+    id: 'tft-learning-path',
     number: '03',
-    title: 'ML Pipeline para analytics',
-    description: 'Pipeline de machine learning para processamento e análise de dados',
-    technologies: ['Python', 'TensorFlow', 'Docker'],
-    repoUrl: 'https://github.com/brunoredes/ml-pipeline',
+    title: 'TFT Learning Path',
+    description: 'Projeto para aprender TFT em forma de tarefas TODO',
+    technologies: ['Angular', 'TypeScript'],
+    repoUrl: 'https://github.com/brunoredes/tft-learning-path',
+    previewImg: '/blog/shisa.avif'
   },
 ];

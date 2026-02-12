@@ -131,8 +131,17 @@ export class AccessibilitySettingsService {
     root.classList.remove('focus-default', 'focus-enhanced');
     root.classList.add(`focus-${settings.focusIndicators}`);
 
-    // Color scheme
-    root.classList.remove('scheme-default', 'scheme-monochrome', 'scheme-deuteranopia', 'scheme-protanopia');
+    // Color scheme - remove all first
+    root.classList.remove(
+      'scheme-default',
+      'scheme-monochrome',
+      'scheme-protanopia',
+      'scheme-protanomaly',
+      'scheme-deuteranopia',
+      'scheme-deuteranomaly',
+      'scheme-tritanopia',
+      'scheme-tritanomaly'
+    );
     root.classList.add(`scheme-${settings.colorScheme}`);
 
     // Dyslexia font

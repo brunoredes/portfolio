@@ -2,10 +2,11 @@ import { Component, inject, signal } from '@angular/core';
 import { AccessibilityModal } from "../../components/accessibility-modal/accessibility-modal";
 import { AccessibilitySettingsService } from '../../services/accessibility';
 import { NAV_LINKS, SOCIAL_LINKS } from '../../shared/utils/constants';
+import { NgOptimizedImage } from '@angular/common';
 
 @Component({
   selector: 'app-footer',
-  imports: [AccessibilityModal],
+  imports: [AccessibilityModal, NgOptimizedImage],
   templateUrl: './footer.html',
   styleUrl: './footer.css',
 })

@@ -10,17 +10,30 @@
     background-color: var(--color-white);
     color: var(--color-primary);
     overflow: hidden;
+
+    /* GPU acceleration hints */
+    will-change: transform, opacity;
+    transform: translateZ(0);
 }
 
+/* CRITICAL FIX: Remove expensive backdrop-filter */
 .accessibility-dialog::backdrop {
-    background-color: rgba(0, 0, 0, 0.75);
-    backdrop-filter: blur(4px);
+    background-color: rgba(0, 0, 0, 0.8);
+    /* Increased opacity to compensate */
+    /* backdrop-filter: blur(4px); ❌ REMOVED - This was causing lag */
+
+    /* GPU acceleration */
+    will-change: opacity;
+    transform: translateZ(0);
 }
 
 .dialog-content {
     display: flex;
     flex-direction: column;
     max-height: 85vh;
+
+    /* GPU acceleration */
+    transform: translateZ(0);
 }
 
 .dialog-header {
@@ -28,6 +41,9 @@
     background: linear-gradient(135deg, var(--color-primary), var(--color-accent-purple));
     color: var(--color-white);
     position: relative;
+
+    /* Optimize gradient rendering */
+    will-change: transform;
 }
 
 .dialog-title {
@@ -59,6 +75,9 @@
     color: var(--color-white);
     cursor: pointer;
     transition: background-color var(--transition-base);
+
+    /* Performance: Use transform instead of background */
+    will-change: transform;
 }
 
 .close-button:hover {
@@ -70,16 +89,46 @@
     outline-offset: 2px;
 }
 
+/* CRITICAL FIX: Smooth scrolling with GPU acceleration */
 .dialog-form {
     padding: 2rem;
     overflow-y: auto;
     flex: 1;
+
+    /* Smooth scrolling */
+    -webkit-overflow-scrolling: touch;
+    overscroll-behavior: contain;
+
+    /* GPU acceleration for scroll */
+    will-change: scroll-position;
+    transform: translateZ(0);
+}
+
+/* Optimize scrollbar for performance */
+.dialog-form::-webkit-scrollbar {
+    width: 8px;
+}
+
+.dialog-form::-webkit-scrollbar-track {
+    background: rgba(0, 0, 0, 0.05);
+}
+
+.dialog-form::-webkit-scrollbar-thumb {
+    background: rgba(40, 20, 115, 0.3);
+    border-radius: 4px;
+}
+
+.dialog-form::-webkit-scrollbar-thumb:hover {
+    background: rgba(40, 20, 115, 0.5);
 }
 
 .form-section {
     border: none;
     padding: 0;
     margin: 0 0 2rem 0;
+
+    /* Prevent reflows */
+    contain: layout style;
 }
 
 .form-section:last-of-type {
@@ -118,6 +167,9 @@
     font-family: var(--font-body);
     font-size: 0.9375rem;
     font-weight: var(--font-weight-medium);
+
+    /* Performance: Isolate layer */
+    will-change: transform, background-color;
 }
 
 .radio-label:hover {
@@ -148,6 +200,9 @@
     cursor: pointer;
     transition: background-color var(--transition-base);
     margin-bottom: 0.75rem;
+
+    /* Performance: Isolate layer */
+    will-change: background-color;
 }
 
 .checkbox-label:hover {
@@ -233,6 +288,9 @@
     border: none;
     cursor: pointer;
     transition: all var(--transition-base);
+
+    /* Performance hint */
+    will-change: transform;
 }
 
 .button-primary {
@@ -271,6 +329,26 @@
     outline-offset: 2px;
 }
 
+.color-scheme-note {
+    margin-top: 0.75rem;
+    padding: 0.75rem;
+    background-color: rgba(40, 20, 115, 0.05);
+    border-left: 3px solid var(--color-secondary);
+    border-radius: var(--radius-sm);
+}
+
+.color-scheme-note small {
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    color: var(--color-neutral-30);
+    line-height: 1.6;
+}
+
+.color-scheme-note strong {
+    color: var(--color-primary);
+    font-weight: var(--font-weight-semibold);
+}
+
 /* Responsive */
 @media (max-width: 768px) {
     .accessibility-dialog {
@@ -302,24 +380,4 @@
     .button {
         width: 100%;
     }
-}
-
-.color-scheme-note {
-    margin-top: 0.75rem;
-    padding: 0.75rem;
-    background-color: rgba(40, 20, 115, 0.05);
-    border-left: 3px solid var(--color-secondary);
-    border-radius: var(--radius-sm);
-}
-
-.color-scheme-note small {
-    font-family: var(--font-body);
-    font-size: 0.8125rem;
-    color: var(--color-neutral-30);
-    line-height: 1.6;
-}
-
-.color-scheme-note strong {
-    color: var(--color-primary);
-    font-weight: var(--font-weight-semibold);
 }

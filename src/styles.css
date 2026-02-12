@@ -296,20 +296,40 @@ html.dyslexia-font .footer-social-title {
    ======================================== */
 
 /* Monochrome - Grayscale */
+/* Monochrome - Grayscale */
 html.scheme-monochrome {
    filter: grayscale(100%);
 }
 
-/* Deuteranopia - Green color blindness (most common type) */
-html.scheme-deuteranopia {
-   filter: url('#deuteranopia-filter');
-}
-
-/* Protanopia - Red color blindness */
+/* Protanopia - Red color blindness (no red cones) */
 html.scheme-protanopia {
    filter: url('#protanopia-filter');
 }
 
+/* Protanomaly - Red weakness (anomalous red cones) */
+html.scheme-protanomaly {
+   filter: url('#protanomaly-filter');
+}
+
+/* Deuteranopia - Green color blindness (no green cones) */
+html.scheme-deuteranopia {
+   filter: url('#deuteranopia-filter');
+}
+
+/* Deuteranomaly - Green weakness (anomalous green cones) */
+html.scheme-deuteranomaly {
+   filter: url('#deuteranomaly-filter');
+}
+
+/* Tritanopia - Blue color blindness (no blue cones) */
+html.scheme-tritanopia {
+   filter: url('#tritanopia-filter');
+}
+
+/* Tritanomaly - Blue weakness (anomalous blue cones) */
+html.scheme-tritanomaly {
+   filter: url('#tritanomaly-filter');
+}
 
 * {
    box-sizing: border-box;

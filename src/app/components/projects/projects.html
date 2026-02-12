@@ -17,7 +17,11 @@
         <!-- Decorative preview area -->
         <div class="card-preview" aria-hidden="true">
           <div class="preview-placeholder">
-            <div class="preview-grid"></div>
+            @if (project.previewImg) {
+              <img class="preview-grid" [src]="project.previewImg" [alt]="project.title + ' preview'" loading="lazy" decoding="async" />
+            } @else {
+              <div class="preview-grid" role="presentation" aria-hidden="true"></div>
+            }
           </div>
         </div>
 
