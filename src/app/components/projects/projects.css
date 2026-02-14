@@ -173,7 +173,7 @@
     gap: 0.5rem;
     padding: 0.875rem 1.5rem;
     background-color: var(--color-secondary);
-    color: var(--color-white);
+    color: var(--color-black-80);
     /* White on orange - Contrast: 4.7:1 ✅ PASSES AA */
     font-family: var(--font-body);
     font-size: var(--font-button);

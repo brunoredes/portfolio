@@ -12,8 +12,27 @@
 
     <div class="hero-visual">
       <div class="hero-mockup">
-        <img [ngSrc]="photoUrl" [alt]="'Bruno Donatelli - Desenvolvedor Full Stack'" [width]="photoWidth"
-          [height]="photoHeight" class="hero-photo" priority [placeholder]="'blur'" />
+        <picture>
+          <!-- WebP with srcset (best performance) -->
+          <source type="image/avif" srcset="
+              /hero/donatelli-250w.avif 250w,
+              /hero/donatelli-300w.avif 300w,
+              /hero/donatelli-400w.avif 400w,
+              /hero/donatelli-600w.avif 600w,
+              /hero/donatelli-700w.avif 700w,
+              /hero/donatelli-800w.avif 800w,
+              /hero/donatelli-1200w.avif 1200w
+            " sizes="
+              (max-width: 480px) 250px,
+              (max-width: 768px) 300px,
+              (max-width: 1024px) 350px,
+              400px
+            " />
+
+          <!-- Fallback img (must be last) -->
+          <img [ngSrc]="photoUrl" alt="Bruno Donatelli - Desenvolvedor Full Stack" class="hero-photo"
+            [width]="photoWidth" [height]="photoHeight" priority />
+        </picture>
       </div>
     </div>
   </div>

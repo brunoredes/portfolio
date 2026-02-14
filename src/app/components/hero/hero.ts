@@ -8,7 +8,7 @@ import { Component } from '@angular/core';
   styleUrl: './hero.css',
 })
 export class Hero {
-  protected readonly photoUrl = '/donatelli.jpg';
+  protected readonly photoUrl = '/hero/donatelli.jpg';
   protected readonly photoWidth = 400;  // 2:3 portrait ratio
   protected readonly photoHeight = 600;
 }
