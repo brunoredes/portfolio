@@ -137,7 +137,6 @@
 .form-input.has-error,
 .form-textarea.has-error {
     border-color: var(--color-error);
-    background-color: rgba(239, 68, 68, 0.05);
 }
 
 .form-input.has-error:focus,

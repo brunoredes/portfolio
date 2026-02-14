@@ -5,7 +5,7 @@ import type { ContactFormData, DiscordMessage } from './contact';
   providedIn: 'root',
 })
 export class ContactHandler {
-  private readonly WEBHOOK_URL = 'YOUR_DISCORD_WEBHOOK_URL_HERE';
+  private readonly WEBHOOK_URL = '';
 
   /**
    * Sends contact form data to Discord webhook
@@ -42,11 +42,6 @@ export class ContactHandler {
           {
             name: '👤 Nome',
             value: this.escapeDiscordMarkdown(data.name),
-            inline: true,
-          },
-          {
-            name: '📧 Email',
-            value: this.escapeDiscordMarkdown(data.email),
             inline: true,
           },
           {

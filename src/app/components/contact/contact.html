@@ -31,23 +31,6 @@
             }
           </div>
 
-          <!-- Email Field -->
-          <div class="form-group">
-            <label for="email" class="form-label">
-              Email
-            </label>
-            <input type="email" id="email" name="email" class="form-input" [class.has-error]="hasFieldError('email')"
-              [value]="formData().email" (input)="updateFormData('email', $any($event.target).value)"
-              (blur)="onFieldBlur('email')" required autocomplete="email" [disabled]="isSubmitting()"
-              [attr.aria-invalid]="hasFieldError('email')"
-              [attr.aria-describedby]="hasFieldError('email') ? 'email-error' : null" />
-            @if (hasFieldError('email')) {
-            <p id="email-error" class="field-error" role="alert">
-              {{ getFieldError('email') }}
-            </p>
-            }
-          </div>
-
           <!-- Message Field -->
           <div class="form-group">
             <label for="message" class="form-label">

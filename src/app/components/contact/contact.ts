@@ -6,7 +6,6 @@ import { ContactHandler } from '../../data/contact-handler';
 
 interface FieldErrors {
   name: string;
-  email: string;
   message: string;
 }
 
@@ -20,7 +19,6 @@ export class Contact {
   private contactHandler: ContactHandler = inject(ContactHandler);
   protected formData = signal<ContactForm>({
     name: '',
-    email: '',
     message: '',
     website: '', // honeypot
   });
@@ -29,7 +27,6 @@ export class Contact {
   protected submitStatus = signal<'idle' | 'success' | 'error'>('idle');
   protected fieldErrors = signal<FieldErrors>({
     name: '',
-    email: '',
     message: '',
   });
   protected touchedFields = signal<Set<keyof ContactFormData>>(new Set());
@@ -41,17 +38,17 @@ export class Contact {
 
     // Honeypot check - silent fail for bots
     if (data.website) {
-      console.log('Bot detected via honeypot');
+      console.log('👀👀👀👀👀');
       return;
     }
 
     // Mark all fields as touched
-    this.touchedFields.set(new Set(['name', 'email', 'message']));
+    this.touchedFields.set(new Set(['name', 'message']));
 
     // Validate all fields
     const errors = this.validateAllFields(data);
 
-    if (errors.name || errors.email || errors.message) {
+    if (errors.name || errors.message) {
       this.fieldErrors.set(errors);
       this.submitStatus.set('error');
       return;
@@ -59,13 +56,12 @@ export class Contact {
 
     this.isSubmitting.set(true);
     this.submitStatus.set('idle');
-    this.fieldErrors.set({ name: '', email: '', message: '' });
+    this.fieldErrors.set({ name: '', message: '' });
 
     try {
       // Delegate to service
       await this.contactHandler.send({
         name: data.name,
-        email: data.email,
         message: data.message,
       });
 
@@ -82,7 +78,6 @@ export class Contact {
       console.error('Error sending message:', error);
       this.fieldErrors.set({
         name: '',
-        email: '',
         message: 'Erro ao enviar mensagem. Tente novamente.',
       });
       this.submitStatus.set('error');
@@ -146,16 +141,6 @@ export class Contact {
         }
         return '';
 
-      case 'email':
-        if (!value.trim()) {
-          return 'Email é obrigatório';
-        }
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if (!emailRegex.test(value)) {
-          return 'Email inválido';
-        }
-        return '';
-
       case 'message':
         if (!value.trim()) {
           return 'Mensagem é obrigatória';
@@ -176,7 +161,6 @@ export class Contact {
   private validateAllFields(data: ContactForm): FieldErrors {
     return {
       name: this.validateField('name', data.name),
-      email: this.validateField('email', data.email),
       message: this.validateField('message', data.message),
     };
   }
@@ -198,11 +182,10 @@ export class Contact {
   private resetForm() {
     this.formData.set({
       name: '',
-      email: '',
       message: '',
       website: '',
     });
-    this.fieldErrors.set({ name: '', email: '', message: '' });
+    this.fieldErrors.set({ name: '', message: '' });
     this.touchedFields.set(new Set());
   }
 }
