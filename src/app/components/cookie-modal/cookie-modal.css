@@ -1,0 +1,230 @@
+/* src/app/components/cookie-banner/cookie-banner.css */
+.cookie-banner-overlay {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: 9999;
+    animation: slideUp 0.4s ease-out;
+}
+
+.cookie-banner {
+    background-color: var(--color-white);
+    border-top: 3px solid var(--color-secondary);
+    box-shadow: 0 -4px 24px rgba(0, 0, 0, 0.15);
+    max-width: 100%;
+    margin: 0 auto;
+}
+
+.banner-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 2rem;
+}
+
+.banner-header {
+    margin-bottom: 1.5rem;
+}
+
+.banner-title {
+    font-family: var(--font-heading);
+    font-size: var(--font-h5);
+    color: var(--color-primary);
+    margin: 0 0 0.75rem 0;
+}
+
+.banner-description {
+    font-family: var(--font-body);
+    font-size: 0.9375rem;
+    line-height: 1.6;
+    color: var(--color-neutral-30);
+    margin: 0;
+}
+
+/* Actions */
+.banner-actions {
+    display: flex;
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: flex-end;
+}
+
+/* Buttons */
+.btn {
+    padding: 0.75rem 1.5rem;
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    font-weight: var(--font-weight-semibold);
+    border-radius: var(--radius-sm);
+    border: none;
+    cursor: pointer;
+    transition: all var(--transition-base);
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.btn-primary {
+    background-color: var(--color-secondary);
+    color: var(--color-white);
+}
+
+.btn-primary:hover {
+    background-color: var(--color-secondary-40);
+    transform: translateY(-1px);
+}
+
+.btn-secondary {
+    background-color: transparent;
+    color: var(--color-primary);
+    border: 2px solid var(--color-primary);
+}
+
+.btn-secondary:hover {
+    background-color: var(--color-primary);
+    color: var(--color-white);
+}
+
+.btn-ghost {
+    background-color: transparent;
+    color: var(--color-neutral-30);
+}
+
+.btn-ghost:hover {
+    background-color: rgba(0, 0, 0, 0.05);
+    color: var(--color-primary);
+}
+
+/* Settings */
+.cookie-settings {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+    margin-bottom: 1.5rem;
+}
+
+.setting-item {
+    padding: 1rem;
+    background-color: rgba(40, 20, 115, 0.03);
+    border-radius: var(--radius-sm);
+    border-left: 3px solid var(--color-secondary);
+}
+
+.setting-header {
+    margin-bottom: 0.5rem;
+}
+
+.setting-label {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    cursor: pointer;
+    font-weight: var(--font-weight-semibold);
+}
+
+.setting-label input[type="checkbox"] {
+    width: 1.25rem;
+    height: 1.25rem;
+    accent-color: var(--color-secondary);
+    cursor: pointer;
+}
+
+.setting-label input[type="checkbox"]:disabled {
+    cursor: not-allowed;
+    opacity: 0.6;
+}
+
+.setting-title {
+    font-family: var(--font-body);
+    font-size: 1rem;
+    color: var(--color-primary);
+    flex: 1;
+}
+
+.required-badge {
+    padding: 0.25rem 0.5rem;
+    background-color: var(--color-secondary);
+    color: var(--color-white);
+    font-size: 0.625rem;
+    font-weight: var(--font-weight-bold);
+    text-transform: uppercase;
+    border-radius: var(--radius-full);
+    letter-spacing: 0.05em;
+}
+
+.setting-description {
+    font-family: var(--font-body);
+    font-size: 0.875rem;
+    line-height: 1.6;
+    color: var(--color-neutral-30);
+    margin: 0;
+    padding-left: 2rem;
+}
+
+.settings-actions {
+    display: flex;
+    gap: 1rem;
+    justify-content: flex-end;
+    margin-top: 1rem;
+}
+
+/* Footer */
+.banner-footer {
+    margin-top: 1.5rem;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.privacy-note {
+    font-family: var(--font-body);
+    font-size: 0.8125rem;
+    color: var(--color-neutral-30);
+    margin: 0;
+    text-align: center;
+}
+
+.privacy-link {
+    color: var(--color-secondary);
+    text-decoration: underline;
+    font-weight: var(--font-weight-semibold);
+}
+
+.privacy-link:hover {
+    color: var(--color-secondary-40);
+}
+
+/* Animation */
+@keyframes slideUp {
+    from {
+        transform: translateY(100%);
+        opacity: 0;
+    }
+
+    to {
+        transform: translateY(0);
+        opacity: 1;
+    }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .banner-content {
+        padding: 1.5rem 1rem;
+    }
+
+    .banner-title {
+        font-size: 1.125rem;
+    }
+
+    .banner-actions {
+        flex-direction: column;
+    }
+
+    .btn {
+        width: 100%;
+        justify-content: center;
+    }
+
+    .settings-actions {
+        flex-direction: column;
+    }
+}

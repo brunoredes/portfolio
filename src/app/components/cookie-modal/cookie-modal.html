@@ -1,0 +1,106 @@
+<!-- src/app/components/cookie-banner/cookie-banner.html -->
+@if (cookieConsent.showBanner()) {
+<div class="cookie-banner-overlay" role="dialog" aria-labelledby="cookie-title" aria-describedby="cookie-description"
+  aria-modal="true" cdkTrapFocus>
+  <div class="cookie-banner">
+    <div class="banner-content">
+      <header class="banner-header">
+        <h2 id="cookie-title" class="banner-title">🍪 Cookies e Privacidade</h2>
+        <p id="cookie-description" class="banner-description">
+          Utilizamos cookies para analisar o tráfego do site.
+          Você pode escolher quais cookies aceitar.
+        </p>
+      </header>
+
+      @if (!showSettings()) {
+      <!-- Simple View -->
+      <div class="banner-actions">
+        <button type="button" class="btn btn-secondary" (click)="toggleSettings()"
+          aria-label="Personalizar preferências de cookies">
+          Personalizar
+        </button>
+        <button type="button" class="btn btn-ghost" (click)="rejectAll()" aria-label="Rejeitar todos os cookies">
+          Rejeitar Todos
+        </button>
+        <button type="button" class="btn btn-primary" (click)="acceptAll()" aria-label="Aceitar todos os cookies">
+          Aceitar Todos
+        </button>
+      </div>
+      } @else {
+      <!-- Detailed Settings -->
+      <div class="cookie-settings">
+        <!-- <div class="setting-item">
+          <div class="setting-header">
+            <label class="setting-label">
+              <input type="checkbox" checked disabled aria-label="Cookies essenciais (obrigatórios)" />
+              <span class="setting-title">Cookies Essenciais</span>
+              <span class="required-badge">Obrigatório</span>
+            </label>
+          </div>
+          <p class="setting-description">
+            Necessários para o funcionamento básico do site. Não podem ser desativados.
+          </p>
+        </div> -->
+
+        <div class="setting-item">
+          <div class="setting-header">
+            <label class="setting-label">
+              <input type="checkbox" [(ngModel)]="preferences().analytics" name="analytics"
+                aria-label="Cookies de análise" />
+              <span class="setting-title">Cookies de Análise</span>
+            </label>
+          </div>
+          <p class="setting-description">
+            Ajudam a entender como os visitantes interagem com o site, coletando informações de forma anônima.
+            Utilizamos Google Analytics.
+          </p>
+        </div>
+
+        <!-- <div class="setting-item">
+          <div class="setting-header">
+            <label class="setting-label">
+              <input type="checkbox" [(ngModel)]="preferences().preferences" name="preferences"
+                aria-label="Cookies de preferências" />
+              <span class="setting-title">Cookies de Preferências</span>
+            </label>
+          </div>
+          <p class="setting-description">
+            Permitem que o site lembre suas escolhas (como configurações de acessibilidade) para
+            proporcionar uma experiência personalizada.
+          </p>
+        </div> -->
+
+        <!-- <div class="setting-item">
+          <div class="setting-header">
+            <label class="setting-label">
+              <input type="checkbox" [(ngModel)]="preferences().marketing" name="marketing"
+                aria-label="Cookies de marketing" />
+              <span class="setting-title">Cookies de Marketing</span>
+            </label>
+          </div>
+          <p class="setting-description">
+            Usados para rastrear visitantes em diferentes sites para exibir anúncios relevantes.
+          </p>
+        </div> -->
+
+        <div class="settings-actions">
+          <button type="button" class="btn btn-ghost" (click)="toggleSettings()" aria-label="Voltar para opções principais">
+            Voltar
+          </button>
+          <button type="button" class="btn btn-primary" (click)="savePreferences()" aria-label="Salvar preferências de cookies">
+            Salvar Preferências
+          </button>
+        </div>
+      </div>
+      }
+
+      <footer class="banner-footer">
+        <p class="privacy-note">
+          Para mais informações, consulte nossa
+          <a href="/privacy-policy" class="privacy-link">Política de Privacidade</a>.
+        </p>
+      </footer>
+    </div>
+  </div>
+</div>
+}
