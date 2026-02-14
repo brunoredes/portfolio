@@ -1,12 +1,14 @@
 export interface ContactForm {
   name: string;
   message: string;
+  subject: string;
   website: string;
 }
 
 export interface ContactFormData {
   name: string;
   message: string;
+  subject: string;
 }
 
 interface DiscordEmbed {

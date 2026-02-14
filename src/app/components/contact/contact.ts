@@ -7,6 +7,7 @@ import { ContactHandler } from '../../data/contact-handler';
 interface FieldErrors {
   name: string;
   message: string;
+  subject: string;
 }
 
 @Component({
@@ -20,6 +21,7 @@ export class Contact {
   protected formData = signal<ContactForm>({
     name: '',
     message: '',
+    subject: '',
     website: '', // honeypot
   });
 
@@ -28,6 +30,7 @@ export class Contact {
   protected fieldErrors = signal<FieldErrors>({
     name: '',
     message: '',
+    subject: '',
   });
   protected touchedFields = signal<Set<keyof ContactFormData>>(new Set());
 
@@ -43,12 +46,12 @@ export class Contact {
     }
 
     // Mark all fields as touched
-    this.touchedFields.set(new Set(['name', 'message']));
+    this.touchedFields.set(new Set(['name', 'message', 'subject']));
 
     // Validate all fields
     const errors = this.validateAllFields(data);
 
-    if (errors.name || errors.message) {
+    if (errors.name || errors.message || errors.subject) {
       this.fieldErrors.set(errors);
       this.submitStatus.set('error');
       return;
@@ -56,13 +59,14 @@ export class Contact {
 
     this.isSubmitting.set(true);
     this.submitStatus.set('idle');
-    this.fieldErrors.set({ name: '', message: '' });
+    this.fieldErrors.set({ name: '', message: '', subject: '' });
 
     try {
       // Delegate to service
       await this.contactHandler.send({
         name: data.name,
         message: data.message,
+        subject: data.subject,
       });
 
       // Success
@@ -79,6 +83,7 @@ export class Contact {
       this.fieldErrors.set({
         name: '',
         message: 'Erro ao enviar mensagem. Tente novamente.',
+        subject: '',
       });
       this.submitStatus.set('error');
     } finally {
@@ -141,6 +146,15 @@ export class Contact {
         }
         return '';
 
+      case 'subject':
+        if (!value.trim()) {
+          return 'Assunto é obrigatório';
+        }
+        if (value.trim().length < 5) {
+          return 'Assunto deve ter pelo menos 5 caracteres';
+        }
+        return '';
+
       case 'message':
         if (!value.trim()) {
           return 'Mensagem é obrigatória';
@@ -162,6 +176,7 @@ export class Contact {
     return {
       name: this.validateField('name', data.name),
       message: this.validateField('message', data.message),
+      subject: this.validateField('subject', data.subject),
     };
   }
 
@@ -184,8 +199,9 @@ export class Contact {
       name: '',
       message: '',
       website: '',
+      subject: '',
     });
-    this.fieldErrors.set({ name: '', message: '' });
+    this.fieldErrors.set({ name: '', message: '', subject: '' });
     this.touchedFields.set(new Set());
   }
 }

@@ -5,7 +5,7 @@ import type { ContactFormData, DiscordMessage } from './contact';
   providedIn: 'root',
 })
 export class ContactHandler {
-  private readonly WEBHOOK_URL = '';
+  private readonly WEBHOOK_URL = import.meta.env['VITE_DISCORD_WEBHOOK_URL'];
 
   /**
    * Sends contact form data to Discord webhook

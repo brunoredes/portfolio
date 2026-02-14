@@ -31,6 +31,23 @@
             }
           </div>
 
+          <!-- Subject Field -->
+          <div class="form-group">
+            <label for="subject" class="form-label">
+              Assunto
+            </label>
+            <input type="text" id="subject" name="subject" class="form-input"
+              [class.has-error]="hasFieldError('subject')" [value]="formData().subject"
+              (input)="updateFormData('subject', $any($event.target).value)" (blur)="onFieldBlur('subject')" required
+              autocomplete="subject" [disabled]="isSubmitting()" [attr.aria-invalid]="hasFieldError('subject')"
+              [attr.aria-describedby]="hasFieldError('subject') ? 'subject-error' : null" />
+            @if (hasFieldError('subject')) {
+            <p id="subject-error" class="field-error" role="alert">
+              {{ getFieldError('subject') }}
+            </p>
+            }
+          </div>
+
           <!-- Message Field -->
           <div class="form-group">
             <label for="message" class="form-label">
