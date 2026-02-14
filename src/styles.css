@@ -287,6 +287,8 @@ html.dyslexia-font .blog-title,
 html.dyslexia-font .tech-title,
 html.dyslexia-font .footer-nav-title,
 html.dyslexia-font .dialog-title,
+html.dyslexia-font .experience-title,
+html.dyslexia-font .card-company,
 html.dyslexia-font .footer-social-title {
    font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
    letter-spacing: 0.05em;

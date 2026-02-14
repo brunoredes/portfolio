@@ -35,6 +35,11 @@
       "semicolons": "always"
     }
   },
+  "html": {
+    "parser": {
+      "interpolation": true
+    }
+  },
   "assist": {
     "enabled": true,
     "actions": {

@@ -1,0 +1,106 @@
+<!-- src/app/components/experience/experience.html -->
+<section class="experience" id="experience" aria-labelledby="experience-heading">
+  <div class="container">
+    <div class="experience-layout">
+
+      <!-- Timeline (Left Side) -->
+      <div class="timeline" aria-hidden="true">
+        <div class="timeline-line"></div>
+        @for (exp of visibleExperiences(); track exp.id; let i = $index) {
+        <div class="timeline-node" [class.active]="isCurrent(exp)" [style.animation-delay.s]="i * 0.1">
+          <div class="timeline-dot"></div>
+        </div>
+        }
+      </div>
+
+      <!-- Content (Right Side) -->
+      <div class="experience-content">
+
+        <!-- Header -->
+        <div class="experience-header">
+          <div>
+            <p class="section-label">TRAJETÓRIA</p>
+            <h2 id="experience-heading" class="experience-title">
+              Experiências Profissionais
+            </h2>
+          </div>
+
+          <!-- Download CV Link -->
+          <a href="/assets/documents/bruno-donatelli-cv.pdf" class="download-cv" download="Bruno-Donatelli-CV.pdf"
+            aria-label="Baixar currículo em PDF">
+            <svg width="24" height="24" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4M7 10l5 5 5-5M12 15V3" stroke="currentColor"
+                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+            </svg>
+            <span>Baixar Currículo</span>
+          </a>
+        </div>
+
+        <!-- Experience Cards -->
+        <div class="experiences-list">
+          @for (exp of visibleExperiences(); track exp.id; let i = $index) {
+          <article class="experience-card" [class.current]="isCurrent(exp)" [style.animation-delay.s]="i * 0.15">
+            <div class="card-header">
+              <div class="card-title-group">
+                <h3 class="card-company">{{ exp.company }}</h3>
+                @if (isCurrent(exp)) {
+                <span class="current-badge" role="text" aria-label="Emprego atual">Atual</span>
+                }
+              </div>
+              <p class="card-role">{{ exp.role }}</p>
+            </div>
+
+            <div class="card-meta">
+              <div class="meta-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <rect x="3" y="4" width="18" height="18" rx="2" stroke="currentColor" stroke-width="2" />
+                  <line x1="16" y1="2" x2="16" y2="6" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                  <line x1="8" y1="2" x2="8" y2="6" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                  <line x1="3" y1="10" x2="21" y2="10" stroke="currentColor" stroke-width="2" />
+                </svg>
+                <span>{{ getDateRange(exp) }}</span>
+                <span class="meta-duration">({{ getDuration(exp) }})</span>
+              </div>
+
+              @if (exp.location) {
+              <div class="meta-item">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z" stroke="currentColor" stroke-width="2"
+                    stroke-linecap="round" stroke-linejoin="round" />
+                  <circle cx="12" cy="10" r="3" stroke="currentColor" stroke-width="2" />
+                </svg>
+                <span>{{ exp.location }}</span>
+              </div>
+              }
+            </div>
+
+            <p class="card-description">{{ exp.description }}</p>
+
+            @if (exp.technologies && exp.technologies.length > 0) {
+            <div class="card-technologies">
+              <h4 class="tech-label">Tecnologias:</h4>
+              <ul class="tech-list" aria-label="Tecnologias utilizadas">
+                @for (tech of exp.technologies; track tech) {
+                <li class="tech-tag">{{ tech }}</li>
+                }
+              </ul>
+            </div>
+            }
+          </article>
+          }
+        </div>
+
+        <!-- Expand/Collapse Button -->
+        @if (experiences.length > 1) {
+        <div class="expand-actions">
+          <button type="button" class="expand-button" (click)="toggleExpand()" [attr.aria-expanded]="isFullyExpanded()"
+            aria-controls="experiences-list">
+            <span>{{ buttonText() }}</span>
+            <span class="material-icons" aria-hidden="true">{{ buttonIcon() }}</span>
+          </button>
+        </div>
+        }
+      </div>
+    </div>
+  </div>
+</section>

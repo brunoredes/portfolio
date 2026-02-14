@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { Experience } from "../components/experience/experience";
 import { Blog } from '../components/blog/blog';
 import { Contact } from '../components/contact/contact';
 import { Footer } from "../components/footer/footer";
@@ -9,7 +10,7 @@ import { TechStack } from '../components/tech-stack/tech-stack';
 
 @Component({
   selector: 'app-home',
-  imports: [Header, Hero, Projects, Blog, TechStack, Contact, Footer],
+  imports: [Header, Hero, Projects, Experience, Blog, TechStack, Contact, Footer],
   templateUrl: './home.page.html',
   styleUrl: './home.page.css',
 })
