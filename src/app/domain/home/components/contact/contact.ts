@@ -2,7 +2,7 @@ import { Component, inject, signal } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import type { ContactForm, ContactFormData } from '../../data/contact';
 
-import { ContactHandler } from '../../data/contact-handler';
+import { ContactHandler } from '../../services/contact-handler';
 
 interface FieldErrors {
   name: string;
@@ -39,7 +39,6 @@ export class Contact {
 
     const data = this.formData();
 
-    // Honeypot check - silent fail for bots
     if (data.website) {
       console.log('👀👀👀👀👀');
       return;

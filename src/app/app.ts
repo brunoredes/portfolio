@@ -1,8 +1,8 @@
 import { Component, effect, inject } from '@angular/core';
 import { RouterOutlet } from '@angular/router';
-import { CookieModal } from './components/cookie-modal/cookie-modal';
-import { CookieConsent } from './services/cookie-consent';
-import { Ga } from './services/ga';
+import { CookieModal } from './core/components/cookie-modal/cookie-modal';
+import { CookieConsent } from './core/services/cookie-consent';
+import { Ga } from './core/services/ga';
 
 @Component({
   selector: 'app-root',

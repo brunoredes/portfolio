@@ -1,7 +1,7 @@
 import { Component, inject, signal } from '@angular/core';
-import { AccessibilityModal } from "../../components/accessibility-modal/accessibility-modal";
+import { AccessibilityModal } from "../accessibility-modal/accessibility-modal";
 import { AccessibilitySettingsService } from '../../services/accessibility';
-import { NAV_LINKS, SOCIAL_LINKS } from '../../shared/utils/constants';
+import { NAV_LINKS, SOCIAL_LINKS } from '../../../shared/utils/constants';
 import { NgOptimizedImage } from '@angular/common';
 
 @Component({

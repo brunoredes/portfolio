@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import type { ContactFormData, DiscordMessage } from './contact';
+import type { ContactFormData, DiscordMessage } from '../data/contact';
 
 @Injectable({
   providedIn: 'root',

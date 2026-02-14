@@ -1,7 +1,7 @@
 import { Component, computed, signal } from '@angular/core';
 import type { BlogPlatform } from '../../data/blog';
 import { BLOG_POSTS } from '../../data/blog';
-import { TimeAgoPipe } from '../../shared/pipes/time-ago-pipe';
+import { TimeAgoPipe } from '../../../../shared/pipes/time-ago-pipe';
 
 @Component({
   selector: 'app-blog',

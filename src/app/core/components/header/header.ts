@@ -1,6 +1,6 @@
 import type { ElementRef, OnDestroy, OnInit } from '@angular/core';
 import { Component, effect, signal, viewChild } from '@angular/core';
-import { NAV_LINKS, SOCIAL_LINKS } from '../../shared/utils/constants';
+import { NAV_LINKS, SOCIAL_LINKS } from '../../../shared/utils/constants';
 import { NgOptimizedImage } from '@angular/common';
 
 @Component({

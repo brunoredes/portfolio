@@ -6,7 +6,8 @@ import { defineConfig } from 'vite';
 // https://vitejs.dev/config/
 export default defineConfig(({ mode }) => ({
   build: {
-    target: ['es2020'],
+    target: ['es2023'],
+    cssMinify: 'lightningcss'
   },
   resolve: {
     mainFields: ['module'],
