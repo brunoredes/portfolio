@@ -6,6 +6,7 @@
     position: relative;
     padding: var(--spacing-xl) 0;
     background-color: var(--color-primary);
+    contain: layout style;
 }
 
 .container {
@@ -16,6 +17,8 @@
     grid-template-columns: 1fr 1fr;
     gap: 4rem;
     align-items: center;
+
+    min-height: 600px;
 }
 
 .hero-content {
@@ -94,6 +97,7 @@
     justify-content: center;
     align-items: center;
     animation: fadeInRight 0.8s ease-out;
+    min-height: 600px;
 }
 
 .hero-mockup {
@@ -110,6 +114,7 @@
         0 20px 60px rgba(0, 0, 0, 0.5),
         0 0 0 1px var(--color-white-10);
     overflow: hidden;
+    contain: layout;
 }
 
 .hero-photo {
@@ -118,6 +123,9 @@
     object-fit: cover;
     object-position: center;
     display: block;
+    aspect-ratio: 2 / 3;
+    will-change: opacity;
+    transform: translateZ(0);
 }
 
 /* Optional: Add subtle overlay on photo */
@@ -178,6 +186,7 @@
         grid-template-columns: 1fr;
         gap: 3rem;
         padding: 0 1rem;
+        min-height: auto;
     }
 
     .hero {

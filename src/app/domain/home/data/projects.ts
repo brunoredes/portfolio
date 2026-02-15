@@ -17,7 +17,7 @@ export const PROJECTS: Project[] = [
     description: 'Projeto para fazer contagem de unidades em Teamfight Tactics em campeonatos, exportando dados em xlsx',
     technologies: ['Angular', 'TypeScript'],
     repoUrl: 'https://github.com/brunoredes/unity-counter',
-    previewImg: '/blog/pingu.avif'
+    previewImg: ''
   },
   {
     id: 'concertify',
@@ -35,6 +35,6 @@ export const PROJECTS: Project[] = [
     description: 'Projeto para aprender TFT em forma de tarefas TODO',
     technologies: ['Angular', 'TypeScript'],
     repoUrl: 'https://github.com/brunoredes/tft-learning-path',
-    previewImg: '/blog/shisa.avif'
+    previewImg: ''
   },
 ];

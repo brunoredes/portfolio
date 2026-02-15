@@ -15,7 +15,12 @@ import { Ga } from './core/services/ga';
     <router-outlet />
   </main>
   <app-footer />
-  <app-cookie-modal />`,
+  <!-- Lazy load cookie banner with @defer -->
+    @defer (on idle) {
+      <app-cookie-modal />
+    } @placeholder {
+      <!-- Nothing while loading -->
+    }`,
 })
 export class App {
   private cookieConsent = inject(CookieConsent);

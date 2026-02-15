@@ -367,6 +367,7 @@ img {
    max-width: 100%;
    height: auto;
    display: block;
+   aspect-ratio: attr(width) / attr(height);
 }
 
 button {
@@ -386,6 +387,32 @@ button {
 .section {
    padding: var(--spacing-xl) 0;
 }
+
+/* Prevent shifts in grid layouts
+.commands-grid,
+.projects-grid,
+.tech-grid {
+   min-height: 600px;
+   /* Reserve space during load */
+/* } */
+
+/* Stabilize hero section */
+/* .hero {
+   min-height: 100vh;
+   display: grid;
+   place-items: center;
+} */
+
+/* Fix blog carousel shifts */
+/* .posts-carousel {
+   min-height: 400px;
+} */
+
+/* Fix experience timeline */
+/* .timeline-node {
+   contain: layout;
+   /* Prevent shifts */
+/* } */
 
 @media (max-width: 768px) {
    .container {
