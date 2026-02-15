@@ -36,7 +36,10 @@ export default defineConfig((_) => ({
         routes: async () => ['/', '/home', {
           route: '/home',
           staticData: true
-        }, '/privacy-policy']
+        }, '/privacy-policy'],
+        sitemap: {
+          host: 'https://donatelli.dev',
+        },
       },
     }),
   ]

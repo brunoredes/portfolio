@@ -1,0 +1,5 @@
+name = "donatelli-dev"
+compatibility_date = "2024-01-01"
+
+# Static Pages configuration (no Functions)
+pages_build_output_dir = "dist/analog/public"
