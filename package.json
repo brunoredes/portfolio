@@ -9,7 +9,7 @@
     "ng": "ng",
     "dev": "vite",
     "start": "npm run dev",
-    "build": "vite build",
+    "build": "vite build && rm -rf dist/analog/public/_worker.js",
     "watch": "vite build --watch",
     "test": "vitest",
     "preview": "vite preview",

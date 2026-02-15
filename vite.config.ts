@@ -41,6 +41,9 @@ export default defineConfig((_) => ({
           host: 'https://donatelli.dev',
         },
       },
+      nitro: {
+        preset: 'static',
+      },
     }),
   ]
 }));
