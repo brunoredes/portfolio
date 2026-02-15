@@ -1,5 +1,6 @@
 import { NgOptimizedImage } from '@angular/common';
-import { Component } from '@angular/core';
+import { Component, inject } from '@angular/core';
+import { HeroImage } from '../../services/hero-image';
 
 @Component({
   selector: 'app-hero',
@@ -8,7 +9,10 @@ import { Component } from '@angular/core';
   styleUrl: './hero.css',
 })
 export class Hero {
-  protected readonly photoUrl = '/hero/donatelli-400w.avif';
-  protected readonly photoWidth = 400;  // 2:3 portrait ratio
-  protected readonly photoHeight = 600;
+  private readonly heroImage = inject(HeroImage);
+  private readonly resolved = this.heroImage.resolve();
+
+  protected readonly photoUrl = this.resolved.url;
+  protected readonly photoWidth = this.resolved.width;
+  protected readonly photoHeight = this.resolved.height;
 }

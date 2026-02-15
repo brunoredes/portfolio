@@ -13,17 +13,15 @@
     <div class="hero-visual">
       <div class="hero-mockup">
         <picture>
-          <!-- WebP with srcset (best performance) -->
+          <!-- AVIF srcset — MUST match <link rel="preload"> in index.html -->
           <source
             type="image/avif"
             srcset="
               /hero/donatelli-400w.avif 400w,
               /hero/donatelli-600w.avif 600w,
-              /hero/donatelli-800w.avif 800w,
-              /hero/donatelli-1200w.avif 1200w
+              /hero/donatelli-800w.avif 800w
             "
             sizes="
-              (max-width: 480px) 250px,
               (max-width: 768px) 300px,
               (max-width: 1024px) 350px,
               400px

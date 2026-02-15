@@ -24,5 +24,5 @@ export default defineConfig((_) => ({
         }, '/privacy-policy']
       },
     }),
-  ],
+  ]
 }));
