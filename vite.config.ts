@@ -7,7 +7,8 @@ import { defineConfig } from 'vite';
 export default defineConfig((_) => ({
   build: {
     target: ['es2023'],
-    cssMinify: 'lightningcss'
+    cssMinify: 'lightningcss',
+    minify: 'esbuild',
   },
   resolve: {
     mainFields: ['module'],
@@ -20,7 +21,7 @@ export default defineConfig((_) => ({
         routes: async () => ['/', '/home', {
           route: '/home',
           staticData: true
-        }]
+        }, '/privacy-policy']
       },
     }),
   ],

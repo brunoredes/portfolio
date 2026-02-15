@@ -1,8 +1,8 @@
-import { Component, inject, signal } from '@angular/core';
-import { AccessibilityModal } from "../accessibility-modal/accessibility-modal";
-import { AccessibilitySettingsService } from '../../services/accessibility';
-import { NAV_LINKS, SOCIAL_LINKS } from '../../../shared/utils/constants';
 import { NgOptimizedImage } from '@angular/common';
+import { Component, inject, signal } from '@angular/core';
+import { NAV_LINKS, SOCIAL_LINKS } from '../../../shared/utils/constants';
+import { AccessibilitySettingsService } from '../../services/accessibility';
+import { AccessibilityModal } from "../accessibility-modal/accessibility-modal";
 
 @Component({
   selector: 'app-footer',
