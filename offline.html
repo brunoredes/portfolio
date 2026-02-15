@@ -1,0 +1,153 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Offline - Bruno Donatelli</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen', 'Ubuntu', 'Cantarell', sans-serif;
+      background: #281473;
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      text-align: center;
+      padding: 2rem;
+    }
+
+    .offline-container {
+      max-width: 500px;
+      animation: fadeIn 0.5s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .icon {
+      font-size: 4rem;
+      margin-bottom: 1rem;
+      animation: pulse 2s ease-in-out infinite;
+    }
+
+    @keyframes pulse {
+
+      0%,
+      100% {
+        transform: scale(1);
+      }
+
+      50% {
+        transform: scale(1.1);
+      }
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      margin: 0 0 1rem 0;
+      color: #F37F1C;
+      font-weight: 700;
+    }
+
+    p {
+      font-size: 1.125rem;
+      line-height: 1.6;
+      opacity: 0.9;
+      margin-bottom: 2rem;
+    }
+
+    .retry-button {
+      padding: 1rem 2rem;
+      background: #F37F1C;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 1rem;
+      font-weight: 600;
+      cursor: pointer;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      transition: all 0.2s ease;
+      box-shadow: 0 4px 14px rgba(243, 127, 28, 0.3);
+    }
+
+    .retry-button:hover {
+      background: #ff9d4a;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(243, 127, 28, 0.4);
+    }
+
+    .retry-button:active {
+      transform: translateY(0);
+    }
+
+    .info {
+      margin-top: 2rem;
+      font-size: 0.875rem;
+      opacity: 0.7;
+    }
+
+    @media (max-width: 480px) {
+      h1 {
+        font-size: 2rem;
+      }
+
+      p {
+        font-size: 1rem;
+      }
+
+      .icon {
+        font-size: 3rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="offline-container">
+    <div class="icon">🔌</div>
+    <h1>Você está offline</h1>
+    <p>
+      Parece que você perdeu a conexão com a internet.
+      Verifique sua conexão e tente novamente.
+    </p>
+    <button class="retry-button" onclick="location.reload()">
+      Tentar Novamente
+    </button>
+    <p class="info">
+      Algumas páginas que você visitou anteriormente podem estar disponíveis offline.
+    </p>
+  </div>
+
+  <script>
+    // Auto-retry when online
+    window.addEventListener('online', () => {
+      console.log('Connection restored, reloading...');
+      location.reload();
+    });
+
+    // Show connection status
+    if (navigator.onLine) {
+      location.reload();
+    }
+  </script>
+</body>
+
+</html>
