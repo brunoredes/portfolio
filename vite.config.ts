@@ -1,7 +1,27 @@
 /// <reference types="vitest" />
 
 import analog from '@analogjs/platform';
-import { defineConfig } from 'vite';
+import { defineConfig, type Plugin } from 'vite';
+
+/**
+ * Converts Vite's auto-injected CSS <link> tags from render-blocking to
+ * non-blocking using the media="print" onload trick.
+ *
+ * Safe because all critical CSS is already inlined in <head> <style>.
+ * Vite-injected links have the `crossorigin` attribute, so we target those.
+ */
+function deferAutoInjectedCss(): Plugin {
+  return {
+    name: 'defer-auto-injected-css',
+    enforce: 'post',
+    transformIndexHtml(html) {
+      return html.replace(
+        /<link rel="stylesheet" crossorigin href="([^"]+)">/g,
+        '<link rel="stylesheet" href="$1" media="print" onload="this.media=\'all\'">'
+      );
+    },
+  };
+}
 
 // https://vitejs.dev/config/
 export default defineConfig((_) => ({
@@ -29,6 +49,7 @@ export default defineConfig((_) => ({
     mainFields: ['module'],
   },
   plugins: [
+    deferAutoInjectedCss(),
     analog({
       ssr: false,
       static: true,
