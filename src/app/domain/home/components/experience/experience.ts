@@ -1,4 +1,5 @@
-import { Component, computed, signal } from '@angular/core';
+import type { ElementRef } from '@angular/core';
+import { Component, afterNextRender, computed, inject, Injector, signal, viewChild } from '@angular/core';
 import type { Experience as ProExperience } from '../../data/experiences';
 import { EXPERIENCES } from '../../data/experiences';
 
@@ -9,7 +10,11 @@ import { EXPERIENCES } from '../../data/experiences';
   styleUrl: './experience.css',
 })
 export class Experience {
+  private injector = inject(Injector);
+
   protected experiences = EXPERIENCES;
+
+  private experienceSection = viewChild<ElementRef<HTMLElement>>('experienceSection');
 
   // Number of visible experiences (starts at 1)
   protected visibleCount = signal(1);
@@ -35,17 +40,31 @@ export class Experience {
   );
 
   /**
-   * Toggle expand/collapse
+   * Toggle expand/collapse with scroll position management
    */
   toggleExpand(): void {
     if (this.isFullyExpanded()) {
-      // Collapse to show only current (first)
+      // Collapse to show only current (first), then scroll to section top
       this.visibleCount.set(1);
+      afterNextRender(() => {
+        this.experienceSection()?.nativeElement.scrollIntoView({
+          behavior: 'smooth',
+          block: 'start',
+        });
+      }, { injector: this.injector });
     } else {
-      // Expand to show one more
+      // Expand: lock scroll position so the page doesn't follow the button
+      const scrollY = window.scrollY;
       this.visibleCount.update(count =>
         Math.min(count + 1, this.experiences.length)
       );
+      afterNextRender(() => {
+        document.documentElement.style.scrollBehavior = 'auto';
+        window.scrollTo(0, scrollY);
+        requestAnimationFrame(() => {
+          document.documentElement.style.scrollBehavior = '';
+        });
+      }, { injector: this.injector });
     }
   }
 
