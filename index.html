@@ -12,15 +12,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 
-  <link rel="preload" as="image" type="image/avif" href="/hero/donatelli-400w.avif" imagesrcset="
-      /hero/donatelli-400w.avif 400w,
-      /hero/donatelli-600w.avif 600w,
-      /hero/donatelli-800w.avif 800w
-    " imagesizes="
-      (max-width: 768px) 300px,
-      (max-width: 1024px) 350px,
-      400px
-    " fetchpriority="high">
+  <link rel="preload" as="image" type="image/avif" href="/hero/donatelli-400w.avif" fetchpriority="high">
 
   <!-- Load fonts with media print trick for non-blocking -->
   <link
@@ -478,7 +470,18 @@
 </head>
 
 <body>
-  <app-root></app-root>
+  <app-root>
+    <!-- Static LCP image placeholder — discoverable by preload scanner before JS loads.
+         Angular replaces this content on bootstrap; the image is already cached by then. -->
+    <img
+      src="/hero/donatelli-400w.avif"
+      alt="Bruno Donatelli - Desenvolvedor Full Stack"
+      width="400"
+      height="600"
+      loading="eager"
+      fetchpriority="high"
+    />
+  </app-root>
   <script type="module" src="/src/main.ts"></script>
 
   <svg style="position: absolute; width: 0; height: 0; overflow: hidden;" aria-hidden="true">

@@ -12,26 +12,26 @@
 
     <div class="hero-visual">
       <div class="hero-mockup">
-        <picture>
-          <!-- AVIF srcset — MUST match <link rel="preload"> in index.html -->
-          <source
-            type="image/avif"
-            srcset="
-              /hero/donatelli-400w.avif 400w,
-              /hero/donatelli-600w.avif 600w,
-              /hero/donatelli-800w.avif 800w
-            "
-            sizes="
-              (max-width: 768px) 300px,
-              (max-width: 1024px) 350px,
-              400px
-            "
-          />
-
-          <!-- Fallback img (must be last) -->
-          <img [ngSrc]="photoUrl" alt="Bruno Donatelli - Desenvolvedor Full Stack" class="hero-photo"
-            [width]="photoWidth" [height]="photoHeight" priority />
-        </picture>
+        <img
+          src="/hero/donatelli-400w.avif"
+          srcset="
+            /hero/donatelli-400w.avif 400w,
+            /hero/donatelli-600w.avif 600w,
+            /hero/donatelli-800w.avif 800w
+          "
+          sizes="
+            (max-width: 768px) 300px,
+            (max-width: 1024px) 350px,
+            400px
+          "
+          alt="Bruno Donatelli - Desenvolvedor Full Stack"
+          class="hero-photo"
+          width="400"
+          height="600"
+          loading="eager"
+          decoding="sync"
+          fetchpriority="high"
+        />
       </div>
     </div>
   </div>
