@@ -47,6 +47,6 @@ export default defineConfig((_) => ({
       nitro: {
         preset: 'static',
       },
-    }),
+    })
   ]
 }));
