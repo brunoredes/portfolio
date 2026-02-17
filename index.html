@@ -417,7 +417,7 @@
       white-space: nowrap;
     }
 
-    /* Navigation (prevent shift) */
+    /* Navigation (prevent font-swap shift) */
     .nav-list {
       list-style: none;
       display: flex;
@@ -425,6 +425,20 @@
       gap: 2rem;
       min-height: 48px;
       contain: layout;
+    }
+
+    .nav-link {
+      display: inline-block;
+      font-size: 1.125rem;
+      font-weight: 700;
+      padding: 0.5rem 0;
+    }
+
+    /* Desktop nav layout (prevent shift during render) */
+    .desktop-nav {
+      flex: 1;
+      display: flex;
+      justify-content: center;
     }
 
     /* Prevent FOUC */
@@ -471,16 +485,20 @@
 
 <body>
   <app-root>
-    <!-- Static LCP image placeholder — discoverable by preload scanner before JS loads.
-         Angular replaces this content on bootstrap; the image is already cached by then. -->
-    <img
-      src="/hero/donatelli-400w.avif"
-      alt="Bruno Donatelli - Desenvolvedor Full Stack"
-      width="400"
-      height="600"
-      loading="eager"
-      fetchpriority="high"
-    />
+    <!-- Static placeholders — reserve layout space before Angular bootstraps to prevent CLS.
+         Angular replaces this content on bootstrap; by then the layout is already stable. -->
+    <header class="header"></header>
+    <main class="hero">
+      <img
+        src="/hero/donatelli-400w.avif"
+        alt="Bruno Donatelli - Desenvolvedor Full Stack"
+        width="400"
+        height="600"
+        loading="eager"
+        fetchpriority="high"
+      />
+    </main>
+    <footer class="footer"></footer>
   </app-root>
   <script type="module" src="/src/main.ts"></script>
 
