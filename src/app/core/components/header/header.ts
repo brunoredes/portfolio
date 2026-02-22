@@ -1,7 +1,10 @@
-import type { ElementRef, OnDestroy, OnInit } from '@angular/core';
-import { Component, effect, signal, viewChild } from '@angular/core';
-import { NAV_LINKS, SOCIAL_LINKS } from '../../../shared/utils/constants';
 import { NgOptimizedImage } from '@angular/common';
+import type { ElementRef, OnDestroy, OnInit } from '@angular/core';
+import { Component, effect, inject, signal, viewChild } from '@angular/core';
+import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { NavigationEnd, Router } from '@angular/router';
+import { filter } from 'rxjs';
+import { NAV_LINKS, SOCIAL_LINKS } from '../../../shared/utils/constants';
 
 @Component({
   selector: 'app-header',
@@ -10,11 +13,13 @@ import { NgOptimizedImage } from '@angular/common';
   styleUrl: './header.css',
 })
 export class Header implements OnInit, OnDestroy {
+  private router = inject(Router);
   mobileNavFirstLink = viewChild<ElementRef<HTMLAnchorElement>>('mobileNavFirstLink');
 
   protected navLinks = NAV_LINKS;
   protected socialLinks = SOCIAL_LINKS;
   protected isMenuOpen = signal(false);
+  protected currentUrl = signal('');
 
   // Logo animation states
   protected logoText = signal('');
@@ -27,6 +32,15 @@ export class Header implements OnInit, OnDestroy {
   private animationTimeout?: number;
 
   constructor() {
+    // Track current URL for aria-current
+    this.currentUrl.set(this.router.url);
+    this.router.events
+      .pipe(
+        filter((event): event is NavigationEnd => event instanceof NavigationEnd),
+        takeUntilDestroyed()
+      )
+      .subscribe(event => this.currentUrl.set(event.urlAfterRedirects));
+
     // Focus management when menu opens/closes
     effect(() => {
       if (this.isMenuOpen() && this.mobileNavFirstLink) {
@@ -60,6 +74,25 @@ export class Header implements OnInit, OnDestroy {
   // Dynamic aria-label for hamburger button
   getMenuButtonLabel(): string {
     return this.isMenuOpen() ? 'Fechar menu' : 'Abrir menu';
+  }
+
+  /**
+   * Returns 'page' if the link is for the current page, null otherwise.
+   * - For /privacy-policy: matches exactly
+   * - For home sections (/#...): matches when on home page
+   */
+  getAriaCurrent(href: string): 'page' | null {
+    const url = this.currentUrl();
+    const urlPath = url.split('#')[0] || '/';
+
+    // Check if it's a home section link
+    if (href.startsWith('/#') || href === '/') {
+      // Match if we're on home page
+      return urlPath === '/' ? 'page' : null;
+    }
+
+    // For other pages, match the path exactly
+    return urlPath === href ? 'page' : null;
   }
 
   private async startLogoAnimation() {
