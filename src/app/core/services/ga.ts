@@ -46,10 +46,17 @@ export class Ga {
   private loadGoogleAnalyticsScript(): void {
     if (!this.isBrowser) return;
 
-    // Initialize dataLayer
+    // Load the script first (async)
+    const script = document.createElement('script');
+    script.async = true;
+    script.src = `https://www.googletagmanager.com/gtag/js?id=${this.measurementId}`;
+    document.head.appendChild(script);
+
+    // Initialize dataLayer - must use standard function declaration for arguments object
     window.dataLayer = window.dataLayer || [];
-    window.gtag = function gtag(...args: unknown[]) {
-      window.dataLayer!.push(args);
+    window.gtag = function () {
+      // biome-ignore lint: gtag requires the arguments object - Google's official pattern
+      if (window.dataLayer) window.dataLayer.push(arguments);
     };
 
     // Set initial timestamp
@@ -60,12 +67,6 @@ export class Ga {
       anonymize_ip: true, // Anonymize IPs for privacy
       cookie_flags: 'SameSite=None;Secure', // Cookie settings
     });
-
-    // Load the script
-    const script = document.createElement('script');
-    script.async = true;
-    script.src = `https://www.googletagmanager.com/gtag/js?id=${this.measurementId}`;
-    document.head.appendChild(script);
   }
 
   /**
