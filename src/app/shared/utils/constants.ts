@@ -1,7 +1,7 @@
 export const NAV_LINKS = [
-  { id: 'about', label: 'Sobre mim', href: '/home#hero' },
-  { id: 'projects', label: 'Projetos', href: '/home#projects' },
-  { id: 'expertise', label: 'Expertise', href: '/home#expertise' },
+  { id: 'about', label: 'Sobre mim', href: '/#hero' },
+  { id: 'projects', label: 'Projetos', href: '/#projects' },
+  { id: 'expertise', label: 'Expertise', href: '/#expertise' },
   { id: 'privacy', label: 'Privacidade', href: '/privacy-policy' },
 ] as const;
 
