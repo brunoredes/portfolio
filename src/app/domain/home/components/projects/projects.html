@@ -26,11 +26,15 @@
         </div>
 
         <div class="card-content">
-          <h3 class="card-title">{{ project.title }}</h3>
-          <p class="card-description">{{ project.description }}</p>
+          <!-- Screen reader: combined title and description -->
+          <span class="sr-only">{{ project.title }}: {{ project.description }}</span>
+          <h3 class="card-title" aria-hidden="true">{{ project.title }}</h3>
+          <p class="card-description" aria-hidden="true">{{ project.description }}</p>
 
-          <!-- Semantic list for technologies -->
-          <ul class="card-technologies" aria-label="Tecnologias utilizadas">
+          <!-- Screen reader: all technologies at once -->
+          <span class="sr-only">{{ getTechsLabel(project) }}</span>
+          <!-- Semantic list for technologies (visual only) -->
+          <ul class="card-technologies" aria-hidden="true">
             @for (tech of project.technologies; track tech) {
             <li class="tech-badge">{{ tech }}</li>
             }
