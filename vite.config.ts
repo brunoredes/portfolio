@@ -29,21 +29,6 @@ export default defineConfig((_) => ({
     target: ['es2023'],
     cssMinify: 'lightningcss',
     minify: 'esbuild',
-    rollupOptions: {
-      output: {
-        entryFileNames: (chunkInfo) => {
-          // Service worker must be at root for proper scope
-          if (chunkInfo.name === 'service-worker') {
-            return 'service-worker.js';
-          }
-          return 'assets/[name]-[hash].js';
-        },
-      },
-      input: {
-        main: './index.html',
-        'service-worker': './src/service-worker.ts'
-      }
-    }
   },
   resolve: {
     mainFields: ['module'],
@@ -54,10 +39,7 @@ export default defineConfig((_) => ({
       ssr: false,
       static: true,
       prerender: {
-        routes: async () => ['/', '/home', {
-          route: '/home',
-          staticData: true
-        }, '/privacy-policy'],
+        routes: async () => ['/', '/privacy-policy'],
         sitemap: {
           host: 'https://donatelli.dev',
         },

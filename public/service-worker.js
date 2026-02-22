@@ -1,6 +1,5 @@
-/// <reference lib="webworker" />
-
-declare const self: ServiceWorkerGlobalScope;
+// Service Worker for Portfolio - Bruno Donatelli
+// @ts-nocheck
 
 const CACHE_VERSION = 'v1.0.0';
 const CACHE_NAME = `portfolio-${CACHE_VERSION}`;
@@ -8,9 +7,8 @@ const CACHE_NAME = `portfolio-${CACHE_VERSION}`;
 // Assets to precache on install
 const PRECACHE_ASSETS = [
   '/',
-  '/home',
   '/index.html',
-  '/manifest.json',
+  '/manifest.webmanifest',
   '/offline.html',
 ];
 
@@ -34,7 +32,7 @@ const CACHE_STRATEGIES = {
 /**
  * Install event - precache critical assets
  */
-self.addEventListener('install', (event: ExtendableEvent) => {
+self.addEventListener('install', (event) => {
   console.log('[SW] Installing service worker...');
 
   event.waitUntil(
@@ -47,14 +45,14 @@ self.addEventListener('install', (event: ExtendableEvent) => {
       .then(() => {
         // Force activation immediately
         return self.skipWaiting();
-      }),
+      })
   );
 });
 
 /**
  * Activate event - clean old caches
  */
-self.addEventListener('activate', (event: ExtendableEvent) => {
+self.addEventListener('activate', (event) => {
   console.log('[SW] Activating service worker...');
 
   event.waitUntil(
@@ -67,20 +65,20 @@ self.addEventListener('activate', (event: ExtendableEvent) => {
             .map((name) => {
               console.log('[SW] Deleting old cache:', name);
               return caches.delete(name);
-            }),
+            })
         );
       })
       .then(() => {
         // Take control of all clients immediately
         return self.clients.claim();
-      }),
+      })
   );
 });
 
 /**
  * Fetch event - apply caching strategies
  */
-self.addEventListener('fetch', (event: FetchEvent) => {
+self.addEventListener('fetch', (event) => {
   const { request } = event;
   const url = new URL(request.url);
 
@@ -103,7 +101,7 @@ self.addEventListener('fetch', (event: FetchEvent) => {
 /**
  * Get caching strategy for URL
  */
-function getStrategy(pathname: string): (request: Request) => Promise<Response> {
+function getStrategy(pathname) {
   // Check cache-first patterns
   if (CACHE_STRATEGIES.cacheFirst.some((pattern) => pattern.test(pathname))) {
     return cacheFirstStrategy;
@@ -127,7 +125,7 @@ function getStrategy(pathname: string): (request: Request) => Promise<Response> 
  * Cache-First Strategy
  * Best for: Fonts, images, versioned JS/CSS
  */
-async function cacheFirstStrategy(request: Request): Promise<Response> {
+async function cacheFirstStrategy(request) {
   const cache = await caches.open(CACHE_NAME);
   const cachedResponse = await cache.match(request);
 
@@ -154,7 +152,7 @@ async function cacheFirstStrategy(request: Request): Promise<Response> {
  * Network-First Strategy
  * Best for: HTML pages, API calls
  */
-async function networkFirstStrategy(request: Request): Promise<Response> {
+async function networkFirstStrategy(request) {
   const cache = await caches.open(CACHE_NAME);
 
   try {
@@ -189,7 +187,7 @@ async function networkFirstStrategy(request: Request): Promise<Response> {
  * Stale-While-Revalidate Strategy
  * Best for: API calls, frequently updated content
  */
-async function staleWhileRevalidateStrategy(request: Request): Promise<Response> {
+async function staleWhileRevalidateStrategy(request) {
   const cache = await caches.open(CACHE_NAME);
   const cachedResponse = await cache.match(request);
 
@@ -208,7 +206,7 @@ async function staleWhileRevalidateStrategy(request: Request): Promise<Response>
 /**
  * Message handler for cache updates
  */
-self.addEventListener('message', (event: ExtendableMessageEvent) => {
+self.addEventListener('message', (event) => {
   if (event.data?.type === 'SKIP_WAITING') {
     self.skipWaiting();
   }
@@ -217,7 +215,7 @@ self.addEventListener('message', (event: ExtendableMessageEvent) => {
     event.waitUntil(
       caches.open(CACHE_NAME).then((cache) => {
         return cache.addAll(event.data.urls);
-      }),
+      })
     );
   }
 });
