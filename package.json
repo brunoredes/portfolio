@@ -9,7 +9,7 @@
     "ng": "ng",
     "dev": "vite",
     "start": "npm run dev",
-    "build": "vite build && rm -rf dist/analog/public/_worker.js",
+    "build": "vite build && rm -rf dist/analog/public/_worker.js && npx ngsw-config dist/client ngsw-config.json / && cp node_modules/@angular/service-worker/ngsw-worker.js dist/client/",
     "watch": "vite build --watch",
     "test": "vitest",
     "preview": "vite preview",
