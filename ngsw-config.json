@@ -8,11 +8,10 @@
       "resources": {
         "files": [
           "/favicon.ico",
-          "/index.csr.html",
           "/index.html",
           "/manifest.webmanifest",
-          "/*.css",
-          "/*.js"
+          "/assets/*.js",
+          "/assets/*.css"
         ]
       }
     },
@@ -22,7 +21,16 @@
       "updateMode": "prefetch",
       "resources": {
         "files": [
-          "/**/*.(svg|cur|jpg|jpeg|png|apng|webp|avif|gif|otf|ttf|woff|woff2)"
+          "/hero/**/*",
+          "/icons/**/*",
+          "/techs/**/*",
+          "/blog/**/*",
+          "/**/*.svg",
+          "/**/*.avif",
+          "/**/*.webp",
+          "/**/*.jpg",
+          "/**/*.png",
+          "/**/*.woff2"
         ]
       }
     }
