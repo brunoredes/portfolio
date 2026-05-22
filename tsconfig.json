@@ -28,6 +28,7 @@
       "@components/*": ["src/app/components/*"]
     }
   },
+  "exclude": ["functions/**/*"],
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,

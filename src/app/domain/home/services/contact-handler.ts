@@ -5,17 +5,10 @@ import type { ContactFormData, DiscordMessage } from '../data/contact';
   providedIn: 'root',
 })
 export class ContactHandler {
-  private readonly WEBHOOK_URL = import.meta.env['VITE_DISCORD_WEBHOOK_URL'];
-
-  /**
-   * Sends contact form data to Discord webhook
-   * @param data Contact form data
-   * @throws Error if webhook request fails
-   */
   async send(data: ContactFormData): Promise<void> {
     const message = this.formatMessage(data);
 
-    const response = await fetch(this.WEBHOOK_URL, {
+    const response = await fetch('/api/contact', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -24,7 +17,7 @@ export class ContactHandler {
     });
 
     if (!response.ok) {
-      throw new Error(`Discord webhook failed: ${response.status} ${response.statusText}`);
+      throw new Error(`Contact request failed: ${response.status} ${response.statusText}`);
     }
   }
 
