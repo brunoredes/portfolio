@@ -178,14 +178,9 @@
     flex-shrink: 0;
 }
 
-/* Honeypot field - hidden from users */
+/* Honeypot field - hidden from users and assistive technologies */
 .honeypot {
-    position: absolute;
-    left: -9999px;
-    width: 1px;
-    height: 1px;
-    opacity: 0;
-    pointer-events: none;
+    display: none;
 }
 
 .form-submit {
