@@ -45,7 +45,7 @@
               <div class="card-title-group">
                 <h3 class="card-company">{{ exp.company }}</h3>
                 @if (isCurrent(exp)) {
-                <span class="current-badge" role="text" aria-label="Emprego atual">Atual</span>
+                <span class="current-badge">Atual</span>
                 }
               </div>
               <p class="card-role">{{ exp.role }} | {{ exp.roleLevel }}</p>
@@ -79,7 +79,7 @@
 
             @if (exp.technologies && exp.technologies.length > 0) {
             <div class="card-technologies">
-              <h4 class="tech-label">Tecnologias:</h4>
+              <p class="tech-label">Tecnologias:</p>
               <ul class="tech-list" aria-label="Tecnologias utilizadas">
                 @for (tech of exp.technologies; track tech) {
                 <li class="tech-tag">{{ tech }}</li>
