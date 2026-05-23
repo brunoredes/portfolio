@@ -39,7 +39,7 @@
             <input type="text" id="subject" name="subject" class="form-input"
               [class.has-error]="hasFieldError('subject')" [value]="formData().subject"
               (input)="updateFormData('subject', $any($event.target).value)" (blur)="onFieldBlur('subject')" required
-              autocomplete="subject" [disabled]="isSubmitting()" [attr.aria-invalid]="hasFieldError('subject')"
+              autocomplete="off" [disabled]="isSubmitting()" [attr.aria-invalid]="hasFieldError('subject')"
               [attr.aria-describedby]="hasFieldError('subject') ? 'subject-error' : null" />
             @if (hasFieldError('subject')) {
             <p id="subject-error" class="field-error" role="alert">
@@ -67,8 +67,7 @@
 
           <!-- Honeypot field (hidden from users, visible to bots) -->
           <input type="text" name="website" class="honeypot" [value]="formData().website"
-            (input)="updateFormData('website', $any($event.target).value)" tabindex="-1" autocomplete="off"
-            aria-hidden="true" readonly />
+            (input)="updateFormData('website', $any($event.target).value)" autocomplete="off" />
 
           <button type="submit" class="form-submit" [disabled]="isSubmitting()" [class.loading]="isSubmitting()"
             [attr.aria-busy]="isSubmitting()">
