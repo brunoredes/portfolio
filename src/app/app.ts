@@ -10,8 +10,9 @@ import { Ga } from './core/services/ga';
   selector: 'app-root',
   imports: [RouterOutlet, CookieModal, Header, Footer],
   template: `
+  <a href="#main-content" class="skip-link">Ir para o conteúdo principal</a>
   <app-header />
-  <main>
+  <main id="main-content">
     <router-outlet />
   </main>
   <app-footer />
