@@ -9,6 +9,7 @@ import { AccessibilityModal } from "../accessibility-modal/accessibility-modal";
   imports: [AccessibilityModal, NgOptimizedImage],
   templateUrl: './footer.html',
   styleUrl: './footer.css',
+  host: { role: 'contentinfo', class: 'footer' },
 })
 export class Footer {
   protected accessibilityService: AccessibilitySettingsService = inject(AccessibilitySettingsService);

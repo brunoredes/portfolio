@@ -11,6 +11,7 @@ import { NAV_LINKS, SOCIAL_LINKS } from '../../../shared/utils/constants';
   imports: [NgOptimizedImage],
   templateUrl: './header.html',
   styleUrl: './header.css',
+  host: { role: 'banner', class: 'header' },
 })
 export class Header implements OnInit, OnDestroy {
   private router = inject(Router);

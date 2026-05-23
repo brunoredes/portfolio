@@ -1,5 +1,4 @@
-<footer class="footer">
-  <div class="container">
+<div class="container">
     <div class="footer-content">
       <div class="footer-brand">
         <a href="/" class="footer-logo" aria-label="DONATELLI DEV - Ir para página inicial">
@@ -11,7 +10,7 @@
       </div>
 
       <nav class="footer-nav" aria-label="Navegação do rodapé">
-        <h3 class="footer-nav-title">Navegação</h3>
+        <p class="footer-nav-title" aria-hidden="true">Navegação</p>
         <ul class="footer-nav-list">
           @for (link of navLinks; track link.id) {
           <li class="footer-nav-item">
@@ -24,7 +23,7 @@
       </nav>
 
       <nav class="footer-social" aria-label="Redes sociais">
-        <h3 class="footer-social-title">Redes Sociais</h3>
+        <p class="footer-social-title" aria-hidden="true">Redes Sociais</p>
         <div class="social-links">
           @for (social of socialLinks; track social.id) {
           <a [href]="social.url" [attr.aria-label]="social.label + ' - abrir em nova aba'" class="social-link"
@@ -65,4 +64,3 @@
   } @placeholder {
     <!-- Nothing shown while not loaded -->
   }
-</footer>
