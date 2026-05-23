@@ -60,6 +60,16 @@ function buildCsp(nonce: string): string {
     "base-uri 'self'",
     "form-action 'self'",
     "object-src 'none'",
+
+    // Trusted Types — blocks DOM XSS sinks (innerHTML, outerHTML, etc.).
+    // 'angular' and 'angular#bundled' are Angular's built-in policy names.
+    // 'allow-duplicates' is needed because some Angular bootstrap paths
+    // register the same policy name more than once.
+    // GTM is not Trusted Types compliant; it will log a console error but
+    // the directive being present satisfies the Lighthouse audit and protects
+    // all Angular-owned DOM writes.
+    "trusted-types angular angular#bundled 'allow-duplicates'",
+    "require-trusted-types-for 'script'",
   ];
 
   return directives.join("; ");
