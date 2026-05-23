@@ -3,13 +3,32 @@
  *
  * For every HTML response:
  *  1. Generates a cryptographically-random nonce.
- *  2. Uses HTMLRewriter to stamp `nonce="…"` onto every <script> element.
+ *  2. Uses HTMLRewriter to stamp `nonce="…"` onto every <script> element,
+ *     including a manually-injected Cloudflare Insights beacon (see below).
  *  3. Sets security headers (CSP, COOP, etc.) on the response.
  *
- * The nonce + 'strict-dynamic' combination removes the need for
- * 'unsafe-inline' in modern browsers while keeping host-allowlist
- * fallbacks for legacy ones.
+ * WHY we inject the Cloudflare Insights beacon here instead of relying on
+ * the automatic edge injection:
+ *   Cloudflare's edge appends the beacon AFTER this middleware runs, so it
+ *   never receives a nonce. With 'strict-dynamic' active the host allowlist
+ *   is ignored, so the edge-injected beacon is blocked by CSP.
+ *   We disable auto-injection (Cloudflare Dashboard → Web Analytics → "Manual")
+ *   and emit the beacon ourselves so HTMLRewriter can nonce it.
+ *
+ * WHY 'require-trusted-types-for "script"' is omitted:
+ *   Google Tag Manager uses innerHTML and is not Trusted Types compliant.
+ *   Enforcing Trusted Types without a GTM-compatible policy breaks analytics.
+ *   Use a Content-Security-Policy-Report-Only header to audit before enforcing.
+ *
+ * WHY inline event handlers from GTM are still blocked:
+ *   When a nonce is present, 'unsafe-inline' is silently ignored for event
+ *   handlers (onclick, onload, …). This is correct CSP behaviour. GTM tags
+ *   that use inline event handlers must be migrated to use Custom HTML tags
+ *   with addEventListener() inside GTM, or GTM's built-in trigger system.
  */
+
+/** Cloudflare Web Analytics beacon token — set the real token here. */
+const CF_BEACON_TOKEN = "";
 
 function generateNonce(): string {
   const bytes = new Uint8Array(16);
@@ -21,13 +40,15 @@ function buildCsp(nonce: string): string {
   const directives: string[] = [
     "default-src 'self'",
 
-    // 'strict-dynamic'  → trusted scripts may load further scripts dynamically
+    // 'strict-dynamic'  → scripts created by trusted (nonced) scripts are allowed
     // 'nonce-…'         → elements stamped with this nonce are trusted
-    // 'unsafe-inline'   → ignored by strict-dynamic-aware browsers; fallback only for very old ones
-    // host allowlist    → ignored by strict-dynamic-aware browsers; fallback for older ones
+    // 'unsafe-inline'   → ignored when a nonce is present (modern browsers);
+    //                     kept as fallback for browsers without nonce support
+    // host allowlist    → ignored by strict-dynamic-aware browsers;
+    //                     kept as fallback for older browsers
     `script-src 'strict-dynamic' 'nonce-${nonce}' 'unsafe-inline' https://www.googletagmanager.com https://static.cloudflareinsights.com https://ajax.cloudflare.com`,
 
-    // Inline styles required by Angular's runtime CSS injection
+    // Inline styles are required by Angular's runtime CSS injection
     "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
 
     "img-src 'self' data:",
@@ -39,12 +60,6 @@ function buildCsp(nonce: string): string {
     "base-uri 'self'",
     "form-action 'self'",
     "object-src 'none'",
-
-    // Trusted Types — instructs the browser to block DOM XSS sinks.
-    // Angular 14+ has built-in Trusted Types support.
-    // Note: verify that all third-party scripts (e.g. GTM) are Trusted-Types-compliant
-    // before enforcing in production. Switch to `trusted-types` (report-only) first if unsure.
-    "require-trusted-types-for 'script'",
   ];
 
   return directives.join("; ");
@@ -58,6 +73,23 @@ class ScriptNonceInjector implements HTMLRewriterElementContentHandlers {
   }
 }
 
+/**
+ * Appends the Cloudflare Web Analytics beacon to <body> with the current
+ * nonce. Only runs when CF_BEACON_TOKEN is set.
+ * This replaces the automatic edge injection so the script receives a nonce.
+ */
+class BeaconInjector implements HTMLRewriterElementContentHandlers {
+  constructor(private readonly nonce: string) {}
+
+  element(el: Element): void {
+    if (!CF_BEACON_TOKEN) return;
+    el.append(
+      `<script defer src="https://static.cloudflareinsights.com/beacon.min.js" data-cf-beacon='{"token":"${CF_BEACON_TOKEN}"}' nonce="${this.nonce}"></script>`,
+      { html: true },
+    );
+  }
+}
+
 export const onRequest: PagesFunction = async (context) => {
   const response = await context.next();
 
@@ -68,9 +100,14 @@ export const onRequest: PagesFunction = async (context) => {
 
   const nonce = generateNonce();
 
-  const transformedResponse = new HTMLRewriter()
-    .on("script", new ScriptNonceInjector(nonce))
-    .transform(response);
+  const rewriter = new HTMLRewriter()
+    .on("script", new ScriptNonceInjector(nonce));
+
+  if (CF_BEACON_TOKEN) {
+    rewriter.on("body", new BeaconInjector(nonce));
+  }
+
+  const transformedResponse = rewriter.transform(response);
 
   // Clone the headers so we can mutate them
   const headers = new Headers(transformedResponse.headers);
