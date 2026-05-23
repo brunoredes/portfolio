@@ -70,6 +70,12 @@ class ScriptNonceInjector implements HTMLRewriterElementContentHandlers {
 
   element(el: Element): void {
     el.setAttribute("nonce", this.nonce);
+    // Prevent Cloudflare Rocket Loader from rewriting this element.
+    // Rocket Loader is injected at the CDN edge after this middleware runs,
+    // so it cannot receive a nonce and its loader script is blocked by CSP.
+    // Marking every script with data-cfasync="false" stops Rocket Loader from
+    // activating, which prevents it from injecting rocket-loader.min.js.
+    el.setAttribute("data-cfasync", "false");
   }
 }
 
