@@ -2,6 +2,7 @@
 import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import SeoHead from '../components/SeoHead.astro';
+import CookieBanner from '../components/CookieBanner.astro';
 import '../styles/main.scss';
 
 const siteUrl = 'https://donatelli.dev';
@@ -65,14 +66,14 @@ const faqSchema = {
   <!-- ================= Cabeçalho da página ================= -->
   <div class="pagina-header">
     <div class="kicker">PRIVACIDADE · LGPD / GDPR</div>
-    <h1>Política de privacidade<span class="ponto-laranja">.</span></h1>
+    <h1>Política de privacidade<span class="ponto-laranja" aria-hidden="true">.</span></h1>
     <span class="atualizacao">última atualização — 14 fev 2026</span>
   </div>
 
   <!-- ================= Sumário + Seções ================= -->
   <div class="corpo">
 
-    <aside class="sumario" id="sumario">
+    <nav class="sumario" id="sumario" aria-label="Nesta página">
       <span class="titulo">NESTA PÁGINA</span>
       <a href="#s01">01 · Introdução</a>
       <a href="#s02">02 · Dados coletados</a>
@@ -84,9 +85,10 @@ const faqSchema = {
       <a href="#s08">08 · Links externos</a>
       <a href="#s09">09 · Alterações</a>
       <a href="#s10">10 · Contato</a>
-    </aside>
+    </nav>
 
     <div class="secoes">
+      <h2 style="position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap;border:0">Seções da política de privacidade</h2>
 
       <article class="card-secao" id="s01">
         <div class="cabecalho">
@@ -151,19 +153,19 @@ const faqSchema = {
         <p>De acordo com a Lei Geral de Proteção de Dados (LGPD) e o GDPR, você tem o direito de:</p>
         <div class="grid-direitos">
           <div class="direito">
-            <span class="ponto"></span>
+            <span class="ponto" aria-hidden="true"></span>
             <span><strong>Acessar</strong> suas informações armazenadas localmente (configurações de acessibilidade)</span>
           </div>
           <div class="direito">
-            <span class="ponto"></span>
+            <span class="ponto" aria-hidden="true"></span>
             <span><strong>Corrigir</strong> ou <strong>excluir</strong> suas preferências a qualquer momento</span>
           </div>
           <div class="direito">
-            <span class="ponto"></span>
+            <span class="ponto" aria-hidden="true"></span>
             <span><strong>Revogar consentimento</strong> para cookies de análise através das configurações de cookies</span>
           </div>
           <div class="direito">
-            <span class="ponto"></span>
+            <span class="ponto" aria-hidden="true"></span>
             <span><strong>Solicitar exclusão</strong> de dados no Google Analytics (entre em contato)</span>
           </div>
         </div>
@@ -234,6 +236,7 @@ const faqSchema = {
 
       </div>
     </main>
+    <CookieBanner />
     <Footer variant="privacy" />
     <script is:inline>
 // ===== Sumário: destaca a seção visível =====
@@ -245,9 +248,12 @@ const secoes = linksSumario
 const observer = new IntersectionObserver((entries) => {
   entries.forEach(entry => {
     if (!entry.isIntersecting) return;
-    linksSumario.forEach(a =>
-      a.classList.toggle('ativo', a.getAttribute('href') === '#' + entry.target.id)
-    );
+    linksSumario.forEach(a => {
+      const ativo = a.getAttribute('href') === '#' + entry.target.id;
+      a.classList.toggle('ativo', ativo);
+      if (ativo) a.setAttribute('aria-current', 'true');
+      else a.removeAttribute('aria-current');
+    });
   });
 }, { rootMargin: '-30% 0px -60% 0px' });
 

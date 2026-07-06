@@ -39,7 +39,7 @@ const platformLabel = (language: string) => (language === 'pt-BR' ? 'BR' : 'US')
 
   <!-- ================= Projetos ================= -->
   <section class="secao" id="sec-projetos">
-    <h2>Projetos<span class="ponto-roxo">.</span></h2>
+    <h2>Projetos<span class="ponto-roxo" aria-hidden="true">.</span></h2>
     <div class="grid-projetos">
       {renderedProjects.map(({ data, Content }) => (
         <article class:list={["card-projeto", { destaque: data.featured }]}>
@@ -48,7 +48,7 @@ const platformLabel = (language: string) => (language === 'pt-BR' ? 'BR' : 'US')
             {data.featured && <span class="badge-destaque">destaque</span>}
           </div>
           <div>
-            <h3><a href={data.liveUrl ?? data.repoUrl}>{data.title}</a></h3>
+            <h3><a href={data.liveUrl ?? data.repoUrl} aria-label={`Link para ${data.title} - Abre em nova guia`} target="_blank" rel="noopener noreferrer">{data.title}</a></h3>
             <Content />
             <div class="tags">
               {data.technologies.map((technology: string) => <span class="tag">{technology.toLowerCase()}</span>)}
@@ -64,10 +64,10 @@ const platformLabel = (language: string) => (language === 'pt-BR' ? 'BR' : 'US')
     <div class="grid-duplo">
 
       <div class="card-bloco">
-        <h2>Trajetória<span class="ponto-laranja">.</span></h2>
+        <h2>Trajetória<span class="ponto-laranja" aria-hidden="true">.</span></h2>
         {renderedExperiences.map(({ data, Content }, index) => (
           <div class:list={["timeline-item", { "trajetoria-extra": index > 0 }]} id={index === 1 ? 'trajetoria-extra' : undefined}>
-            <div class="timeline-eixo">
+            <div class="timeline-eixo" aria-hidden="true">
               <div class:list={["timeline-ponto", { passado: index > 0 }]}></div>
               {index < renderedExperiences.length - 1 && <div class="timeline-linha"></div>}
             </div>
@@ -84,11 +84,11 @@ const platformLabel = (language: string) => (language === 'pt-BR' ? 'BR' : 'US')
             </div>
           </div>
         ))}
-        {renderedExperiences.length > 1 && <button class="link-expandir" id="btn-expandir">ver tudo →</button>}
+        {renderedExperiences.length > 1 && <button class="link-expandir" id="btn-expandir" aria-expanded="false" aria-controls="trajetoria-extra">ver tudo →</button>}
       </div>
 
       <div class="card-bloco">
-        <h2>Stack<span class="ponto-roxo">.</span></h2>
+        <h2>Stack<span class="ponto-roxo" aria-hidden="true">.</span></h2>
         <div class="chips-stack">
           <span class="chip principal">Angular</span>
           <span class="chip principal">TypeScript</span>
@@ -109,8 +109,8 @@ const platformLabel = (language: string) => (language === 'pt-BR' ? 'BR' : 'US')
   <!-- ================= Publicações ================= -->
   <section class="secao" id="sec-artigos">
     <div class="secao-cabecalho">
-      <h2>Publicações<span class="ponto-laranja">.</span></h2>
-      <a class="link-externo" href="https://dev.to/brunoredes">dev.to + medium ↗</a>
+      <h2>Publicações<span class="ponto-laranja" aria-hidden="true">.</span></h2>
+      <a class="link-externo" href="https://dev.to/brunoredes" target="_blank" rel="noopener noreferrer" aria-label="dev.to e Medium (abre em nova aba)">dev.to + medium ↗</a>
     </div>
     <div class="grid-artigos">
       {renderedBlogPosts.map(({ data, Content }) => (
@@ -125,7 +125,7 @@ const platformLabel = (language: string) => (language === 'pt-BR' ? 'BR' : 'US')
           </div>
           <h3>{data.title}</h3>
           <Content />
-          <a class="ler-artigo" href={data.platforms[0].url}>ler artigo →</a>
+          <a class="ler-artigo" href={data.platforms[0].url} target="_blank" rel="noopener noreferrer" aria-label={`Ler artigo: ${data.title} (abre em nova aba)`}>ler artigo →</a>
         </article>
       ))}
     </div>
@@ -136,35 +136,36 @@ const platformLabel = (language: string) => (language === 'pt-BR' ? 'BR' : 'US')
 
     <div class="contato-intro">
       <div class="kicker">CONTATO</div>
-      <h2>Bora construir algo<span class="ponto-laranja">?</span></h2>
+      <h2>Bora construir algo<span class="ponto-laranja" aria-hidden="true">?</span></h2>
       <p>Projetos, dúvidas de Angular ou um convite para palestrar — respondo rápido.</p>
       <div class="redes">
-        <a class="rede" href="#">github ↗</a>
-        <a class="rede" href="#">linkedin ↗</a>
+        <a class="rede" href="https://github.com/brunoredes" target="_blank" rel="noopener noreferrer" aria-label="GitHub (abre em nova aba)">github ↗</a>
+        <a class="rede" href="https://linkedin.com/in/brunoldonatelli" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn (abre em nova aba)">linkedin ↗</a>
       </div>
     </div>
 
     <form class="formulario" id="form-contato" novalidate>
       <div class="campo" id="campo-nome">
-        <label for="nome">Nome completo <em>*</em></label>
-        <input type="text" id="nome" name="nome" placeholder="Como você se chama?">
-        <span class="erro">Me diz seu nome :)</span>
+        <label for="nome">Nome completo <em aria-hidden="true">*</em></label>
+        <input type="text" id="nome" name="nome" placeholder="Como você se chama?" required aria-required="true" aria-describedby="erro-nome">
+        <span class="erro" id="erro-nome" role="alert">Me diz seu nome :)</span>
       </div>
       <div class="campo" id="campo-assunto">
-        <label for="assunto">Assunto <em>*</em></label>
-        <input type="text" id="assunto" name="assunto" placeholder="Sobre o que vamos falar?">
-        <span class="erro">Qual é o assunto?</span>
+        <label for="assunto">Assunto <em aria-hidden="true">*</em></label>
+        <input type="text" id="assunto" name="assunto" placeholder="Sobre o que vamos falar?" required aria-required="true" aria-describedby="erro-assunto">
+        <span class="erro" id="erro-assunto" role="alert">Qual é o assunto?</span>
       </div>
       <div class="campo" id="campo-mensagem">
-        <label for="mensagem">Mensagem <em>*</em></label>
-        <textarea id="mensagem" name="mensagem" rows="4" placeholder="Conta tudo..."></textarea>
-        <span class="erro">Conta um pouco mais — pelo menos 10 caracteres.</span>
+        <label for="mensagem">Mensagem <em aria-hidden="true">*</em></label>
+        <textarea id="mensagem" name="mensagem" rows="4" placeholder="Conta tudo..." required aria-required="true" aria-describedby="erro-mensagem"></textarea>
+        <span class="erro" id="erro-mensagem" role="alert">Conta um pouco mais — pelo menos 10 caracteres.</span>
       </div>
-      <button type="submit" class="btn-primario">Enviar mensagem →</button>
+      <button type="submit" class="btn-primario" id="btn-enviar">Enviar mensagem →</button>
+      <p class="form-erro" id="form-erro" role="alert" hidden>Não consegui enviar agora — tenta de novo ou me chama no LinkedIn.</p>
     </form>
 
-    <div class="sucesso" id="sucesso">
-      <div class="check">✓</div>
+    <div class="sucesso" id="sucesso" role="status" aria-live="polite" tabindex="-1">
+      <div class="check" aria-hidden="true">✓</div>
       <h3>Mensagem enviada!</h3>
       <p>Valeu, <span id="primeiro-nome">você</span> — respondo em até 48h.</p>
       <button class="reenviar" id="btn-reenviar">enviar outra mensagem</button>

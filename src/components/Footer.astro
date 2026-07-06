@@ -10,7 +10,7 @@ const { variant = 'home' } = Astro.props;
     <>
       <div class="links">
         <a href="/privacy-policy">Privacidade</a>
-        <span>Cookies</span>
+        <button type="button" id="link-cookies" command="show-modal" commandfor="cookie-dialog" style="background:none;border:0;padding:0;font:inherit;color:inherit;cursor:pointer">Cookies</button>
       </div>
       <span>feito com <span class="coracao">♥</span> e Astro</span>
     </>

@@ -1,9 +1,7 @@
-/* Cookie banner */
+/* Cookie modal (native <dialog>) */
 .cookie-banner {
-  display: none;
-  position: fixed;
-  left: 24px;
-  bottom: 24px;
+  margin: auto;
+  border: none;
   z-index: 60;
   background: #fff;
   border-radius: 20px;
@@ -11,9 +9,32 @@
   max-width: 440px;
   box-shadow: 0 20px 50px rgba(27, 23, 48, .3);
   color: var(--ink);
-  animation: dd-slide-up .4s ease;
 }
-.cookie-banner.visivel { display: block; }
+.cookie-banner[open] { animation: dd-slide-up .4s ease; }
+.cookie-banner::backdrop { background: rgba(27, 23, 48, .45); }
+
+/* Floating action button to reopen the modal */
+.cookie-fab {
+  position: fixed;
+  right: 24px;
+  bottom: 24px;
+  z-index: 70;
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  border: none;
+  border-radius: 999px;
+  background: var(--roxo);
+  font-size: 24px;
+  line-height: 1;
+  cursor: pointer;
+  opacity: .6;
+  box-shadow: 0 10px 24px rgba(27, 23, 48, .3);
+  transition: opacity .15s, transform .15s;
+}
+.cookie-fab:hover,
+.cookie-fab:focus-visible { opacity: 1; transform: translateY(-2px); }
 
 .cookie-banner .topo {
   display: flex;
