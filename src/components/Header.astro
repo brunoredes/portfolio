@@ -28,7 +28,7 @@ const homePrefix = active === 'home' ? '' : '/';
 <script>
 const btnMenu = document.getElementById('btn-menu');
 const menuMobile = document.getElementById('menu-mobile');
-const updateMenuState = (aberto: boolean) => {
+const updateMenuState = (aberto) => {
   btnMenu?.setAttribute('aria-expanded', String(aberto));
   btnMenu?.setAttribute('aria-label', aberto ? 'Fechar menu' : 'Abrir menu');
 };
