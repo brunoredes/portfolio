@@ -1,0 +1,75 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import SeoHead from '../components/SeoHead.astro';
+import HomeSections from '../components/HomeSections.astro';
+import CookieBanner from '../components/CookieBanner.astro';
+import '../styles/global.css';
+---
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <SeoHead title="donatelli.dev — Home" canonical="https://donatelli.dev/" />
+  </head>
+  <body id="top">
+    <Header />
+    <HomeSections />
+    <Footer />
+    <CookieBanner />
+    <script is:inline>
+// ===== Trajetória: expandir/recolher =====
+const btnExpandir = document.getElementById('btn-expandir');
+const extra = document.getElementById('trajetoria-extra');
+btnExpandir.addEventListener('click', () => {
+  const aberto = extra.classList.toggle('aberto');
+  btnExpandir.textContent = aberto ? 'recolher ↑' : 'ver tudo →';
+});
+
+// ===== Formulário de contato =====
+const form = document.getElementById('form-contato');
+const sucesso = document.getElementById('sucesso');
+form.addEventListener('submit', (e) => {
+  e.preventDefault();
+  const nome = document.getElementById('nome');
+  const assunto = document.getElementById('assunto');
+  const mensagem = document.getElementById('mensagem');
+  let valido = true;
+
+  const valida = (input, campoId, ok) => {
+    document.getElementById(campoId).classList.toggle('invalido', !ok);
+    if (!ok) valido = false;
+  };
+  valida(nome, 'campo-nome', !!nome.value.trim());
+  valida(assunto, 'campo-assunto', !!assunto.value.trim());
+  valida(mensagem, 'campo-mensagem', mensagem.value.trim().length >= 10);
+
+  if (!valido) return;
+  document.getElementById('primeiro-nome').textContent = nome.value.trim().split(' ')[0] || 'você';
+  form.style.display = 'none';
+  sucesso.classList.add('visivel');
+});
+['nome', 'assunto', 'mensagem'].forEach(id =>
+  document.getElementById(id).addEventListener('input', () =>
+    document.getElementById('campo-' + id).classList.remove('invalido'))
+);
+document.getElementById('btn-reenviar').addEventListener('click', () => {
+  form.reset();
+  form.style.display = '';
+  sucesso.classList.remove('visivel');
+});
+
+// ===== Cookie banner (LGPD) =====
+const banner = document.getElementById('cookie-banner');
+if (!localStorage.getItem('dd-consent')) banner.classList.add('visivel');
+document.getElementById('btn-aceitar').addEventListener('click', () => {
+  localStorage.setItem('dd-consent', 'all');
+  banner.classList.remove('visivel');
+});
+document.getElementById('btn-essenciais').addEventListener('click', () => {
+  localStorage.setItem('dd-consent', 'essential');
+  banner.classList.remove('visivel');
+});
+document.getElementById('link-cookies').addEventListener('click', () => banner.classList.add('visivel'));
+    </script>
+  </body>
+</html>

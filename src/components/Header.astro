@@ -1,0 +1,35 @@
+---
+interface Props { active?: 'home' | 'privacy'; }
+const { active = 'home' } = Astro.props;
+const homePrefix = active === 'home' ? '' : '/';
+---
+<header class="header">
+  <a class="logo" href="/">donatelli<em>.dev</em></a>
+  <nav class="nav">
+    <a href={`${homePrefix}#sec-projetos`}>Projetos</a>
+    <a href={`${homePrefix}#sec-trajetoria`}>Trajetória</a>
+    <a href={`${homePrefix}#sec-artigos`}>Artigos</a>
+    <a href="/privacy-policy" class:list={[{ ativo: active === 'privacy' }]}>Privacidade</a>
+  </nav>
+  <a class="btn-contato" href={`${homePrefix}#sec-contato`}>Contato</a>
+  <button class="hamburger" id="btn-menu" aria-label="Abrir menu">
+    <span></span><span></span><span></span>
+  </button>
+</header>
+
+<nav class="menu-mobile" id="menu-mobile">
+  <a href={`${homePrefix}#sec-projetos`}>Projetos</a>
+  <a href={`${homePrefix}#sec-trajetoria`}>Trajetória</a>
+  <a href={`${homePrefix}#sec-artigos`}>Artigos</a>
+  <a href="/privacy-policy" class:list={[{ ativo: active === 'privacy' }]}>Privacidade</a>
+  <a class="btn-contato" href={`${homePrefix}#sec-contato`}>Contato</a>
+</nav>
+
+<script>
+const btnMenu = document.getElementById('btn-menu');
+const menuMobile = document.getElementById('menu-mobile');
+btnMenu?.addEventListener('click', () => menuMobile?.classList.toggle('aberto'));
+menuMobile?.querySelectorAll('a').forEach((a) =>
+  a.addEventListener('click', () => menuMobile?.classList.remove('aberto'))
+);
+</script>

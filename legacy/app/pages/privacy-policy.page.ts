@@ -17,7 +17,7 @@ export default class PrivacyPolicyPage implements OnInit {
     this.seo.updateTags({
       title: 'Política de Privacidade - Bruno Donatelli',
       description: 'Política de privacidade do portfolio de Bruno Donatelli. Saiba como seus dados são tratados ao utilizar este site.',
-      url: 'https://brunodonatelli.com/privacy-policy',
+      url: 'https://donatelli.dev/privacy-policy',
       type: 'article',
       noIndex: false,
     });

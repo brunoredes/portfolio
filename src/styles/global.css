@@ -1,12 +1,3 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>donatelli.dev — Home (desktop · tablet · mobile)</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-<style>
 /* ============================================================
    donatelli.dev — Home
    Responsivo: desktop (padrão) · tablet (≤920px) · mobile (≤560px)
@@ -651,323 +642,319 @@ body {
   .cookie-banner .acoes > button { text-align: center; }
   .link-politica { margin: 4px auto 0; }
 }
-</style>
-</head>
-<body>
 
-<!-- ================= Header ================= -->
-<header class="header">
-  <a class="logo" href="#top">donatelli<em>.dev</em></a>
-  <nav class="nav">
-    <a href="#sec-projetos">Projetos</a>
-    <a href="#sec-trajetoria">Trajetória</a>
-    <a href="#sec-artigos">Artigos</a>
-    <a href="#">Privacidade</a>
-  </nav>
-  <a class="btn-contato" href="#sec-contato">Contato</a>
-  <button class="hamburger" id="btn-menu" aria-label="Abrir menu">
-    <span></span><span></span><span></span>
-  </button>
-</header>
+/* Privacy page styles from privacy-donadev.html */
+/* ============================================================
+   donatelli.dev — Política de privacidade
+   Responsivo: desktop (padrão) · tablet (≤920px) · mobile (≤560px)
+   ============================================================ */
 
-<!-- Menu mobile (hambúrguer) -->
-<nav class="menu-mobile" id="menu-mobile">
-  <a href="#sec-projetos">Projetos</a>
-  <a href="#sec-trajetoria">Trajetória</a>
-  <a href="#sec-artigos">Artigos</a>
-  <a href="#">Privacidade</a>
-  <a class="btn-contato" href="#sec-contato">Contato</a>
-</nav>
+:root {
+  --ink: #1b1730;
+  --bg: #f4f3fa;
+  --roxo: #5b45e0;
+  --laranja: #ff8a2a;
+  --laranja-claro: #ffb37a;
+  --muted: #67617e;
+  --faded: #9a94ad;
+  --lilas: #e6e2f7;
+  --chip-bg: #eeecf8;
+  --borda: rgba(27, 23, 48, .08);
+}
 
-<div class="container">
+* { box-sizing: border-box; }
 
-  <!-- ================= Hero ================= -->
-  <section class="hero">
-    <div class="kicker">BRUNO DONATELLI</div>
-    <h1>Criando experiências digitais <em>incríveis</em>.</h1>
-    <p>Full stack · Angular · Node.js · arquiteturas escaláveis. Hoje no BTG Pactual.</p>
-    <div class="acoes">
-      <a class="btn-primario" href="#sec-projetos">Ver projetos</a>
-      <a class="btn-secundario" href="#">Currículo ↓</a>
-    </div>
-  </section>
+html { scroll-behavior: smooth; }
 
-  <!-- ================= Projetos ================= -->
-  <section class="secao" id="sec-projetos">
-    <h2>Projetos<span class="ponto-roxo">.</span></h2>
-    <div class="grid-projetos">
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Sora', sans-serif;
+}
 
-      <article class="card-projeto destaque">
-        <div class="topo">
-          <span class="numero">01</span>
-          <span class="badge-destaque">destaque</span>
-        </div>
-        <div>
-          <h3>TFT Unit Counter</h3>
-          <p>Contagem de unidades em campeonatos de Teamfight Tactics, exportando em xlsx.</p>
-          <div class="tags">
-            <span class="tag">angular</span>
-            <span class="tag">typescript</span>
-          </div>
-        </div>
-      </article>
+.mono { font-family: 'IBM Plex Mono', monospace; }
 
-      <article class="card-projeto">
-        <span class="numero">02</span>
-        <div>
-          <h3>Concertify</h3>
-          <p>Playlists geradas a partir de setlists de shows.</p>
-          <div class="tags">
-            <span class="tag">node.js</span>
-            <span class="tag">fastify</span>
-          </div>
-        </div>
-      </article>
+.container { max-width: 1120px; margin: 0 auto; }
 
-      <article class="card-projeto">
-        <span class="numero">03</span>
-        <div>
-          <h3>TFT Learning Path</h3>
-          <p>Aprenda TFT em forma de tarefas gamificadas.</p>
-          <div class="tags">
-            <span class="tag">angular</span>
-            <span class="tag">typescript</span>
-          </div>
-        </div>
-      </article>
+/* ---------- Header (mesmo da home) ---------- */
 
-    </div>
-  </section>
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 40;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 18px 56px;
+  background: rgba(244, 243, 250, .9);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid rgba(27, 23, 48, .06);
+}
 
-  <!-- ================= Trajetória + Stack ================= -->
-  <section class="secao" id="sec-trajetoria">
-    <div class="grid-duplo">
+.logo {
+  font-weight: 800;
+  font-size: 16px;
+  letter-spacing: -.02em;
+  cursor: pointer;
+  text-decoration: none;
+  color: var(--ink);
+}
+.logo em { font-style: normal; color: var(--roxo); }
 
-      <div class="card-bloco">
-        <h2>Trajetória<span class="ponto-laranja">.</span></h2>
-        <div class="timeline-item">
-          <div class="timeline-eixo">
-            <div class="timeline-ponto"></div>
-            <div class="timeline-linha"></div>
-          </div>
-          <div class="timeline-corpo">
-            <div class="timeline-titulo">
-              <strong>BTG Pactual</strong>
-              <span class="badge-atual">ATUAL</span>
-            </div>
-            <div class="timeline-meta">Fullstack Sênior · 2026 — hoje · remoto</div>
-            <p>Sites de RI em Assets com CMS próprio. React, C#, Storybook, Azure DevOps.</p>
-          </div>
-        </div>
-        <div class="timeline-item trajetoria-extra" id="trajetoria-extra">
-          <div class="timeline-eixo">
-            <div class="timeline-ponto passado"></div>
-          </div>
-          <div class="timeline-corpo">
-            <div class="placeholder">[ experiências anteriores — migrar do site atual ]</div>
-          </div>
-        </div>
-        <button class="link-expandir" id="btn-expandir">ver tudo →</button>
-      </div>
+.nav { display: flex; gap: 28px; font-size: 13.5px; font-weight: 600; color: var(--muted); }
+.nav a { color: inherit; text-decoration: none; transition: color .15s; }
+.nav a:hover { color: var(--roxo); }
+.nav a.ativo { color: var(--roxo); }
 
-      <div class="card-bloco">
-        <h2>Stack<span class="ponto-roxo">.</span></h2>
-        <div class="chips-stack">
-          <span class="chip principal">Angular</span>
-          <span class="chip principal">TypeScript</span>
-          <span class="chip">React</span>
-          <span class="chip">Node.js</span>
-          <span class="chip">C#</span>
-          <span class="chip">Docker</span>
-          <span class="chip">PostgreSQL</span>
-          <span class="chip">SCSS</span>
-          <span class="chip">Git</span>
-        </div>
-        <p class="legenda-stack">roxo = primeira língua</p>
-      </div>
+.btn-contato {
+  background: var(--laranja);
+  color: var(--ink);
+  padding: 10px 20px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform .15s;
+}
+.btn-contato:hover { transform: scale(1.05); }
 
-    </div>
-  </section>
+.hamburger {
+  display: none;
+  width: 44px;
+  height: 44px;
+  place-items: center;
+  cursor: pointer;
+  border: none;
+  background: transparent;
+  border-radius: 12px;
+}
+.hamburger:hover { background: rgba(27, 23, 48, .05); }
+.hamburger span { display: block; width: 18px; height: 2px; background: var(--ink); border-radius: 2px; margin: 4px 0; }
+.hamburger span:last-child { width: 12px; background: var(--laranja); }
 
-  <!-- ================= Publicações ================= -->
-  <section class="secao" id="sec-artigos">
-    <div class="secao-cabecalho">
-      <h2>Publicações<span class="ponto-laranja">.</span></h2>
-      <a class="link-externo" href="#">dev.to + medium ↗</a>
-    </div>
-    <div class="grid-artigos">
+.menu-mobile {
+  display: none;
+  position: sticky;
+  top: 68px;
+  z-index: 39;
+  background: #fff;
+  border-bottom: 1px solid var(--borda);
+  padding: 8px 20px 20px;
+  flex-direction: column;
+}
+.menu-mobile a {
+  padding: 14px 4px;
+  font-weight: 700;
+  font-size: 15px;
+  color: var(--ink);
+  text-decoration: none;
+  border-bottom: 1px solid rgba(27, 23, 48, .06);
+}
+.menu-mobile a:hover { color: var(--roxo); }
+.menu-mobile a.ativo { color: var(--roxo); }
+.menu-mobile .btn-contato { margin-top: 8px; text-align: center; border-radius: 12px; padding: 14px; font-size: 14px; }
+.menu-mobile.aberto { display: flex; }
 
-      <article class="card-artigo">
-        <div class="meta">
-          <div class="fontes">
-            <span class="fonte">dev.to · BR</span>
-            <span class="fonte">medium · US</span>
-          </div>
-          <span class="quando">há 6 meses</span>
-        </div>
-        <h3>Angular Forms Signal: o que as documentações não te falam</h3>
-        <p>Guia completo de migração de forms para signals — armadilhas comuns e boas práticas.</p>
-        <span class="ler-artigo">ler artigo →</span>
-      </article>
+/* ---------- Cabeçalho da página ---------- */
 
-      <article class="card-artigo">
-        <div class="meta">
-          <div class="fontes">
-            <span class="fonte">dev.to · BR</span>
-          </div>
-          <span class="quando">há 7 meses</span>
-        </div>
-        <h3>Conhecendo as novidades do Angular 21</h3>
-        <p>Um passeio pelo que mudou no Angular 21 e o que vale adotar já.</p>
-        <span class="ler-artigo">ler artigo →</span>
-      </article>
+.pagina-header { padding: 56px 56px 40px; }
 
-      <article class="card-artigo">
-        <div class="meta">
-          <div class="fontes">
-            <span class="fonte">dev.to · BR</span>
-          </div>
-          <span class="quando">há 1 ano</span>
-        </div>
-        <h3>Simplifique modais com "command" e "commandfor"</h3>
-        <p>Atributos experimentais que eliminam JavaScript custom em diálogos modais.</p>
-        <span class="ler-artigo">ler artigo →</span>
-      </article>
+.kicker {
+  font: 600 12px 'IBM Plex Mono', monospace;
+  letter-spacing: .1em;
+  color: var(--roxo);
+  margin-bottom: 16px;
+}
 
-    </div>
-  </section>
+.pagina-header h1 {
+  margin: 0 0 14px;
+  font-weight: 800;
+  font-size: 48px;
+  letter-spacing: -.035em;
+}
+.ponto-laranja { color: var(--laranja); }
 
-  <!-- ================= Contato ================= -->
-  <section class="contato" id="sec-contato">
+.atualizacao { font: 600 12px 'IBM Plex Mono', monospace; color: var(--faded); }
 
-    <div class="contato-intro">
-      <div class="kicker">CONTATO</div>
-      <h2>Bora construir algo<span class="ponto-laranja">?</span></h2>
-      <p>Projetos, dúvidas de Angular ou um convite para palestrar — respondo rápido.</p>
-      <div class="redes">
-        <a class="rede" href="#">github ↗</a>
-        <a class="rede" href="#">linkedin ↗</a>
-      </div>
-    </div>
+/* ---------- Layout: sumário + conteúdo ---------- */
 
-    <form class="formulario" id="form-contato" novalidate>
-      <div class="campo" id="campo-nome">
-        <label for="nome">Nome completo <em>*</em></label>
-        <input type="text" id="nome" name="nome" placeholder="Como você se chama?">
-        <span class="erro">Me diz seu nome :)</span>
-      </div>
-      <div class="campo" id="campo-assunto">
-        <label for="assunto">Assunto <em>*</em></label>
-        <input type="text" id="assunto" name="assunto" placeholder="Sobre o que vamos falar?">
-        <span class="erro">Qual é o assunto?</span>
-      </div>
-      <div class="campo" id="campo-mensagem">
-        <label for="mensagem">Mensagem <em>*</em></label>
-        <textarea id="mensagem" name="mensagem" rows="4" placeholder="Conta tudo..."></textarea>
-        <span class="erro">Conta um pouco mais — pelo menos 10 caracteres.</span>
-      </div>
-      <button type="submit" class="btn-primario">Enviar mensagem →</button>
-    </form>
+.corpo {
+  display: grid;
+  grid-template-columns: 250px 1fr;
+  gap: 40px;
+  padding: 0 56px 64px;
+  align-items: start;
+}
 
-    <div class="sucesso" id="sucesso">
-      <div class="check">✓</div>
-      <h3>Mensagem enviada!</h3>
-      <p>Valeu, <span id="primeiro-nome">você</span> — respondo em até 48h.</p>
-      <button class="reenviar" id="btn-reenviar">enviar outra mensagem</button>
-    </div>
+/* Sumário lateral */
+.sumario {
+  position: sticky;
+  top: 92px;
+  background: #fff;
+  border-radius: 16px;
+  padding: 24px;
+  border: 1px solid var(--borda);
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.sumario .titulo {
+  font: 600 10px 'IBM Plex Mono', monospace;
+  color: var(--faded);
+  letter-spacing: .1em;
+}
+.sumario a {
+  font-weight: 600;
+  font-size: 12.5px;
+  color: var(--muted);
+  text-decoration: none;
+  cursor: pointer;
+  transition: color .15s;
+}
+.sumario a:hover,
+.sumario a.ativo { color: var(--roxo); }
 
-  </section>
+/* Cards de seção */
+.secoes { display: flex; flex-direction: column; gap: 20px; }
 
-  <!-- ================= Footer ================= -->
-  <footer class="footer">
-    <span>© 2026 donatelli.dev</span>
-    <div class="links">
-      <span>privacidade</span>
-      <span id="link-cookies">cookies</span>
-      <span>acessibilidade</span>
-    </div>
-    <span>feito com <span class="coracao">♥</span> e Astro</span>
-  </footer>
+.card-secao {
+  background: #fff;
+  border-radius: 20px;
+  padding: 32px;
+  border: 1px solid var(--borda);
+  scroll-margin-top: 92px;
+}
 
-</div>
+.card-secao .cabecalho {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 14px;
+}
+.card-secao .numero { font-weight: 800; font-size: 22px; color: var(--lilas); }
+.card-secao h3 { margin: 0; font-weight: 700; font-size: 20px; letter-spacing: -.02em; }
+.card-secao p { margin: 0; font-size: 14px; line-height: 1.7; color: var(--muted); }
+.card-secao p + p { margin-top: 12px; }
+.card-secao strong { color: var(--ink); }
 
-<!-- ================= Cookie banner (LGPD) ================= -->
-<div class="cookie-banner" id="cookie-banner">
-  <div class="topo">
-    <strong class="titulo">Cookies por aqui<span class="ponto-laranja">.</span></strong>
-    <span class="badge-lgpd">LGPD</span>
-  </div>
-  <p>Uso apenas o <strong>Google Analytics</strong> (anônimo) para entender como o site é usado. Suas preferências de acessibilidade ficam só no seu navegador.</p>
-  <div class="acoes">
-    <button class="btn-aceitar" id="btn-aceitar">Aceitar análises</button>
-    <button class="btn-essenciais" id="btn-essenciais">Somente essenciais</button>
-    <span class="link-politica">política →</span>
-  </div>
-</div>
+/* Nota destacada dentro de um card */
+.nota {
+  margin-top: 16px;
+  background: rgba(91, 69, 224, .06);
+  border-radius: 12px;
+  padding: 14px 18px;
+  display: flex;
+  gap: 10px;
+  align-items: baseline;
+}
+.nota .rotulo {
+  font: 600 10px 'IBM Plex Mono', monospace;
+  color: var(--roxo);
+  background: rgba(91, 69, 224, .12);
+  padding: 3px 8px;
+  border-radius: 6px;
+  flex: none;
+}
+.nota span:last-child { font-size: 13px; line-height: 1.6; color: var(--muted); }
 
-<script>
-// ===== Menu mobile =====
-const btnMenu = document.getElementById('btn-menu');
-const menuMobile = document.getElementById('menu-mobile');
-btnMenu.addEventListener('click', () => menuMobile.classList.toggle('aberto'));
-menuMobile.querySelectorAll('a').forEach(a =>
-  a.addEventListener('click', () => menuMobile.classList.remove('aberto'))
-);
+/* Lista de direitos (2 colunas) */
+.grid-direitos {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+.direito { display: flex; gap: 10px; align-items: baseline; }
+.direito .ponto {
+  width: 8px; height: 8px; border-radius: 50%;
+  background: var(--laranja);
+  flex: none;
+  position: relative; top: -1px;
+}
+.direito span:last-child { font-size: 13.5px; line-height: 1.6; color: var(--muted); }
+.direito strong { color: var(--ink); }
 
-// ===== Trajetória: expandir/recolher =====
-const btnExpandir = document.getElementById('btn-expandir');
-const extra = document.getElementById('trajetoria-extra');
-btnExpandir.addEventListener('click', () => {
-  const aberto = extra.classList.toggle('aberto');
-  btnExpandir.textContent = aberto ? 'recolher ↑' : 'ver tudo →';
-});
+/* Placeholder de conteúdo a migrar */
+.placeholder {
+  border-radius: 12px;
+  background: repeating-linear-gradient(45deg, #f0eef9, #f0eef9 10px, #f7f6fc 10px, #f7f6fc 20px);
+  border: 1px dashed rgba(27, 23, 48, .15);
+  padding: 20px;
+  text-align: center;
+  font: 500 11px 'IBM Plex Mono', monospace;
+  color: var(--faded);
+}
 
-// ===== Formulário de contato =====
-const form = document.getElementById('form-contato');
-const sucesso = document.getElementById('sucesso');
-form.addEventListener('submit', (e) => {
-  e.preventDefault();
-  const nome = document.getElementById('nome');
-  const assunto = document.getElementById('assunto');
-  const mensagem = document.getElementById('mensagem');
-  let valido = true;
+/* ---------- Footer ---------- */
 
-  const valida = (input, campoId, ok) => {
-    document.getElementById(campoId).classList.toggle('invalido', !ok);
-    if (!ok) valido = false;
-  };
-  valida(nome, 'campo-nome', !!nome.value.trim());
-  valida(assunto, 'campo-assunto', !!assunto.value.trim());
-  valida(mensagem, 'campo-mensagem', mensagem.value.trim().length >= 10);
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 56px 28px;
+  border-top: 1px solid var(--borda);
+  font: 600 11.5px 'IBM Plex Mono', monospace;
+  color: var(--faded);
+}
 
-  if (!valido) return;
-  document.getElementById('primeiro-nome').textContent = nome.value.trim().split(' ')[0] || 'você';
-  form.style.display = 'none';
-  sucesso.classList.add('visivel');
-});
-['nome', 'assunto', 'mensagem'].forEach(id =>
-  document.getElementById(id).addEventListener('input', () =>
-    document.getElementById('campo-' + id).classList.remove('invalido'))
-);
-document.getElementById('btn-reenviar').addEventListener('click', () => {
-  form.reset();
-  form.style.display = '';
-  sucesso.classList.remove('visivel');
-});
+/* ============================================================
+   TABLET  (≤ 920px)
+   ============================================================ */
+@media (max-width: 920px) {
 
-// ===== Cookie banner (LGPD) =====
-const banner = document.getElementById('cookie-banner');
-if (!localStorage.getItem('dd-consent')) banner.classList.add('visivel');
-document.getElementById('btn-aceitar').addEventListener('click', () => {
-  localStorage.setItem('dd-consent', 'all');
-  banner.classList.remove('visivel');
-});
-document.getElementById('btn-essenciais').addEventListener('click', () => {
-  localStorage.setItem('dd-consent', 'essential');
-  banner.classList.remove('visivel');
-});
-document.getElementById('link-cookies').addEventListener('click', () => banner.classList.add('visivel'));
-</script>
+  .header { padding: 16px 32px; }
+  .nav { gap: 22px; font-size: 13px; }
 
-</body>
-</html>
+  .pagina-header { padding: 48px 32px 32px; }
+  .pagina-header h1 { font-size: 40px; }
+
+  /* Sumário vira faixa horizontal acima do conteúdo */
+  .corpo {
+    grid-template-columns: 1fr;
+    gap: 24px;
+    padding: 0 32px 56px;
+  }
+  .sumario {
+    position: static;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 8px 16px;
+    align-items: center;
+  }
+  .sumario .titulo { width: 100%; margin-bottom: 4px; }
+
+  .footer { padding: 18px 32px 26px; }
+}
+
+/* ============================================================
+   MOBILE  (≤ 560px)
+   ============================================================ */
+@media (max-width: 560px) {
+
+  .header { padding: 12px 20px; }
+  .nav, .header > .btn-contato { display: none; }
+  .hamburger { display: grid; }
+
+  .pagina-header { padding: 40px 20px 28px; }
+  .pagina-header h1 { font-size: 32px; }
+
+  .corpo { padding: 0 20px 48px; gap: 20px; }
+
+  .sumario { padding: 20px; }
+
+  .card-secao { padding: 28px 24px; }
+  .card-secao h3 { font-size: 18px; }
+
+  .grid-direitos { grid-template-columns: 1fr; }
+
+  .footer {
+    flex-direction: column;
+    gap: 8px;
+    padding: 18px 20px 26px;
+    text-align: center;
+  }
+}
+
+.footer .links a { color: inherit; cursor: pointer; text-decoration: none; transition: color .15s; }
+.footer .links a:hover { color: var(--roxo); }

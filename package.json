@@ -7,19 +7,16 @@
     "npm": "10.x"
   },
   "scripts": {
-    "ng": "ng",
-    "dev": "vite",
+    "dev": "astro dev",
     "start": "npm run dev",
-    "build": "vite build && rm -rf dist/analog/public/_worker.js && npx ngsw-config dist/client ngsw-config.json / && cp node_modules/@angular/service-worker/ngsw-worker.js dist/client/",
-    "watch": "vite build --watch",
-    "test": "vitest",
-    "preview": "vite preview",
-    "docker:local": "docker compose -f docker-compose.local.yml up -d --build"
+    "build": "astro build",
+    "preview": "astro preview",
+    "test": "astro check"
   },
   "private": true,
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
-    "@biomejs/biome": "2.3.12"
+    "@biomejs/biome": "2.3.12",
+    "astro": "^5.13.0"
   }
 }
