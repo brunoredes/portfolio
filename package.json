@@ -10,7 +10,7 @@
     "build": "astro build",
     "watch": "astro build --watch",
     "preview": "astro preview",
-    "docker:local": "docker compose -f docker-compose.local.yml up -d --build"
+    "test": "astro check"
   },
   "private": true,
   "dependencies": {},
