@@ -7,12 +7,9 @@
     "npm": "10.x"
   },
   "scripts": {
-    "ng": "ng",
     "dev": "astro dev",
-    "start": "npm run dev",
     "build": "astro build",
     "watch": "astro build --watch",
-    "test": "vitest",
     "preview": "astro preview",
     "docker:local": "docker compose -f docker-compose.local.yml up -d --build"
   },
