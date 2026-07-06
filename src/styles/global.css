@@ -973,4 +973,5 @@ body {
 .fonte,
 .ler-artigo {
   color: inherit;
+  text-decoration: none;
 }
