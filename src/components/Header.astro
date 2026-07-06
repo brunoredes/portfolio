@@ -17,7 +17,7 @@ const homePrefix = active === 'home' ? '' : '/';
   </button>
 </header>
 
-<nav class="menu-mobile" id="menu-mobile" aria-label="Navegação principal mobile">
+<nav class="menu-mobile" id="menu-mobile" aria-label="Navegação principal mobile" hidden>
   <a href={`${homePrefix}#sec-projetos`}>Projetos</a>
   <a href={`${homePrefix}#sec-trajetoria`}>Trajetória</a>
   <a href={`${homePrefix}#sec-artigos`}>Artigos</a>
@@ -31,16 +31,23 @@ const menuMobile = document.getElementById('menu-mobile');
 const updateMenuState = (aberto) => {
   btnMenu?.setAttribute('aria-expanded', String(aberto));
   btnMenu?.setAttribute('aria-label', aberto ? 'Fechar menu' : 'Abrir menu');
+
+  if (aberto) {
+    menuMobile?.removeAttribute('hidden');
+    menuMobile?.classList.add('aberto');
+    return;
+  }
+
+  menuMobile?.classList.remove('aberto');
+  menuMobile?.setAttribute('hidden', '');
 };
 
 btnMenu?.addEventListener('click', () => {
-  menuMobile?.classList.toggle('aberto');
-  const aberto = menuMobile?.classList.contains('aberto') ?? false;
+  const aberto = !(menuMobile?.classList.contains('aberto') ?? false);
   updateMenuState(aberto);
 });
 menuMobile?.querySelectorAll('a').forEach((a) =>
   a.addEventListener('click', () => {
-    menuMobile?.classList.remove('aberto');
     updateMenuState(false);
   })
 );
