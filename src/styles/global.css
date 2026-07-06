@@ -958,3 +958,19 @@ body {
 
 .footer .links a { color: inherit; cursor: pointer; text-decoration: none; transition: color .15s; }
 .footer .links a:hover { color: var(--roxo); }
+
+.card-projeto h3 a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.card-projeto h3 a:hover,
+.fonte:hover,
+.ler-artigo:hover {
+  text-decoration: underline;
+}
+
+.fonte,
+.ler-artigo {
+  color: inherit;
+}

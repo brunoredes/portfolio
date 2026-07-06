@@ -1,22 +1,23 @@
 {
-  "name": "donatelli-dev",
-  "version": "0.0.0",
-  "type": "module",
-  "engines": {
-    "node": ">=22.12.0"
-  },
-  "scripts": {
-    "dev": "astro dev",
-    "build": "astro build",
-    "watch": "astro build --watch",
-    "preview": "astro preview",
-    "test": "astro check"
-  },
-  "private": true,
-  "dependencies": {},
-  "devDependencies": {
-    "@astrojs/sitemap": "^3.7.3",
-    "@biomejs/biome": "2.3.12",
-    "astro": "^7.0.6"
-  }
+	"name": "donatelli-dev",
+	"version": "0.0.0",
+	"type": "module",
+	"engines": {
+		"node": ">=22.12.0"
+	},
+	"scripts": {
+		"dev": "astro dev",
+		"build": "astro build",
+		"watch": "astro build --watch",
+		"preview": "astro preview",
+		"test": "astro check"
+	},
+	"private": true,
+	"dependencies": {},
+	"devDependencies": {
+		"@astrojs/mdx": "^7.0.2",
+		"@astrojs/sitemap": "^3.7.3",
+		"@biomejs/biome": "2.3.12",
+		"astro": "^7.0.6"
+	}
 }

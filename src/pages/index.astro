@@ -19,9 +19,10 @@ import '../styles/global.css';
     <script is:inline>
 // ===== Trajetória: expandir/recolher =====
 const btnExpandir = document.getElementById('btn-expandir');
-const extra = document.getElementById('trajetoria-extra');
+const extras = document.querySelectorAll('.trajetoria-extra');
 btnExpandir.addEventListener('click', () => {
-  const aberto = extra.classList.toggle('aberto');
+  const aberto = !extras[0]?.classList.contains('aberto');
+  extras.forEach((extra) => extra.classList.toggle('aberto', aberto));
   btnExpandir.textContent = aberto ? 'recolher ↑' : 'ver tudo →';
 });
 
