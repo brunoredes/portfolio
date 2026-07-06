@@ -15,7 +15,7 @@ export class StructuredData {
       '@type': 'Person',
       name: 'Bruno Donatelli',
       jobTitle: 'Desenvolvedor Full Stack',
-      url: 'https://brunodonatelli.com',
+      url: 'https://donatelli.dev',
       sameAs: [
         'https://github.com/brunoredes',
         'https://linkedin.com/in/brunoldonatelli',
@@ -41,7 +41,7 @@ export class StructuredData {
       '@type': 'WebSite',
       name: 'Bruno Donatelli Portfolio',
       description: 'Portfolio de Bruno Donatelli - Desenvolvedor Full Stack',
-      url: 'https://brunodonatelli.com',
+      url: 'https://donatelli.dev',
       author: {
         '@type': 'Person',
         name: 'Bruno Donatelli',

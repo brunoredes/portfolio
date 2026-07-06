@@ -37,7 +37,7 @@ export const routeMeta: RouteMeta = {
     },
     {
       property: 'og:image',
-      content: 'https://brunodonatelli.com/og-image.jpg',
+      content: 'https://donatelli.dev/og-image.jpg',
     },
   ],
 };
@@ -59,8 +59,8 @@ export default class IndexPage implements OnInit, OnDestroy {
       description:
         'Portfolio de Bruno Donatelli, desenvolvedor Full Stack especializado em Angular, React, Webcomponents, acessibilidade e soluções escaláveis.',
       keywords: ['desenvolvedor full stack', 'angular', 'react', 'typescript', 'webcomponents', 'web development'],
-      image: 'https://brunodonatelli.com/assets/images/og-image.jpg',
-      url: 'https://brunodonatelli.com',
+      image: 'https://donatelli.dev/assets/images/og-image.jpg',
+      url: 'https://donatelli.dev',
       type: 'website',
     });
 

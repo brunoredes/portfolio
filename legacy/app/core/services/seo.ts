@@ -32,7 +32,7 @@ export class Seo {
     description: 'Desenvolvedor Full Stack especializado em Angular, Node.js e arquitetura de soluções escaláveis. Criando experiências digitais incríveis.',
     keywords: ['desenvolvedor full stack', 'angular', 'nodejs', 'typescript', 'react', 'web development'],
     image: '/og-image.webp',
-    url: 'https://brunodonatelli.dev',
+    url: 'https://donatelli.dev',
     type: 'website',
     author: 'Bruno Donatelli',
   };
@@ -42,7 +42,7 @@ export class Seo {
     this.router.events.pipe(
       filter(event => event instanceof NavigationEnd)
     ).subscribe((event: NavigationEnd) => {
-      this.updateCanonicalUrl(`https://brunodonatelli.dev${event.urlAfterRedirects}`);
+      this.updateCanonicalUrl(`https://donatelli.dev${event.urlAfterRedirects}`);
     });
   }
 
