@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
-import type { BlogPost } from 'src/app/domain/home/data/blog';
-import type { Experience } from 'src/app/domain/home/data/experiences';
+import type { BlogPost } from 'legacy/app/domain/home/data/blog';
+import type { Experience } from 'legacy/app/domain/home/data/experiences';
 
 @Injectable({
   providedIn: 'root',
