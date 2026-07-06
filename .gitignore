@@ -48,3 +48,4 @@ Thumbs.db
 
 # TLS certificates (generated locally)
 infra/nginx/certs/*.pem
+.astro

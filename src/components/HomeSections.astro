@@ -21,7 +21,7 @@ const renderedBlogPosts = await Promise.all(
 );
 
 const formatPeriod = (startDate: string, endDate: string) =>
-	`${startDate} — ${endDate === 'current' ? 'hoje' : endDate}`;
+	`${startDate} — ${endDate === 'current' ? 'atual' : endDate}`;
 const platformLabel = (language: string) => (language === 'pt-BR' ? 'BR' : 'US');
 ---
 <div class="container">
@@ -30,7 +30,7 @@ const platformLabel = (language: string) => (language === 'pt-BR' ? 'BR' : 'US')
   <section class="hero">
     <div class="kicker">BRUNO DONATELLI</div>
     <h1>Criando experiências digitais <em>incríveis</em>.</h1>
-    <p>Full stack · Angular · Node.js · arquiteturas escaláveis. Hoje no BTG Pactual.</p>
+    <p>Full stack · Angular · C# · arquiteturas escaláveis. Atualmente no Itaú Unibanco.</p>
     <div class="acoes">
       <a class="btn-primario" href="#sec-projetos">Ver projetos</a>
       <a class="btn-secundario" href="#">Currículo ↓</a>
@@ -51,7 +51,7 @@ const platformLabel = (language: string) => (language === 'pt-BR' ? 'BR' : 'US')
             <h3><a href={data.liveUrl ?? data.repoUrl}>{data.title}</a></h3>
             <Content />
             <div class="tags">
-              {data.technologies.map((technology) => <span class="tag">{technology.toLowerCase()}</span>)}
+              {data.technologies.map((technology: string) => <span class="tag">{technology.toLowerCase()}</span>)}
             </div>
           </div>
         </article>
