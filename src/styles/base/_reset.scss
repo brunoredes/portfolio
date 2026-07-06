@@ -9,6 +9,30 @@ body {
   font-family: 'Sora', sans-serif;
 }
 
+.skip-link {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 100;
+  transform: translateY(-200%);
+  padding: 12px 18px;
+  border: 2px solid var(--ink);
+  border-radius: 999px;
+  background: var(--laranja);
+  color: var(--ink);
+  font-weight: 800;
+  text-decoration: none;
+  box-shadow: 0 12px 30px rgba(27, 23, 48, .18);
+  transition: transform .15s ease;
+}
+
+.skip-link:focus,
+.skip-link:focus-visible {
+  transform: translateY(0);
+  outline: 3px solid var(--roxo);
+  outline-offset: 3px;
+}
+
 .mono { font-family: 'IBM Plex Mono', monospace; }
 
 .container { max-width: 1120px; margin: 0 auto; }
@@ -17,4 +41,3 @@ body {
   from { opacity: 0; transform: translateY(24px); }
   to   { opacity: 1; transform: translateY(0); }
 }
-
