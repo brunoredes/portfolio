@@ -1,0 +1,45 @@
+/* Buttons */
+.btn-contato {
+  background: var(--laranja);
+  color: var(--ink);
+  padding: 10px 20px;
+  border-radius: 999px;
+  font-weight: 700;
+  font-size: 13px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: transform .15s;
+}
+.btn-contato:hover { transform: scale(1.05); }
+
+.btn-primario {
+  background: var(--laranja);
+  color: var(--ink);
+  padding: 15px 30px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 14.5px;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+  text-align: center;
+  transition: transform .15s, box-shadow .15s;
+  font-family: inherit;
+}
+.btn-primario:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0, 0, 0, .25); }
+
+.btn-secundario {
+  border: 1.5px solid rgba(255, 255, 255, .35);
+  color: #fff;
+  padding: 15px 26px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 14.5px;
+  cursor: pointer;
+  background: transparent;
+  text-decoration: none;
+  text-align: center;
+  transition: background .15s;
+  font-family: inherit;
+}
+.btn-secundario:hover { background: rgba(255, 255, 255, .1); }
