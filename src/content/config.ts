@@ -6,13 +6,15 @@ const blog = defineCollection({
 		title: z.string(),
 		date: z.coerce.date(),
 		excerpt: z.string(),
-		platforms: z.array(
-			z.object({
-				name: z.enum(['dev.to', 'medium']),
-				url: z.string().url(),
-				language: z.enum(['pt-BR', 'en-US']),
-			}),
-		),
+		platforms: z
+			.array(
+				z.object({
+					name: z.enum(['dev.to', 'medium']),
+					url: z.string().url(),
+					language: z.enum(['pt-BR', 'en-US']),
+				}),
+			)
+			.min(1),
 	}),
 });
 
