@@ -1,0 +1,53 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "title": {
+      "type": "string"
+    },
+    "date": {
+      "type": "string",
+      "format": "date-time"
+    },
+    "excerpt": {
+      "type": "string"
+    },
+    "platforms": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "enum": [
+            "dev.to",
+            "medium"
+          ]
+        },
+        "url": {
+          "type": "string",
+          "format": "uri"
+        },
+        "language": {
+          "type": "string",
+          "enum": [
+            "pt-BR",
+            "en-US"
+          ]
+        }
+      },
+      "required": [
+        "name",
+        "url",
+        "language"
+      ]
+    },
+    "$schema": {
+      "type": "string"
+    }
+  },
+  "required": [
+    "title",
+    "date",
+    "excerpt",
+    "platforms"
+  ]
+}
