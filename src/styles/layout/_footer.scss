@@ -1,0 +1,13 @@
+/* Footer */
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 20px 56px 28px;
+  font: 600 11.5px 'IBM Plex Mono', monospace;
+  color: var(--faded);
+}
+.footer .links { display: flex; gap: 20px; }
+.footer .links span { cursor: pointer; transition: color .15s; }
+.footer .links span:hover { color: var(--roxo); }
+.footer .coracao { color: var(--laranja); }

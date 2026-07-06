@@ -1,0 +1,20 @@
+* { box-sizing: border-box; }
+
+html { scroll-behavior: smooth; }
+
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: 'Sora', sans-serif;
+}
+
+.mono { font-family: 'IBM Plex Mono', monospace; }
+
+.container { max-width: 1120px; margin: 0 auto; }
+
+@keyframes dd-slide-up {
+  from { opacity: 0; transform: translateY(24px); }
+  to   { opacity: 1; transform: translateY(0); }
+}
+
