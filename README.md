@@ -1,22 +1,57 @@
 # donatelli-dev
 
-This project was generated with [Analog](https://analogjs.org), the fullstack meta-framework for Angular.
+Personal portfolio built with [Astro 7](https://astro.build/).
+
+## Project structure
+
+```text
+/
+├── astro.config.mjs
+├── src/
+│   └── pages/
+│       ├── index.astro
+│       └── privacy-policy.astro
+└── legacy/
+    └── ...previous Angular/Analog implementation kept as reference
+```
+
+Astro uses file-based routing from `src/pages/`:
+
+- `/` renders `src/pages/index.astro`.
+- `/privacy-policy` renders `src/pages/privacy-policy.astro`.
 
 ## Setup
 
-Run `npm install` to install the application dependencies.
+Install dependencies:
+
+```bash
+pnpm install
+```
 
 ## Development
 
-Run `npm start` for a dev server. Navigate to `http://localhost:5173/`. The application automatically reloads if you change any of the source files.
+Start the Astro development server:
+
+```bash
+pnpm dev
+```
+
+Open `http://localhost:4321/` in your browser. Astro reloads pages as you edit files.
 
 ## Build
 
-Run `npm run build` to build the client/server project. The client build artifacts are located in the `dist/analog/public` directory. The server for the API build artifacts are located in the `dist/analog/server` directory.
+Create the production static site:
 
-## Community
+```bash
+pnpm build
+```
 
-- Visit and Star the [GitHub Repo](https://github.com/analogjs/analog)
-- Join the [Discord](https://chat.analogjs.org)
-- Follow us on [Twitter](https://twitter.com/analogjs)
-- Become a [Sponsor](https://github.com/sponsors/brandonroberts)
+The production output is generated in `dist/`.
+
+## Preview
+
+Preview the production build locally:
+
+```bash
+pnpm preview
+```
