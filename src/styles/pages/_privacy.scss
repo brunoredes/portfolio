@@ -77,9 +77,42 @@
 }
 .card-secao .numero { font-weight: 800; font-size: 22px; color: var(--lilas); }
 .card-secao h3 { margin: 0; font-weight: 700; font-size: 20px; letter-spacing: -.02em; }
+.card-secao h4 {
+  margin: 22px 0 8px;
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--ink);
+}
+.card-secao h4:first-of-type { margin-top: 0; }
 .card-secao p { margin: 0; font-size: 14px; line-height: 1.7; color: var(--muted); }
 .card-secao p + p { margin-top: 12px; }
 .card-secao strong { color: var(--ink); }
+
+.card-secao .privacy-link {
+  color: var(--roxo);
+  font-weight: 700;
+  text-decoration: none;
+  transition: color .15s;
+}
+.card-secao .privacy-link:hover { color: var(--laranja); }
+.card-secao .privacy-link:focus-visible {
+  outline: 2px solid var(--laranja);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+.bullet-list {
+  margin: 14px 0 0;
+  padding-left: 20px;
+}
+.bullet-list + p { margin-top: 16px; }
+.bullet-list li {
+  margin: 0 0 10px;
+  font-size: 14px;
+  line-height: 1.65;
+  color: var(--muted);
+}
+.bullet-list li:last-child { margin-bottom: 0; }
 
 /* Nota destacada dentro de um card */
 .nota {
@@ -106,6 +139,7 @@
   display: grid;
   grid-template-columns: 1fr 1fr;
   gap: 12px;
+  margin: 16px 0;
 }
 .direito { display: flex; gap: 10px; align-items: baseline; }
 .direito .ponto {
