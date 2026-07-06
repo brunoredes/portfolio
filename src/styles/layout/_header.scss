@@ -75,6 +75,6 @@
 }
 .menu-mobile a:hover { color: var(--roxo); }
 .menu-mobile .btn-contato { margin-top: 8px; text-align: center; border-radius: 12px; padding: 14px; font-size: 14px; }
-.menu-mobile.aberto { display: flex; }
+.menu-mobile.aberto:not([hidden]) { display: flex; }
 .nav a.ativo,
 .menu-mobile a.ativo { color: var(--roxo); }
