@@ -76,7 +76,10 @@ const platformLabel = (language: string) => (language === 'pt-BR' ? 'BR' : 'US')
                 <strong>{data.company}</strong>
                 {data.endDate === 'current' && <span class="badge-atual">ATUAL</span>}
               </div>
-              <div class="timeline-meta">{data.role} {data.roleLevel} · {formatPeriod(data.startDate, data.endDate)} · {data.location}</div>
+              <div class="timeline-meta">
+                {data.role} {data.roleLevel} · {formatPeriod(data.startDate, data.endDate)}
+                {data.location && <> · {data.location}</>}
+              </div>
               <Content />
             </div>
           </div>
