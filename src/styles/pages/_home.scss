@@ -1,0 +1,280 @@
+/* Home page */
+.hero {
+  margin: 12px 24px 0;
+  background: var(--roxo);
+  border-radius: 24px;
+  padding: 72px 56px 64px;
+  color: #fff;
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute; right: -60px; top: -60px;
+  width: 280px; height: 280px; border-radius: 50%;
+  background: rgba(255, 255, 255, .06);
+}
+.hero::after {
+  content: '';
+  position: absolute; right: 40px; bottom: -90px;
+  width: 200px; height: 200px; border-radius: 50%;
+  background: rgba(255, 138, 42, .15);
+}
+.hero .kicker {
+  font: 600 12px 'IBM Plex Mono', monospace;
+  letter-spacing: .1em;
+  color: var(--laranja-claro);
+  margin-bottom: 22px;
+}
+.hero h1 {
+  margin: 0 0 26px;
+  font-weight: 800;
+  font-size: 64px;
+  line-height: 1.02;
+  letter-spacing: -.035em;
+  max-width: 820px;
+}
+.hero h1 em { font-style: normal; color: var(--laranja); }
+.hero p {
+  margin: 0 0 40px;
+  font-size: 17px;
+  line-height: 1.65;
+  color: rgba(255, 255, 255, .75);
+  max-width: 520px;
+}
+.hero .acoes { display: flex; gap: 14px; position: relative; z-index: 1; }
+
+.btn-primario {
+  background: var(--laranja);
+  color: var(--ink);
+  padding: 15px 30px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 14.5px;
+  cursor: pointer;
+  border: none;
+  text-decoration: none;
+  text-align: center;
+  transition: transform .15s, box-shadow .15s;
+  font-family: inherit;
+}
+.btn-primario:hover { transform: translateY(-2px); box-shadow: 0 10px 24px rgba(0, 0, 0, .25); }
+
+.btn-secundario {
+  border: 1.5px solid rgba(255, 255, 255, .35);
+  color: #fff;
+  padding: 15px 26px;
+  border-radius: 12px;
+  font-weight: 700;
+  font-size: 14.5px;
+  cursor: pointer;
+  background: transparent;
+  text-decoration: none;
+  text-align: center;
+  transition: background .15s;
+  font-family: inherit;
+}
+.btn-secundario:hover { background: rgba(255, 255, 255, .1); }
+
+/* Sections */
+.secao { padding: 72px 56px 64px; }
+.secao + .secao { padding-top: 0; }
+
+.secao h2 {
+  margin: 0 0 32px;
+  font-weight: 800;
+  font-size: 40px;
+  letter-spacing: -.03em;
+}
+.ponto-roxo { color: var(--roxo); }
+.ponto-laranja { color: var(--laranja); }
+
+/* Contact */
+.contato {
+  margin: 0 24px 24px;
+  background: var(--ink);
+  border-radius: 24px;
+  padding: 56px;
+  display: grid;
+  grid-template-columns: 1fr 1.2fr;
+  gap: 56px;
+  color: #fff;
+}
+
+.contato-intro { display: flex; flex-direction: column; justify-content: center; }
+.contato .kicker {
+  font: 600 12px 'IBM Plex Mono', monospace;
+  letter-spacing: .1em;
+  color: var(--laranja-claro);
+  margin-bottom: 18px;
+}
+.contato h2 { margin: 0 0 16px; font-weight: 800; font-size: 40px; line-height: 1.1; letter-spacing: -.03em; }
+.contato-intro p { margin: 0 0 28px; font-size: 15px; line-height: 1.65; color: rgba(255, 255, 255, .6); }
+
+.redes { display: flex; gap: 10px; flex-wrap: wrap; }
+.rede {
+  font: 600 12px 'IBM Plex Mono', monospace;
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, .25);
+  padding: 8px 16px;
+  border-radius: 999px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: border-color .15s;
+}
+.rede:hover { border-color: var(--laranja); }
+
+.formulario { display: flex; flex-direction: column; gap: 16px; }
+.campo { display: flex; flex-direction: column; gap: 8px; }
+.campo label { font-weight: 700; font-size: 12px; color: rgba(255, 255, 255, .85); }
+.campo label em { font-style: normal; color: var(--laranja); }
+.campo input,
+.campo textarea {
+  background: rgba(255, 255, 255, .06);
+  border: 1.5px solid rgba(255, 255, 255, .15);
+  border-radius: 12px;
+  padding: 14px 16px;
+  color: #fff;
+  font: 400 15px 'Sora', sans-serif;
+  outline: none;
+  resize: vertical;
+  transition: border-color .15s;
+}
+.campo input::placeholder,
+.campo textarea::placeholder { color: rgba(255, 255, 255, .35); }
+.campo input:focus,
+.campo textarea:focus { border-color: var(--laranja); }
+.campo .erro { display: none; font-weight: 600; font-size: 11.5px; color: #ff7b7b; }
+.campo.invalido .erro { display: block; }
+
+.formulario .btn-primario { align-self: flex-start; }
+
+.sucesso {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  text-align: center;
+  border: 1.5px dashed rgba(255, 138, 42, .4);
+  border-radius: 20px;
+  padding: 40px;
+  animation: dd-slide-up .35s ease;
+}
+.sucesso.visivel { display: flex; }
+.sucesso .check {
+  width: 56px; height: 56px; border-radius: 50%;
+  background: var(--laranja);
+  display: grid; place-items: center;
+  color: var(--ink);
+  font-weight: 800; font-size: 24px;
+}
+.sucesso h3 { margin: 0; font-weight: 700; font-size: 22px; letter-spacing: -.02em; }
+.sucesso p { margin: 0; font-size: 14px; line-height: 1.6; color: rgba(255, 255, 255, .6); }
+.sucesso .reenviar {
+  font-weight: 700; font-size: 13px;
+  color: var(--laranja-claro);
+  cursor: pointer;
+  border: none; background: none; font-family: inherit;
+  border-bottom: 1px solid rgba(255, 179, 122, .4);
+  padding: 0 0 2px;
+}
+
+
+/* ============================================================
+   TABLET  (≤ 920px)
+   ============================================================ */
+@media (max-width: 920px) {
+
+  .header { padding: 16px 32px; }
+  .nav { gap: 22px; font-size: 13px; }
+
+  .hero { margin: 16px 16px 0; padding: 56px 40px 52px; border-radius: 22px; }
+  .hero h1 { font-size: 50px; line-height: 1.05; max-width: 620px; }
+  .hero p { font-size: 16px; max-width: 480px; }
+
+  .secao { padding: 56px 32px 48px; }
+  .secao h2 { font-size: 36px; }
+
+  /* Projetos: destaque vira faixa horizontal, demais em 2 colunas */
+  .grid-projetos { grid-template-columns: 1fr 1fr; gap: 18px; }
+  .card-projeto { min-height: 240px; padding: 28px; }
+  .card-projeto .numero { font-size: 40px; }
+  .card-projeto.destaque {
+    grid-column: 1 / -1;
+    flex-direction: row;
+    align-items: center;
+    gap: 32px;
+    min-height: 0;
+  }
+  .card-projeto.destaque .topo { flex: none; align-self: flex-start; }
+  .card-projeto.destaque h3 { font-size: 24px; }
+  .card-projeto.destaque p { max-width: 480px; }
+
+  .card-bloco { padding: 32px; }
+  .card-bloco h2 { font-size: 26px; }
+
+  /* Publicações: 2 colunas, primeiro artigo em largura total */
+  .grid-artigos { grid-template-columns: 1fr 1fr; gap: 18px; }
+  .card-artigo:first-child { grid-column: 1 / -1; }
+
+  .contato { margin: 0 16px 16px; padding: 44px 40px; grid-template-columns: 1fr 1.15fr; gap: 40px; }
+  .contato h2 { font-size: 34px; }
+
+  .footer { padding: 18px 32px 26px; }
+}
+
+/* ============================================================
+   MOBILE  (≤ 560px)
+   ============================================================ */
+@media (max-width: 560px) {
+
+  .header { padding: 12px 20px; }
+  .nav, .header > .btn-contato { display: none; }
+  .hamburger { display: grid; }
+
+  .hero { margin: 12px 12px 0; padding: 44px 24px 40px; border-radius: 20px; }
+  .hero h1 { font-size: 36px; line-height: 1.08; }
+  .hero p { font-size: 15px; margin-bottom: 28px; }
+  .hero .acoes { flex-direction: column; gap: 12px; }
+  .hero .acoes > * { width: 100%; }
+
+  .secao { padding: 48px 20px 40px; }
+  .secao h2 { font-size: 30px; margin-bottom: 20px; }
+
+  /* Tudo em coluna única */
+  .grid-projetos,
+  .grid-duplo,
+  .grid-artigos { grid-template-columns: 1fr; gap: 16px; }
+
+  .card-projeto { min-height: 0; gap: 24px; }
+  .card-projeto.destaque { flex-direction: column; align-items: stretch; gap: 24px; }
+  .card-projeto.destaque h3 { font-size: 22px; }
+
+  .card-bloco { padding: 28px 24px; }
+  .card-bloco h2 { font-size: 24px; }
+
+  .secao-cabecalho {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 4px;
+    margin-bottom: 20px;
+  }
+
+  .contato { margin: 0 12px 12px; padding: 36px 24px; grid-template-columns: 1fr; gap: 32px; }
+  .contato h2 { font-size: 30px; }
+  .campo input, .campo textarea { font-size: 16px; } /* evita zoom no iOS */
+  .formulario .btn-primario { align-self: stretch; width: 100%; }
+
+  .footer {
+    flex-direction: column;
+    gap: 10px;
+    padding: 20px 20px 28px;
+    text-align: center;
+  }
+
+  .cookie-banner { left: 12px; right: 12px; bottom: 12px; max-width: none; padding: 22px; }
+  .cookie-banner .acoes { flex-direction: column; align-items: stretch; }
+  .cookie-banner .acoes > button { text-align: center; }
+  .link-politica { margin: 4px auto 0; }
+}
