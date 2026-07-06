@@ -148,6 +148,8 @@
 .campo.invalido .erro { display: block; }
 
 .formulario .btn-primario { align-self: flex-start; }
+.formulario .btn-primario[disabled] { opacity: .6; cursor: not-allowed; }
+.form-erro { margin: 0; font-weight: 600; font-size: 13px; color: #ff7b7b; }
 
 .sucesso {
   display: none;

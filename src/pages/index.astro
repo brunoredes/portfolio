@@ -93,53 +93,69 @@ btnExpandir.addEventListener('click', () => {
   const aberto = !extras[0]?.classList.contains('aberto');
   extras.forEach((extra) => extra.classList.toggle('aberto', aberto));
   btnExpandir.textContent = aberto ? 'recolher ↑' : 'ver tudo →';
+  btnExpandir.setAttribute('aria-expanded', String(aberto));
 });
 
 // ===== Formulário de contato =====
 const form = document.getElementById('form-contato');
 const sucesso = document.getElementById('sucesso');
-form.addEventListener('submit', (e) => {
+const btnEnviar = document.getElementById('btn-enviar');
+const formErro = document.getElementById('form-erro');
+form.addEventListener('submit', async (e) => {
   e.preventDefault();
   const nome = document.getElementById('nome');
   const assunto = document.getElementById('assunto');
   const mensagem = document.getElementById('mensagem');
-  let valido = true;
+  let primeiroInvalido = null;
 
   const valida = (input, campoId, ok) => {
     document.getElementById(campoId).classList.toggle('invalido', !ok);
-    if (!ok) valido = false;
+    input.setAttribute('aria-invalid', String(!ok));
+    if (!ok && !primeiroInvalido) primeiroInvalido = input;
   };
   valida(nome, 'campo-nome', !!nome.value.trim());
   valida(assunto, 'campo-assunto', !!assunto.value.trim());
   valida(mensagem, 'campo-mensagem', mensagem.value.trim().length >= 10);
 
-  if (!valido) return;
-  document.getElementById('primeiro-nome').textContent = nome.value.trim().split(' ')[0] || 'você';
-  form.style.display = 'none';
-  sucesso.classList.add('visivel');
+  if (primeiroInvalido) { primeiroInvalido.focus(); return; }
+
+  formErro.hidden = true;
+  btnEnviar.disabled = true;
+  btnEnviar.textContent = 'Enviando…';
+  try {
+    const res = await fetch('/api/contact', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        nome: nome.value.trim(),
+        assunto: assunto.value.trim(),
+        mensagem: mensagem.value.trim(),
+      }),
+    });
+    if (!res.ok) throw new Error('request failed');
+    document.getElementById('primeiro-nome').textContent = nome.value.trim().split(' ')[0] || 'você';
+    form.style.display = 'none';
+    sucesso.classList.add('visivel');
+    sucesso.focus();
+  } catch {
+    formErro.hidden = false;
+    btnEnviar.disabled = false;
+    btnEnviar.textContent = 'Enviar mensagem →';
+  }
 });
 ['nome', 'assunto', 'mensagem'].forEach(id =>
-  document.getElementById(id).addEventListener('input', () =>
-    document.getElementById('campo-' + id).classList.remove('invalido'))
+  document.getElementById(id).addEventListener('input', () => {
+    document.getElementById('campo-' + id).classList.remove('invalido');
+    document.getElementById(id).setAttribute('aria-invalid', 'false');
+  })
 );
 document.getElementById('btn-reenviar').addEventListener('click', () => {
   form.reset();
   form.style.display = '';
   sucesso.classList.remove('visivel');
+  btnEnviar.disabled = false;
+  btnEnviar.textContent = 'Enviar mensagem →';
 });
-
-// ===== Cookie banner (LGPD) =====
-const banner = document.getElementById('cookie-banner');
-if (!localStorage.getItem('dd-consent')) banner.classList.add('visivel');
-document.getElementById('btn-aceitar').addEventListener('click', () => {
-  localStorage.setItem('dd-consent', 'all');
-  banner.classList.remove('visivel');
-});
-document.getElementById('btn-essenciais').addEventListener('click', () => {
-  localStorage.setItem('dd-consent', 'essential');
-  banner.classList.remove('visivel');
-});
-document.getElementById('link-cookies').addEventListener('click', () => banner.classList.add('visivel'));
     </script>
   </body>
 </html>

@@ -9,7 +9,7 @@ const homePrefix = active === 'home' ? '' : '/';
     <a href={`${homePrefix}#sec-projetos`}>Projetos</a>
     <a href={`${homePrefix}#sec-trajetoria`}>Trajetória</a>
     <a href={`${homePrefix}#sec-artigos`}>Artigos</a>
-    <a href="/privacy-policy" class:list={[{ ativo: active === 'privacy' }]}>Privacidade</a>
+    <a href="/privacy-policy" class:list={[{ ativo: active === 'privacy' }]} aria-current={active === 'privacy' ? 'page' : undefined}>Privacidade</a>
   </nav>
   <a class="btn-contato" href={`${homePrefix}#sec-contato`}>Contato</a>
   <button class="hamburger" id="btn-menu" aria-label="Abrir menu" aria-controls="menu-mobile" aria-expanded="false">

@@ -1,12 +1,60 @@
-<div class="cookie-banner" id="cookie-banner">
+<dialog class="cookie-banner" id="cookie-dialog" aria-labelledby="cookie-titulo">
   <div class="topo">
-    <strong class="titulo">Cookies por aqui<span class="ponto-laranja">.</span></strong>
+    <strong class="titulo" id="cookie-titulo">Cookies por aqui<span class="ponto-laranja" aria-hidden="true">.</span></strong>
     <span class="badge-lgpd">LGPD</span>
   </div>
   <p>Uso apenas o <strong>Google Analytics</strong> (anônimo) para entender como o site é usado. Suas preferências de acessibilidade ficam só no seu navegador.</p>
   <div class="acoes">
     <button class="btn-aceitar" id="btn-aceitar">Aceitar análises</button>
-    <button class="btn-essenciais" id="btn-essenciais">Somente essenciais</button>
-    <span class="link-politica">política →</span>
+    <button class="btn-essenciais" id="btn-essenciais">Não quero 🍪</button>
+    <a class="link-politica" href="/privacy-policy">política →</a>
   </div>
-</div>
+</dialog>
+
+<button class="cookie-fab" command="show-modal" commandfor="cookie-dialog" aria-label="Preferências de cookies">🍪</button>
+
+<script>
+const GA_ID = import.meta.env.PUBLIC_GA_TAG;
+const KEY = 'cookie-consent';
+const dialog = document.getElementById('cookie-dialog') as HTMLDialogElement | null;
+
+function loadGA() {
+  if (!GA_ID || (window as any).__gaLoaded) return;
+  (window as any).__gaLoaded = true;
+  const s = document.createElement('script');
+  s.async = true;
+  s.src = `https://www.googletagmanager.com/gtag/js?id=${GA_ID}`;
+  document.head.appendChild(s);
+  (window as any).dataLayer = (window as any).dataLayer || [];
+  (window as any).gtag = function () { (window as any).dataLayer.push(arguments); };
+  (window as any).gtag('js', new Date());
+  (window as any).gtag('config', GA_ID, { anonymize_ip: true, cookie_flags: 'SameSite=None;Secure' });
+}
+
+function revokeGA() {
+  if ((window as any).gtag) (window as any).gtag('consent', 'update', { analytics_storage: 'denied' });
+}
+
+if (dialog) {
+  const status = localStorage.getItem(KEY);
+  if (!status) dialog.showModal();
+  else if (status === 'accepted') loadGA();
+
+  document.getElementById('btn-aceitar')?.addEventListener('click', () => {
+    localStorage.setItem(KEY, 'accepted');
+    loadGA();
+    dialog.close();
+  });
+  document.getElementById('btn-essenciais')?.addEventListener('click', () => {
+    localStorage.setItem(KEY, 'rejected');
+    revokeGA();
+    dialog.close();
+  });
+
+  // Fallback for browsers without the Invoker Commands API (command/commandfor)
+  if (!('command' in HTMLButtonElement.prototype)) {
+    document.querySelector('.cookie-fab')?.addEventListener('click', () => dialog.showModal());
+    document.getElementById('link-cookies')?.addEventListener('click', () => dialog.showModal());
+  }
+}
+</script>
