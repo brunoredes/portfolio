@@ -1,12 +1,105 @@
 ---
-interface Props { title: string; description?: string; canonical?: string; }
-const { title, description = 'Portfólio de Bruno Donatelli em donatelli.dev.', canonical } = Astro.props;
+type JsonLd = Record<string, unknown> | Record<string, unknown>[];
+
+interface OpenGraphProps {
+	type?: string;
+	title?: string;
+	description?: string;
+	url?: string;
+	image?: string;
+	locale?: string;
+	siteName?: string;
+}
+
+interface TwitterProps {
+	card?: 'summary' | 'summary_large_image' | 'app' | 'player';
+	title?: string;
+	description?: string;
+	image?: string;
+	creator?: string;
+}
+
+interface Props {
+	title: string;
+	description?: string;
+	canonical?: string;
+	robots?: string;
+	openGraph?: OpenGraphProps;
+	twitter?: TwitterProps;
+	jsonLd?: JsonLd;
+	summary?: string;
+	expertise?: string[];
+	serviceArea?: string;
+	questions?: Array<{ question: string; answer: string }>;
+}
+
+const SITE_URL = 'https://donatelli.dev';
+const DEFAULT_DESCRIPTION =
+	'Portfólio de Bruno Donatelli, full stack developer especializado em Angular, TypeScript, Node.js e experiências digitais escaláveis.';
+const DEFAULT_SUMMARY =
+	'Bruno Donatelli cria aplicações web full stack, design systems e interfaces escaláveis para produtos digitais.';
+const DEFAULT_EXPERTISE = ['Angular', 'TypeScript', 'Node.js', 'Design systems', 'Arquitetura frontend'];
+const DEFAULT_SERVICE_AREA = 'Brasil e remoto';
+
+const normalizePath = (value: string) => (value.startsWith('/') ? value : `/${value}`);
+const absoluteUrl = (value = '/') => {
+	if (value.startsWith(SITE_URL)) return value;
+	const url = new URL(normalizePath(value), SITE_URL);
+	return url.href;
+};
+const stripTrailingSlash = (value: string) => (value.length > SITE_URL.length + 1 ? value.replace(/\/$/, '') : value);
+
+const {
+	title,
+	description = DEFAULT_DESCRIPTION,
+	canonical = Astro.url.pathname,
+	robots = 'index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1',
+	openGraph = {},
+	twitter = {},
+	jsonLd,
+	summary = DEFAULT_SUMMARY,
+	expertise = DEFAULT_EXPERTISE,
+	serviceArea = DEFAULT_SERVICE_AREA,
+	questions = [],
+} = Astro.props;
+
+const canonicalUrl = stripTrailingSlash(absoluteUrl(canonical));
+const ogTitle = openGraph.title ?? title;
+const ogDescription = openGraph.description ?? description;
+const ogUrl = stripTrailingSlash(absoluteUrl(openGraph.url ?? canonicalUrl));
+const ogImage = openGraph.image ? absoluteUrl(openGraph.image) : undefined;
+const twitterTitle = twitter.title ?? ogTitle;
+const twitterDescription = twitter.description ?? ogDescription;
+const twitterImage = twitter.image ? absoluteUrl(twitter.image) : ogImage;
+const jsonLdItems = Array.isArray(jsonLd) ? jsonLd : jsonLd ? [jsonLd] : [];
 ---
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 <title>{title}</title>
 <meta name="description" content={description} />
-{canonical && <link rel="canonical" href={canonical} />}
+<meta name="robots" content={robots} />
+<link rel="canonical" href={canonicalUrl} />
+<meta name="summary" content={summary} />
+<meta name="expertise" content={expertise.join(', ')} />
+<meta name="service-area" content={serviceArea} />
+{questions.length > 0 && <meta name="questions-answered" content={questions.map(({ question }) => question).join(' | ')} />}
+
+<meta property="og:type" content={openGraph.type ?? 'website'} />
+<meta property="og:site_name" content={openGraph.siteName ?? 'donatelli.dev'} />
+<meta property="og:locale" content={openGraph.locale ?? 'pt_BR'} />
+<meta property="og:title" content={ogTitle} />
+<meta property="og:description" content={ogDescription} />
+<meta property="og:url" content={ogUrl} />
+{ogImage && <meta property="og:image" content={ogImage} />}
+
+<meta name="twitter:card" content={twitter.card ?? (twitterImage ? 'summary_large_image' : 'summary')} />
+<meta name="twitter:title" content={twitterTitle} />
+<meta name="twitter:description" content={twitterDescription} />
+{twitterImage && <meta name="twitter:image" content={twitterImage} />}
+{twitter.creator && <meta name="twitter:creator" content={twitter.creator} />}
+
+{jsonLdItems.map((item) => <script type="application/ld+json" set:html={JSON.stringify(item)} />)}
+
 <link rel="preconnect" href="https://fonts.googleapis.com" />
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
 <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
