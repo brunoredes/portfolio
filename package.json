@@ -16,7 +16,7 @@
   "private": true,
   "dependencies": {},
   "devDependencies": {
-    "@biomejs/biome": "2.3.12",
-    "astro": "^5.13.0"
+    "astro": "7.0.6",
+    "@biomejs/biome": "2.3.12"
   }
 }

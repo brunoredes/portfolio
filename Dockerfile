@@ -2,8 +2,8 @@
 FROM node:22-alpine AS deps
 
 WORKDIR /app
-COPY package.json package-lock.json* ./
-RUN npm ci --prefer-offline --ignore-scripts
+COPY package.json pnpm-lock.yaml ./
+RUN corepack enable && pnpm install --ignore-scripts
 
 # ── Stage 2: Build ──────────────────────────
 FROM node:22-alpine AS build
@@ -11,7 +11,7 @@ FROM node:22-alpine AS build
 WORKDIR /app
 COPY --from=deps /app/node_modules ./node_modules
 COPY . .
-RUN npm run build && \
+RUN corepack enable && pnpm build && \
     rm -rf node_modules
 
 # ── Stage 3: Serve (hardened) ────────────────
@@ -34,7 +34,7 @@ RUN rm -rf /usr/share/nginx/html/* \
 RUN ["rm", "-f", "/sbin/apk", "/bin/sh", "/bin/ash"]
 
 # Copy built static files (owned by root = read-only for nginx)
-COPY --from=build --chown=root:root /app/dist/analog/public /usr/share/nginx/html
+COPY --from=build --chown=root:root /app/dist /usr/share/nginx/html
 
 # Copy Nginx configuration (read-only)
 COPY --chown=root:root infra/nginx/nginx.conf /etc/nginx/nginx.conf
