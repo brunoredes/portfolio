@@ -43,9 +43,9 @@ const DEFAULT_SERVICE_AREA = 'Brasil e remoto';
 
 const normalizePath = (value: string) => (value.startsWith('/') ? value : `/${value}`);
 const absoluteUrl = (value = '/') => {
-	if (value.startsWith(SITE_URL)) return value;
-	const url = new URL(normalizePath(value), SITE_URL);
-	return url.href;
+	if (/^https?:\/\//i.test(value)) return value;
+	const normalized = value.startsWith('//') ? `https:${value}` : normalizePath(value);
+	return new URL(normalized, SITE_URL).href;
 };
 const stripTrailingSlash = (value: string) => (value.length > SITE_URL.length + 1 ? value.replace(/\/$/, '') : value);
 
