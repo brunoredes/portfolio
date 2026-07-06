@@ -81,7 +81,7 @@ const platformLabel = (language: string) => (language === 'pt-BR' ? 'BR' : 'US')
             </div>
           </div>
         ))}
-        <button class="link-expandir" id="btn-expandir">ver tudo →</button>
+        {renderedExperiences.length > 1 && <button class="link-expandir" id="btn-expandir">ver tudo →</button>}
       </div>
 
       <div class="card-bloco">
