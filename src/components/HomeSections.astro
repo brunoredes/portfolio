@@ -1,3 +1,29 @@
+---
+import { getCollection, render } from 'astro:content';
+
+const [projects, experiences, blogPosts] = await Promise.all([
+	getCollection('projects'),
+	getCollection('experience'),
+	getCollection('blog'),
+]);
+
+const sortedProjects = projects.sort((a, b) => a.data.number.localeCompare(b.data.number));
+const sortedExperiences = experiences.sort((a, b) => b.data.startDate.localeCompare(a.data.startDate));
+const latestBlogPosts = blogPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf()).slice(0, 3);
+const renderedProjects = await Promise.all(
+	sortedProjects.map(async (project) => ({ ...project, Content: (await render(project)).Content })),
+);
+const renderedExperiences = await Promise.all(
+	sortedExperiences.map(async (experience) => ({ ...experience, Content: (await render(experience)).Content })),
+);
+const renderedBlogPosts = await Promise.all(
+	latestBlogPosts.map(async (post) => ({ ...post, Content: (await render(post)).Content })),
+);
+
+const formatPeriod = (startDate: string, endDate: string) =>
+	`${startDate} — ${endDate === 'current' ? 'hoje' : endDate}`;
+const platformLabel = (language: string) => (language === 'pt-BR' ? 'BR' : 'US');
+---
 <div class="container">
 
   <!-- ================= Hero ================= -->
@@ -15,46 +41,21 @@
   <section class="secao" id="sec-projetos">
     <h2>Projetos<span class="ponto-roxo">.</span></h2>
     <div class="grid-projetos">
-
-      <article class="card-projeto destaque">
-        <div class="topo">
-          <span class="numero">01</span>
-          <span class="badge-destaque">destaque</span>
-        </div>
-        <div>
-          <h3>TFT Unit Counter</h3>
-          <p>Contagem de unidades em campeonatos de Teamfight Tactics, exportando em xlsx.</p>
-          <div class="tags">
-            <span class="tag">angular</span>
-            <span class="tag">typescript</span>
+      {renderedProjects.map(({ data, Content }) => (
+        <article class:list={["card-projeto", { destaque: data.featured }]}>
+          <div class="topo">
+            <span class="numero">{data.number}</span>
+            {data.featured && <span class="badge-destaque">destaque</span>}
           </div>
-        </div>
-      </article>
-
-      <article class="card-projeto">
-        <span class="numero">02</span>
-        <div>
-          <h3>Concertify</h3>
-          <p>Playlists geradas a partir de setlists de shows.</p>
-          <div class="tags">
-            <span class="tag">node.js</span>
-            <span class="tag">fastify</span>
+          <div>
+            <h3><a href={data.liveUrl ?? data.repoUrl}>{data.title}</a></h3>
+            <Content />
+            <div class="tags">
+              {data.technologies.map((technology) => <span class="tag">{technology.toLowerCase()}</span>)}
+            </div>
           </div>
-        </div>
-      </article>
-
-      <article class="card-projeto">
-        <span class="numero">03</span>
-        <div>
-          <h3>TFT Learning Path</h3>
-          <p>Aprenda TFT em forma de tarefas gamificadas.</p>
-          <div class="tags">
-            <span class="tag">angular</span>
-            <span class="tag">typescript</span>
-          </div>
-        </div>
-      </article>
-
+        </article>
+      ))}
     </div>
   </section>
 
@@ -64,28 +65,22 @@
 
       <div class="card-bloco">
         <h2>Trajetória<span class="ponto-laranja">.</span></h2>
-        <div class="timeline-item">
-          <div class="timeline-eixo">
-            <div class="timeline-ponto"></div>
-            <div class="timeline-linha"></div>
-          </div>
-          <div class="timeline-corpo">
-            <div class="timeline-titulo">
-              <strong>BTG Pactual</strong>
-              <span class="badge-atual">ATUAL</span>
+        {renderedExperiences.map(({ data, Content }, index) => (
+          <div class:list={["timeline-item", { "trajetoria-extra": index > 0 }]} id={index === 1 ? 'trajetoria-extra' : undefined}>
+            <div class="timeline-eixo">
+              <div class:list={["timeline-ponto", { passado: index > 0 }]}></div>
+              {index < renderedExperiences.length - 1 && <div class="timeline-linha"></div>}
             </div>
-            <div class="timeline-meta">Fullstack Sênior · 2026 — hoje · remoto</div>
-            <p>Sites de RI em Assets com CMS próprio. React, C#, Storybook, Azure DevOps.</p>
+            <div class="timeline-corpo">
+              <div class="timeline-titulo">
+                <strong>{data.company}</strong>
+                {data.endDate === 'current' && <span class="badge-atual">ATUAL</span>}
+              </div>
+              <div class="timeline-meta">{data.role} {data.roleLevel} · {formatPeriod(data.startDate, data.endDate)} · {data.location}</div>
+              <Content />
+            </div>
           </div>
-        </div>
-        <div class="timeline-item trajetoria-extra" id="trajetoria-extra">
-          <div class="timeline-eixo">
-            <div class="timeline-ponto passado"></div>
-          </div>
-          <div class="timeline-corpo">
-            <div class="placeholder">[ experiências anteriores — migrar do site atual ]</div>
-          </div>
-        </div>
+        ))}
         <button class="link-expandir" id="btn-expandir">ver tudo →</button>
       </div>
 
@@ -112,47 +107,24 @@
   <section class="secao" id="sec-artigos">
     <div class="secao-cabecalho">
       <h2>Publicações<span class="ponto-laranja">.</span></h2>
-      <a class="link-externo" href="#">dev.to + medium ↗</a>
+      <a class="link-externo" href="https://dev.to/brunoredes">dev.to + medium ↗</a>
     </div>
     <div class="grid-artigos">
-
-      <article class="card-artigo">
-        <div class="meta">
-          <div class="fontes">
-            <span class="fonte">dev.to · BR</span>
-            <span class="fonte">medium · US</span>
+      {renderedBlogPosts.map(({ data, Content }) => (
+        <article class="card-artigo">
+          <div class="meta">
+            <div class="fontes">
+              {data.platforms.map((platform) => (
+                <a class="fonte" href={platform.url}>{platform.name} · {platformLabel(platform.language)}</a>
+              ))}
+            </div>
+            <time class="quando" datetime={data.date.toISOString()}>{data.date.toLocaleDateString('pt-BR', { month: 'short', year: 'numeric' })}</time>
           </div>
-          <span class="quando">há 6 meses</span>
-        </div>
-        <h3>Angular Forms Signal: o que as documentações não te falam</h3>
-        <p>Guia completo de migração de forms para signals — armadilhas comuns e boas práticas.</p>
-        <span class="ler-artigo">ler artigo →</span>
-      </article>
-
-      <article class="card-artigo">
-        <div class="meta">
-          <div class="fontes">
-            <span class="fonte">dev.to · BR</span>
-          </div>
-          <span class="quando">há 7 meses</span>
-        </div>
-        <h3>Conhecendo as novidades do Angular 21</h3>
-        <p>Um passeio pelo que mudou no Angular 21 e o que vale adotar já.</p>
-        <span class="ler-artigo">ler artigo →</span>
-      </article>
-
-      <article class="card-artigo">
-        <div class="meta">
-          <div class="fontes">
-            <span class="fonte">dev.to · BR</span>
-          </div>
-          <span class="quando">há 1 ano</span>
-        </div>
-        <h3>Simplifique modais com "command" e "commandfor"</h3>
-        <p>Atributos experimentais que eliminam JavaScript custom em diálogos modais.</p>
-        <span class="ler-artigo">ler artigo →</span>
-      </article>
-
+          <h3>{data.title}</h3>
+          <Content />
+          <a class="ler-artigo" href={data.platforms[0].url}>ler artigo →</a>
+        </article>
+      ))}
     </div>
   </section>
 
