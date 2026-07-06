@@ -5,11 +5,77 @@ import SeoHead from '../components/SeoHead.astro';
 import HomeSections from '../components/HomeSections.astro';
 import CookieBanner from '../components/CookieBanner.astro';
 import '../styles/main.scss';
+
+const siteUrl = 'https://donatelli.dev';
+const title = 'Bruno Donatelli — Full stack developer Angular, TypeScript e Node.js';
+const description = 'Portfólio de Bruno Donatelli, full stack developer focado em Angular, TypeScript, Node.js, design systems e experiências digitais escaláveis.';
+const questions = [
+	{
+		question: 'Quem é Bruno Donatelli?',
+		answer: 'Bruno Donatelli é um full stack developer que cria aplicações web, interfaces escaláveis e soluções com Angular, TypeScript e Node.js.',
+	},
+	{
+		question: 'Quais serviços aparecem neste portfólio?',
+		answer: 'O portfólio destaca desenvolvimento frontend, arquitetura full stack, design systems, Node.js, Angular e criação de experiências digitais.',
+	},
+];
+const personSchema = {
+	'@context': 'https://schema.org',
+	'@type': 'Person',
+	'@id': `${siteUrl}/#person`,
+	name: 'Bruno Donatelli',
+	url: siteUrl,
+	jobTitle: 'Full Stack Developer',
+	worksFor: { '@type': 'Organization', name: 'BTG Pactual' },
+	knowsAbout: ['Angular', 'TypeScript', 'Node.js', 'React', 'C#', 'Docker', 'PostgreSQL', 'SCSS', 'Design systems'],
+	areaServed: ['Brasil', 'Remoto'],
+};
+const websiteSchema = {
+	'@context': 'https://schema.org',
+	'@type': 'WebSite',
+	'@id': `${siteUrl}/#website`,
+	url: siteUrl,
+	name: 'donatelli.dev',
+	description,
+	inLanguage: 'pt-BR',
+	publisher: { '@id': `${siteUrl}/#person` },
+};
+const profilePageSchema = {
+	'@context': 'https://schema.org',
+	'@type': 'ProfilePage',
+	'@id': `${siteUrl}/#profile`,
+	url: siteUrl,
+	name: title,
+	description,
+	inLanguage: 'pt-BR',
+	mainEntity: { '@id': `${siteUrl}/#person` },
+	about: ['Projetos full stack', 'Trajetória profissional', 'Publicações técnicas', 'Contato profissional'],
+};
+const faqSchema = {
+	'@context': 'https://schema.org',
+	'@type': 'FAQPage',
+	mainEntity: questions.map(({ question, answer }) => ({
+		'@type': 'Question',
+		name: question,
+		acceptedAnswer: { '@type': 'Answer', text: answer },
+	})),
+};
 ---
 <!DOCTYPE html>
 <html lang="pt-BR">
   <head>
-    <SeoHead title="donatelli.dev — Home" canonical="https://donatelli.dev/" />
+    <SeoHead
+      title={title}
+      description={description}
+      canonical="/"
+      summary="Portfólio de Bruno Donatelli com projetos, trajetória, stack e publicações sobre desenvolvimento web."
+      expertise={["Angular", "TypeScript", "Node.js", "Design systems", "Full stack development"]}
+      serviceArea="Brasil e remoto"
+      questions={questions}
+      openGraph={{ type: 'profile', title, description, url: '/' }}
+      twitter={{ card: 'summary', title, description }}
+      jsonLd={[personSchema, websiteSchema, profilePageSchema, faqSchema]}
+    />
   </head>
   <body id="top">
     <Header />

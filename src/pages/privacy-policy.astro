@@ -3,11 +3,58 @@ import Header from '../components/Header.astro';
 import Footer from '../components/Footer.astro';
 import SeoHead from '../components/SeoHead.astro';
 import '../styles/main.scss';
+
+const siteUrl = 'https://donatelli.dev';
+const title = 'Política de privacidade — donatelli.dev';
+const description = 'Política de privacidade do portfólio donatelli.dev, com informações sobre cookies essenciais, analytics opcional, direitos LGPD/GDPR e contato.';
+const questions = [
+	{
+		question: 'Quais dados o donatelli.dev coleta?',
+		answer: 'O site usa preferências locais essenciais e só envia dados de análise quando o visitante consente explicitamente.',
+	},
+	{
+		question: 'Como controlar cookies no donatelli.dev?',
+		answer: 'O visitante pode aceitar apenas cookies essenciais, consentir analytics opcional ou revogar preferências limpando os dados locais do navegador.',
+	},
+];
+const privacySchema = {
+	'@context': 'https://schema.org',
+	'@type': 'WebPage',
+	'@id': `${siteUrl}/privacy-policy#webpage`,
+	url: `${siteUrl}/privacy-policy`,
+	name: title,
+	description,
+	inLanguage: 'pt-BR',
+	isPartOf: { '@type': 'WebSite', '@id': `${siteUrl}/#website` },
+	about: ['Política de privacidade', 'LGPD', 'GDPR', 'Cookies essenciais', 'Analytics opcional'],
+	dateModified: '2026-02-14',
+};
+const faqSchema = {
+	'@context': 'https://schema.org',
+	'@type': 'FAQPage',
+	mainEntity: questions.map(({ question, answer }) => ({
+		'@type': 'Question',
+		name: question,
+		acceptedAnswer: { '@type': 'Answer', text: answer },
+	})),
+};
 ---
 <!DOCTYPE html>
 <html lang="pt-BR">
   <head>
-    <SeoHead title="donatelli.dev — Política de privacidade" canonical="https://donatelli.dev/privacy-policy" />
+    <SeoHead
+      title={title}
+      description={description}
+      canonical="/privacy-policy"
+      robots="index, follow, max-image-preview:large"
+      summary="Resumo da política de privacidade do donatelli.dev, incluindo cookies, analytics opcional e direitos do visitante."
+      expertise={["Privacidade web", "LGPD", "GDPR", "Cookies", "Analytics"]}
+      serviceArea="Brasil e União Europeia quando aplicável"
+      questions={questions}
+      openGraph={{ type: 'article', title, description, url: '/privacy-policy' }}
+      twitter={{ card: 'summary', title, description }}
+      jsonLd={[privacySchema, faqSchema]}
+    />
   </head>
   <body>
     <Header active="privacy" />
