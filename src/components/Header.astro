@@ -12,12 +12,12 @@ const homePrefix = active === 'home' ? '' : '/';
     <a href="/privacy-policy" class:list={[{ ativo: active === 'privacy' }]}>Privacidade</a>
   </nav>
   <a class="btn-contato" href={`${homePrefix}#sec-contato`}>Contato</a>
-  <button class="hamburger" id="btn-menu" aria-label="Abrir menu">
+  <button class="hamburger" id="btn-menu" aria-label="Abrir menu" aria-controls="menu-mobile" aria-expanded="false">
     <span></span><span></span><span></span>
   </button>
 </header>
 
-<nav class="menu-mobile" id="menu-mobile">
+<nav class="menu-mobile" id="menu-mobile" aria-label="Navegação principal mobile">
   <a href={`${homePrefix}#sec-projetos`}>Projetos</a>
   <a href={`${homePrefix}#sec-trajetoria`}>Trajetória</a>
   <a href={`${homePrefix}#sec-artigos`}>Artigos</a>
@@ -28,8 +28,20 @@ const homePrefix = active === 'home' ? '' : '/';
 <script>
 const btnMenu = document.getElementById('btn-menu');
 const menuMobile = document.getElementById('menu-mobile');
-btnMenu?.addEventListener('click', () => menuMobile?.classList.toggle('aberto'));
+const updateMenuState = (aberto: boolean) => {
+  btnMenu?.setAttribute('aria-expanded', String(aberto));
+  btnMenu?.setAttribute('aria-label', aberto ? 'Fechar menu' : 'Abrir menu');
+};
+
+btnMenu?.addEventListener('click', () => {
+  menuMobile?.classList.toggle('aberto');
+  const aberto = menuMobile?.classList.contains('aberto') ?? false;
+  updateMenuState(aberto);
+});
 menuMobile?.querySelectorAll('a').forEach((a) =>
-  a.addEventListener('click', () => menuMobile?.classList.remove('aberto'))
+  a.addEventListener('click', () => {
+    menuMobile?.classList.remove('aberto');
+    updateMenuState(false);
+  })
 );
 </script>
