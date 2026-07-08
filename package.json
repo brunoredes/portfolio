@@ -13,12 +13,14 @@
 		"test": "astro check"
 	},
 	"private": true,
-	"dependencies": {},
 	"devDependencies": {
 		"@astrojs/mdx": "^7.0.2",
 		"@astrojs/sitemap": "^3.7.3",
 		"@biomejs/biome": "2.3.12",
+		"@vite-pwa/assets-generator": "^1.0.2",
+		"@vite-pwa/astro": "^1.2.0",
 		"astro": "^7.0.6",
-		"sass": "^1.97.3"
+		"sass": "^1.97.3",
+		"workbox-window": "^7.4.1"
 	}
 }
