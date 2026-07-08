@@ -1,1 +1,82 @@
-/* Default theme placeholder for future color-scheme overrides. */
+/* ============================================================
+   Themes — dark + high contrast + dyslexia
+   Native CSS: OS default via prefers-color-scheme, explicit
+   override via html.dark / html.light / html.contraste.
+   ============================================================ */
+
+@mixin tema-escuro {
+  --ink: #f1effa;
+  --bg: #1b1730;
+  --superficie: #241f3d;
+  --panel: #241f3d;
+  --muted: #a9a3c0;
+  --faded: #736d8a;
+  --lilas: #322a4e;
+  --chip-bg: #2a2440;
+  --borda: rgba(241, 239, 250, .1);
+  --header-bg: rgba(27, 23, 48, .9);
+}
+
+@mixin tema-contraste {
+  --ink: #fff;
+  --bg: #000;
+  --superficie: #000;
+  --panel: #000;
+  --roxo: #fff;
+  --laranja: #fff;
+  --laranja-claro: #fff;
+  --muted: #fff;
+  --faded: #fff;
+  --lilas: #fff;
+  --chip-bg: #000;
+  --borda: #fff;
+  --header-bg: #000;
+}
+
+:root { color-scheme: light dark; }
+
+/* OS default — only until the user makes an explicit choice */
+@media (prefers-color-scheme: dark) {
+  :root:not(.light):not(.contraste) { @include tema-escuro; }
+}
+
+/* Explicit overrides */
+html.dark { @include tema-escuro; }
+html.contraste { @include tema-contraste; }
+
+/* ---------- Alto contraste: branded panels/controls ---------- */
+/* Accent tokens collapse to #fff, so restore readable panels. */
+html.contraste .hero,
+html.contraste .contato,
+html.contraste .card-projeto.destaque {
+  background: #000;
+  border: 2px solid #fff;
+  color: #fff;
+}
+html.contraste .btn-contato,
+html.contraste .btn-primario {
+  background: #fff;
+  color: #000;
+}
+html.contraste .header,
+html.contraste .menu-mobile,
+html.contraste .card-projeto,
+html.contraste .card-bloco,
+html.contraste .card-artigo,
+html.contraste .sumario,
+html.contraste .card-secao,
+html.contraste .card-controle,
+html.contraste .chip,
+html.contraste .btn-a11y,
+html.contraste .cookie-banner { border: 2px solid #fff; }
+html.contraste .btn-a11y.ativo { background: #fff; color: #000; }
+
+/* ---------- Fonte para dislexia ---------- */
+html.dislexia body,
+html.dislexia button,
+html.dislexia input {
+  font-family: 'Inter Variable', sans-serif;
+  letter-spacing: .01em;
+  word-spacing: .08em;
+}
+html.dislexia body { line-height: 1.8; }

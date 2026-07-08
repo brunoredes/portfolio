@@ -5,13 +5,13 @@
   </div>
   <p>Uso apenas o <strong>Google Analytics</strong> (anônimo) para entender como o site é usado. Suas preferências de acessibilidade ficam só no seu navegador.</p>
   <div class="acoes">
-    <button class="btn-aceitar" id="btn-aceitar">Aceitar análises</button>
-    <button class="btn-essenciais" id="btn-essenciais">Não quero 🍪</button>
+    <button type="button" class="btn-aceitar" id="btn-aceitar">Aceitar análises</button>
+    <button type="button" class="btn-essenciais" id="btn-essenciais">Não quero 🍪</button>
     <a class="link-politica" href="/privacy-policy">política →</a>
   </div>
 </dialog>
 
-<button class="cookie-fab" command="show-modal" commandfor="cookie-dialog" aria-label="Preferências de cookies">🍪</button>
+<button type="button" class="cookie-fab" command="show-modal" commandfor="cookie-dialog" aria-label="Preferências de cookies" aria-haspopup="dialog" aria-expanded="false">🍪</button>
 
 <script>
 const GA_ID = import.meta.env.PUBLIC_GA_TAG;
@@ -50,6 +50,16 @@ if (dialog) {
     revokeGA();
     dialog.close();
   });
+
+  // Mantém aria-expanded dos gatilhos em sincronia com o estado do <dialog>.
+  // Cobre todos os caminhos: command API, fallback, abertura automática e Esc.
+  const gatilhos = [
+    document.querySelector('.cookie-fab'),
+    document.getElementById('link-cookies'),
+  ].filter(Boolean) as HTMLElement[];
+  const syncExpanded = () => gatilhos.forEach((t) => t.setAttribute('aria-expanded', String(dialog.open)));
+  new MutationObserver(syncExpanded).observe(dialog, { attributes: true, attributeFilter: ['open'] });
+  syncExpanded();
 
   // Fallback for browsers without the Invoker Commands API (command/commandfor)
   if (!('command' in HTMLButtonElement.prototype)) {

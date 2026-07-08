@@ -1,0 +1,169 @@
+---
+import Header from '../components/Header.astro';
+import Footer from '../components/Footer.astro';
+import SeoHead from '../components/SeoHead.astro';
+import CookieBanner from '../components/CookieBanner.astro';
+import '../styles/main.scss';
+
+const siteUrl = 'https://donatelli.dev';
+const title = 'donatelli.dev — Acessibilidade';
+const description =
+	'Ajuste o donatelli.dev para a sua leitura: tamanho do texto, tema escuro, alto contraste e fonte para dislexia. As preferências ficam salvas só no seu navegador.';
+const accessibilitySchema = {
+	'@context': 'https://schema.org',
+	'@type': 'WebPage',
+	'@id': `${siteUrl}/accessibility#webpage`,
+	url: `${siteUrl}/accessibility`,
+	name: title,
+	description,
+	inLanguage: 'pt-BR',
+	isPartOf: { '@type': 'WebSite', '@id': `${siteUrl}/#website` },
+	about: ['Acessibilidade', 'Tamanho de fonte', 'Tema escuro', 'Alto contraste', 'Fonte para dislexia'],
+};
+---
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <SeoHead
+      title={title}
+      description={description}
+      canonical="/accessibility"
+      robots="index, follow, max-image-preview:large"
+      summary="Controles de acessibilidade do donatelli.dev: tamanho do texto, tema, alto contraste e fonte para dislexia."
+      expertise={["Acessibilidade web", "WCAG", "Contraste", "Tipografia acessível"]}
+      openGraph={{ type: 'article', title, description, url: '/accessibility' }}
+      twitter={{ card: 'summary', title, description }}
+      jsonLd={[accessibilitySchema]}
+    />
+  </head>
+  <body>
+    <a class="skip-link" href="#main-content">Pular para o conteúdo principal</a>
+    <Header active="accessibility" />
+    <main id="main-content">
+      <div class="container">
+
+  <!-- ================= Cabeçalho ================= -->
+  <div class="pagina-header">
+    <div class="kicker">ACESSIBILIDADE</div>
+    <h1>Leia do seu jeito<span class="ponto-laranja" aria-hidden="true">.</span></h1>
+    <p>Ajuste o site para a sua leitura. As preferências ficam salvas só no seu navegador — nada é enviado para servidores.</p>
+  </div>
+
+  <!-- ================= Controles ================= -->
+  <div class="controles">
+
+    <!-- Tamanho da fonte -->
+    <section class="card-controle" aria-labelledby="t-fonte">
+      <div class="icone" aria-hidden="true">Aa</div>
+      <h3 id="t-fonte">Tamanho do texto</h3>
+      <p>Aumente ou diminua o texto de todo o site, de 80% a 150%.</p>
+      <div class="acoes">
+        <button class="btn-a11y" id="btn-diminuir" aria-label="Diminuir texto">A−</button>
+        <span class="chip-status" id="status-fonte" aria-live="polite">100%</span>
+        <button class="btn-a11y" id="btn-aumentar" aria-label="Aumentar texto">A+</button>
+      </div>
+    </section>
+
+    <!-- Tema claro/escuro -->
+    <section class="card-controle" aria-labelledby="t-tema">
+      <div class="icone" aria-hidden="true">◐</div>
+      <h3 id="t-tema">Tema</h3>
+      <p>Automático segue o seu sistema. O escuro reduz o brilho em ambientes com pouca luz.</p>
+      <div class="acoes">
+        <button class="btn-a11y ativo" id="btn-auto" aria-pressed="true">Automático</button>
+        <button class="btn-a11y" id="btn-claro" aria-pressed="false">Claro</button>
+        <button class="btn-a11y" id="btn-escuro" aria-pressed="false">Escuro</button>
+      </div>
+    </section>
+
+    <!-- Alto contraste -->
+    <section class="card-controle" aria-labelledby="t-contraste">
+      <div class="icone" aria-hidden="true">◑</div>
+      <h3 id="t-contraste">Alto contraste</h3>
+      <p>Texto branco puro sobre fundo preto puro (#fff sobre #000), sem cores intermediárias. Sobrepõe o tema.</p>
+      <div class="acoes">
+        <button class="btn-a11y" id="btn-contraste" aria-pressed="false">Ativar alto contraste</button>
+      </div>
+    </section>
+
+    <!-- Fonte para dislexia -->
+    <section class="card-controle" aria-labelledby="t-dislexia">
+      <div class="icone" aria-hidden="true">Dd</div>
+      <h3 id="t-dislexia">Fonte para dislexia</h3>
+      <p>Troca a tipografia por Inter, com letras mais abertas, maior espaçamento entre palavras e linhas mais espaçadas.</p>
+      <div class="acoes">
+        <button class="btn-a11y" id="btn-dislexia" aria-pressed="false">Ativar fonte Inter</button>
+      </div>
+    </section>
+
+  </div>
+
+  <!-- ================= Amostra de leitura ================= -->
+  <section class="amostra" aria-label="Amostra de leitura">
+    <div class="rotulo">AMOSTRA DE LEITURA</div>
+    <h4>Angular Forms Signal: o que as documentações não te falam</h4>
+    <p>Guia completo de migração de forms para signals — armadilhas comuns e boas práticas. Publicado no <a href="/#sec-artigos">dev.to</a> há 6 meses. Este parágrafo serve para testar como suas preferências afetam títulos, texto corrido e links.</p>
+  </section>
+
+  <!-- ================= Redefinir ================= -->
+  <div class="redefinir">
+    <button class="btn-redefinir" id="btn-redefinir">↺ Redefinir tudo para o padrão</button>
+  </div>
+
+      </div>
+    </main>
+    <CookieBanner />
+    <Footer />
+    <script is:inline>
+// ============================================================
+// Preferências de acessibilidade
+// Persistidas em localStorage ('dd-a11y') — só no navegador.
+// tema: 'auto' (segue o sistema) | 'claro' | 'escuro'
+// ============================================================
+const raiz = document.documentElement;
+const CHAVE = 'dd-a11y';
+const PASSO = 10, MIN = 80, MAX = 150;
+
+let prefs = { escala: 100, tema: 'auto', contraste: false, dislexia: false };
+try { prefs = Object.assign(prefs, JSON.parse(localStorage.getItem(CHAVE) || '{}')); } catch (e) {}
+
+const el = (id) => document.getElementById(id);
+
+function aplicar() {
+  raiz.style.fontSize = prefs.escala + '%';
+  raiz.classList.toggle('dark', prefs.tema === 'escuro' && !prefs.contraste);
+  raiz.classList.toggle('light', prefs.tema === 'claro' && !prefs.contraste);
+  raiz.classList.toggle('contraste', prefs.contraste);
+  raiz.classList.toggle('dislexia', prefs.dislexia);
+
+  el('status-fonte').textContent = prefs.escala + '%';
+  [['btn-auto', 'auto'], ['btn-claro', 'claro'], ['btn-escuro', 'escuro']].forEach(([id, t]) => {
+    el(id).classList.toggle('ativo', prefs.tema === t);
+    el(id).setAttribute('aria-pressed', prefs.tema === t);
+  });
+  el('btn-contraste').classList.toggle('ativo', prefs.contraste);
+  el('btn-contraste').setAttribute('aria-pressed', prefs.contraste);
+  el('btn-contraste').textContent = prefs.contraste ? 'Desativar alto contraste' : 'Ativar alto contraste';
+  el('btn-dislexia').classList.toggle('ativo', prefs.dislexia);
+  el('btn-dislexia').setAttribute('aria-pressed', prefs.dislexia);
+  el('btn-dislexia').textContent = prefs.dislexia ? 'Desativar fonte Inter' : 'Ativar fonte Inter';
+
+  localStorage.setItem(CHAVE, JSON.stringify(prefs));
+}
+
+el('btn-aumentar').addEventListener('click', () => { prefs.escala = Math.min(MAX, prefs.escala + PASSO); aplicar(); });
+el('btn-diminuir').addEventListener('click', () => { prefs.escala = Math.max(MIN, prefs.escala - PASSO); aplicar(); });
+el('btn-auto').addEventListener('click', () => { prefs.tema = 'auto'; aplicar(); });
+el('btn-claro').addEventListener('click', () => { prefs.tema = 'claro'; aplicar(); });
+el('btn-escuro').addEventListener('click', () => { prefs.tema = 'escuro'; aplicar(); });
+el('btn-contraste').addEventListener('click', () => { prefs.contraste = !prefs.contraste; aplicar(); });
+el('btn-dislexia').addEventListener('click', () => { prefs.dislexia = !prefs.dislexia; aplicar(); });
+el('btn-redefinir').addEventListener('click', () => {
+  prefs = { escala: 100, tema: 'auto', contraste: false, dislexia: false };
+  aplicar();
+});
+
+aplicar();
+    </script>
+  </body>
+</html>
