@@ -103,16 +103,26 @@ const jsonLdItems = Array.isArray(jsonLd) ? jsonLd : jsonLd ? [jsonLd] : [];
 
 {jsonLdItems.map((item) => <script type="application/ld+json" set:html={JSON.stringify(item).replace(/</g, '\\u003c')} />)}
 
-{pwaAssetsHead.themeColor && <meta name="theme-color" content={pwaAssetsHead.themeColor.content} />}
-{pwaAssetsHead.links.map((link) => <link {...link} />)}
+<!-- {pwaAssetsHead.themeColor && <meta name="theme-color" content={pwaAssetsHead.themeColor.content} />}
+{pwaAssetsHead.links.map((link) => <link {...link} />)} -->
 <meta name="apple-mobile-web-app-capable" content="yes" />
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-{pwaInfo && <Fragment set:html={pwaInfo.webManifest.linkTag} />}
+<!-- {pwaInfo && <Fragment set:html={pwaInfo.webManifest.linkTag} />}
 <script>
   import { registerSW } from 'virtual:pwa-register';
   registerSW({ immediate: true });
-</script>
+</script> -->
 
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;600;700;800&family=IBM+Plex+Mono:wght@400;500;600&display=swap" rel="stylesheet" />
+<link rel="preload" href="/fonts/sora-latin-var.woff2" as="font" type="font/woff2" crossorigin />
+<script is:inline>
+  // Aplica preferências de acessibilidade antes da pintura (evita flash).
+  try {
+    var p = JSON.parse(localStorage.getItem('dd-a11y') || '{}');
+    var r = document.documentElement;
+    if (p.escala) r.style.fontSize = p.escala + '%';
+    r.classList.toggle('dark', p.tema === 'escuro' && !p.contraste);
+    r.classList.toggle('light', p.tema === 'claro' && !p.contraste);
+    r.classList.toggle('contraste', !!p.contraste);
+    r.classList.toggle('dislexia', !!p.dislexia);
+  } catch (e) {}
+</script>

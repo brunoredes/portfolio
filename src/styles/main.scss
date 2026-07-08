@@ -1,4 +1,5 @@
 @use "abstracts/tokens";
+@use "base/fonts";
 @use "base/reset";
 @use "vendors";
 @use "components/buttons";
@@ -8,4 +9,5 @@
 @use "layout/footer";
 @use "pages/home";
 @use "pages/privacy";
+@use "pages/accessibility";
 @use "themes/default";

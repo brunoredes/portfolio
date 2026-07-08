@@ -251,7 +251,7 @@ const observer = new IntersectionObserver((entries) => {
     linksSumario.forEach(a => {
       const ativo = a.getAttribute('href') === '#' + entry.target.id;
       a.classList.toggle('ativo', ativo);
-      if (ativo) a.setAttribute('aria-current', 'true');
+      if (ativo) a.setAttribute('aria-current', 'location');
       else a.removeAttribute('aria-current');
     });
   });

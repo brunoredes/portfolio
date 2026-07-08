@@ -23,6 +23,7 @@ const renderedBlogPosts = await Promise.all(
 const formatPeriod = (startDate: string, endDate: string) =>
 	`${startDate} — ${endDate === 'current' ? 'atual' : endDate}`;
 const platformLabel = (language: string) => (language === 'pt-BR' ? 'BR' : 'US');
+const curriculoUrl = import.meta.env.PUBLIC_CURRICULO_URL ?? '#';
 ---
 <div class="container">
 
@@ -30,10 +31,10 @@ const platformLabel = (language: string) => (language === 'pt-BR' ? 'BR' : 'US')
   <section class="hero">
     <div class="kicker">BRUNO DONATELLI</div>
     <h1>Criando experiências digitais <em>incríveis</em>.</h1>
-    <p>Full stack · Angular · C# · arquiteturas escaláveis. Atualmente no Itaú Unibanco.</p>
+    <p>Full stack · Angular · React · Lit · C# · Node · arquiteturas escaláveis. Atualmente no Itaú Unibanco.</p>
     <div class="acoes">
       <a class="btn-primario" href="#sec-projetos">Ver projetos</a>
-      <a class="btn-secundario" href="#">Currículo ↓</a>
+      <a class="btn-secundario" href={curriculoUrl} target="_blank" rel="noopener" aria-label="Ver currículo - Abe em nova aba">Currículo <span aria-hidden="true">↓</span></a>
     </div>
   </section>
 
@@ -100,7 +101,7 @@ const platformLabel = (language: string) => (language === 'pt-BR' ? 'BR' : 'US')
           <span class="chip">SCSS</span>
           <span class="chip">Git</span>
         </div>
-        <p class="legenda-stack">roxo = primeira língua</p>
+        <!-- <p class="legenda-stack">roxo = primeira língua</p> -->
       </div>
 
     </div>
@@ -115,17 +116,14 @@ const platformLabel = (language: string) => (language === 'pt-BR' ? 'BR' : 'US')
     <div class="grid-artigos">
       {renderedBlogPosts.map(({ data, Content }) => (
         <article class="card-artigo">
-          <div class="meta">
-            <div class="fontes">
-              {data.platforms.map((platform) => (
-                <a class="fonte" href={platform.url}>{platform.name} · {platformLabel(platform.language)}</a>
-              ))}
-            </div>
-            <time class="quando" datetime={data.date.toISOString()}>{data.date.toLocaleDateString('pt-BR', { month: 'short', year: 'numeric' })}</time>
-          </div>
           <h3>{data.title}</h3>
+          <time class="quando" datetime={data.date.toISOString()}>{data.date.toLocaleDateString('pt-BR', { month: 'short', year: 'numeric' })}</time>
           <Content />
-          <a class="ler-artigo" href={data.platforms[0].url} target="_blank" rel="noopener noreferrer" aria-label={`Ler artigo: ${data.title} (abre em nova aba)`}>ler artigo →</a>
+          <div class="fontes">
+            {data.platforms.map((platform) => (
+              <a class="fonte" href={platform.url} target="_blank" rel="noopener noreferrer" aria-label={`Ler "${data.title}" no ${platform.name} (abre em nova aba)`}>{platform.name} · {platformLabel(platform.language)}</a>
+            ))}
+          </div>
         </article>
       ))}
     </div>

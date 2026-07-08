@@ -1,0 +1,44 @@
+/* ============================================================
+   Fontes self-hospedadas — subset latin, woff2.
+   Arquivos em public/fonts/ · licenças OFL em public/fonts/OFL-*.txt
+   O navegador só baixa cada woff2 quando a família é aplicada
+   (Inter só é usada em html.dislexia).
+   ============================================================ */
+
+@font-face {
+  font-family: 'Sora';
+  font-style: normal;
+  font-weight: 100 900; /* variable */
+  font-display: swap;
+  src: url('/fonts/sora-latin-var.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url('/fonts/ibm-plex-mono-latin-400.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 500;
+  font-display: swap;
+  src: url('/fonts/ibm-plex-mono-latin-500.woff2') format('woff2');
+}
+@font-face {
+  font-family: 'IBM Plex Mono';
+  font-style: normal;
+  font-weight: 600;
+  font-display: swap;
+  src: url('/fonts/ibm-plex-mono-latin-600.woff2') format('woff2');
+}
+
+@font-face {
+  font-family: 'Inter Variable';
+  font-style: normal;
+  font-weight: 100 900; /* variable */
+  font-display: swap;
+  src: url('/fonts/inter-latin-var.woff2') format('woff2');
+}

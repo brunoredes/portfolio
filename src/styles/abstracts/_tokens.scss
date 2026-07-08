@@ -9,4 +9,7 @@
   --lilas: #e6e2f7;
   --chip-bg: #eeecf8;
   --borda: rgba(27, 23, 48, .08);
+  --superficie: #ffffff;
+  --header-bg: rgba(244, 243, 250, .9);
+  --panel: var(--ink); /* constant-dark panels, so they don't invert in dark mode */
 }

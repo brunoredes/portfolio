@@ -1,5 +1,5 @@
 ---
-interface Props { active?: 'home' | 'privacy'; }
+interface Props { active?: 'home' | 'privacy' | 'accessibility'; }
 const { active = 'home' } = Astro.props;
 const homePrefix = active === 'home' ? '' : '/';
 ---
@@ -51,4 +51,25 @@ menuMobile?.querySelectorAll('a').forEach((a) =>
     updateMenuState(false);
   })
 );
+
+// Scrollspy: marca a seção visível com aria-current="page" nos links de navegação.
+// Só age nos links âncora da própria página (href="#..."); nas outras páginas
+// os links apontam para "/#..." e são ignorados.
+const spyLinks = [...document.querySelectorAll('.nav a[href^="#"], .menu-mobile a[href^="#"]')];
+const secoesSpy = [...new Set(spyLinks.map((a) => document.getElementById(a.getAttribute('href').slice(1))).filter(Boolean))];
+
+if (secoesSpy.length) {
+  const spy = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      spyLinks.forEach((a) => {
+        const ativo = a.getAttribute('href') === `#${entry.target.id}`;
+        a.classList.toggle('ativo', ativo);
+        if (ativo) a.setAttribute('aria-current', 'location');
+        else a.removeAttribute('aria-current');
+      });
+    });
+  }, { rootMargin: '-30% 0px -60% 0px' });
+  secoesSpy.forEach((secao) => spy.observe(secao));
+}
 </script>

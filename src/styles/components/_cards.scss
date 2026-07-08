@@ -6,7 +6,7 @@
 }
 
 .card-projeto {
-  background: #fff;
+  background: var(--superficie);
   border-radius: 20px;
   padding: 32px;
   display: flex;
@@ -19,7 +19,7 @@
 }
 .card-projeto:hover { transform: translateY(-4px); }
 
-.card-projeto.destaque { background: var(--ink); color: #fff; border: none; }
+.card-projeto.destaque { background: var(--panel); color: #fff; border: none; }
 
 .card-projeto .numero { font-weight: 800; font-size: 44px; color: var(--lilas); }
 .card-projeto.destaque .numero { color: var(--roxo); }
@@ -56,7 +56,7 @@
 }
 
 .card-bloco {
-  background: #fff;
+  background: var(--superficie);
   border-radius: 20px;
   padding: 36px;
   border: 1px solid var(--borda);
@@ -137,7 +137,7 @@
 }
 
 .card-artigo {
-  background: #fff;
+  background: var(--superficie);
   border-radius: 20px;
   padding: 28px;
   border: 1px solid var(--borda);
@@ -149,7 +149,6 @@
 }
 .card-artigo:hover { transform: translateY(-4px); border-color: var(--roxo); }
 
-.card-artigo .meta { display: flex; justify-content: space-between; align-items: center; gap: 8px; flex-wrap: wrap; }
 .fontes { display: flex; gap: 6px; flex-wrap: wrap; }
 .fonte {
   font: 600 10.5px 'IBM Plex Mono', monospace;
@@ -158,8 +157,8 @@
   padding: 4px 10px;
   border-radius: 999px;
 }
-.quando { font: 600 11px 'IBM Plex Mono', monospace; color: var(--faded); flex: none; }
+.quando { font: 600 11px 'IBM Plex Mono', monospace; color: var(--faded); }
 
 .card-artigo h3 { margin: 0; font-weight: 700; font-size: 18px; line-height: 1.35; letter-spacing: -.015em; }
+.card-artigo .quando { margin-top: -6px; } /* aproxima a data do título */
 .card-artigo p { margin: 0; font-size: 13px; line-height: 1.6; color: var(--muted); flex: 1; }
-.ler-artigo { font-weight: 700; font-size: 13px; color: var(--laranja); }

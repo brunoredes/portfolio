@@ -1,0 +1,126 @@
+/* Accessibility page */
+
+.pagina-header p {
+  margin: 0;
+  font-size: 15px;
+  line-height: 1.7;
+  color: var(--muted);
+  max-width: 560px;
+}
+
+/* ---------- Grid de controles ---------- */
+.controles {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  padding: 0 56px 48px;
+}
+
+.card-controle {
+  background: var(--superficie);
+  border-radius: 20px;
+  padding: 32px;
+  border: 1px solid var(--borda);
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.card-controle .icone {
+  width: 48px;
+  height: 48px;
+  border-radius: 14px;
+  background: var(--chip-bg);
+  display: grid;
+  place-items: center;
+  font-weight: 800;
+  font-size: 20px;
+  color: var(--roxo);
+}
+
+.card-controle h3 { margin: 0; font-weight: 700; font-size: 18px; letter-spacing: -.02em; }
+.card-controle p { margin: 0; font-size: 13.5px; line-height: 1.65; color: var(--muted); flex: 1; }
+
+.acoes { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+
+.btn-a11y {
+  min-height: 48px;
+  padding: 0 22px;
+  border-radius: 12px;
+  border: 1.5px solid var(--borda);
+  background: var(--chip-bg);
+  color: var(--ink);
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 13.5px;
+  cursor: pointer;
+  transition: transform .15s, background .15s, color .15s;
+}
+.btn-a11y:hover { transform: translateY(-2px); }
+.btn-a11y.ativo { background: var(--roxo); color: #fff; border-color: var(--roxo); }
+
+.chip-status {
+  font: 600 12px 'IBM Plex Mono', monospace;
+  color: var(--roxo);
+  background: var(--chip-bg);
+  padding: 8px 14px;
+  border-radius: 999px;
+  min-width: 72px;
+  text-align: center;
+}
+
+/* ---------- Amostra de leitura ---------- */
+.amostra {
+  margin: 0 56px 48px;
+  background: var(--superficie);
+  border: 1px solid var(--borda);
+  border-radius: 20px;
+  padding: 32px;
+}
+.amostra .rotulo {
+  font: 600 11px 'IBM Plex Mono', monospace;
+  letter-spacing: .1em;
+  color: var(--faded);
+  margin-bottom: 14px;
+}
+.amostra h4 { margin: 0 0 10px; font-weight: 700; font-size: 22px; letter-spacing: -.02em; }
+.amostra p { margin: 0; font-size: 14.5px; line-height: 1.75; color: var(--muted); }
+.amostra a { color: var(--roxo); font-weight: 700; }
+
+/* ---------- Redefinir ---------- */
+.redefinir {
+  margin: 0 56px 64px;
+  display: flex;
+  justify-content: flex-start;
+}
+.btn-redefinir {
+  min-height: 48px;
+  padding: 0 24px;
+  border-radius: 12px;
+  border: 1.5px dashed var(--faded);
+  background: transparent;
+  color: var(--muted);
+  font-family: inherit;
+  font-weight: 700;
+  font-size: 13.5px;
+  cursor: pointer;
+  transition: color .15s, border-color .15s;
+}
+.btn-redefinir:hover { color: var(--roxo); border-color: var(--roxo); }
+
+/* ============================================================
+   TABLET  (≤ 920px)
+   ============================================================ */
+@media (max-width: 920px) {
+  .controles { padding: 0 32px 40px; gap: 18px; }
+  .amostra, .redefinir { margin-left: 32px; margin-right: 32px; }
+}
+
+/* ============================================================
+   MOBILE  (≤ 560px)
+   ============================================================ */
+@media (max-width: 560px) {
+  .controles { grid-template-columns: 1fr; padding: 0 20px 32px; gap: 16px; }
+  .card-controle { padding: 28px 24px; }
+  .amostra, .redefinir { margin-left: 20px; margin-right: 20px; }
+}
