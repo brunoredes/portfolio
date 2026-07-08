@@ -70,7 +70,7 @@
   background: var(--laranja);
   box-shadow: 0 0 0 4px rgba(255, 138, 42, .18);
 }
-.timeline-ponto.passado { background: var(--lilas); box-shadow: none; }
+.timeline-ponto.passado { background: var(--faded); box-shadow: none; }
 .timeline-linha { width: 2px; flex: 1; background: rgba(27, 23, 48, .1); margin-top: 6px; }
 
 .timeline-corpo { padding-bottom: 20px; flex: 1; }

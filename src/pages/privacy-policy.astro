@@ -48,12 +48,8 @@ const faqSchema = {
       description={description}
       canonical="/privacy-policy"
       robots="index, follow, max-image-preview:large"
-      summary="Resumo da política de privacidade do donatelli.dev, incluindo cookies, analytics opcional e direitos do visitante."
-      expertise={["Privacidade web", "LGPD", "GDPR", "Cookies", "Analytics"]}
-      serviceArea="Brasil e União Europeia quando aplicável"
-      questions={questions}
       openGraph={{ type: 'article', title, description, url: '/privacy-policy' }}
-      twitter={{ card: 'summary', title, description }}
+      twitter={{ title, description }}
       jsonLd={[privacySchema, faqSchema]}
     />
   </head>
@@ -258,6 +254,11 @@ const observer = new IntersectionObserver((entries) => {
 }, { rootMargin: '-30% 0px -60% 0px' });
 
 secoes.forEach(s => observer.observe(s));
+
+// Cleanup: desconecta o observer ao sair (útil sob View Transitions; no-op em reload).
+const teardown = () => observer.disconnect();
+window.addEventListener('pagehide', teardown, { once: true });
+document.addEventListener('astro:before-swap', teardown, { once: true });
     </script>
   </body>
 </html>

@@ -29,12 +29,27 @@ const curriculoUrl = import.meta.env.PUBLIC_CURRICULO_URL ?? '#';
 
   <!-- ================= Hero ================= -->
   <section class="hero">
-    <div class="kicker">BRUNO DONATELLI</div>
-    <h1>Criando experiências digitais <em>incríveis</em>.</h1>
-    <p>Full stack · Angular · React · Lit · C# · Node · arquiteturas escaláveis. Atualmente no Itaú Unibanco.</p>
-    <div class="acoes">
-      <a class="btn-primario" href="#sec-projetos">Ver projetos</a>
-      <a class="btn-secundario" href={curriculoUrl} target="_blank" rel="noopener" aria-label="Ver currículo - Abe em nova aba">Currículo <span aria-hidden="true">↓</span></a>
+    <div class="hero-texto">
+      <div class="kicker">BRUNO DONATELLI</div>
+      <h1>Criando experiências digitais <em>incríveis</em>.</h1>
+      <p>Full stack · Angular · React · Lit · C# · Node · arquiteturas escaláveis. Atualmente no Itaú Unibanco.</p>
+      <div class="acoes">
+        <a class="btn-primario" href="#sec-projetos">Ver projetos</a>
+        <a class="btn-secundario" href={curriculoUrl} target="_blank" rel="noopener" aria-label="Ver currículo - Abe em nova aba">Currículo <span aria-hidden="true">↓</span></a>
+      </div>
+    </div>
+    <div class="hero-foto">
+      <img
+        src="/donatelli-400w.avif"
+        srcset="/donatelli-250w.avif 250w, /donatelli-300w.avif 300w, /donatelli-350w.avif 350w, /donatelli-400w.avif 400w, /donatelli-600w.avif 600w, /donatelli-700w.avif 700w, /donatelli-800w.avif 800w, /donatelli-1200w.avif 1200w"
+        sizes="(max-width: 560px) 240px, (max-width: 920px) 300px, 360px"
+        alt="Bruno Donatelli"
+        width="800"
+        height="1065"
+        loading="eager"
+        fetchpriority="high"
+        decoding="sync"
+      />
     </div>
   </section>
 
@@ -135,7 +150,7 @@ const curriculoUrl = import.meta.env.PUBLIC_CURRICULO_URL ?? '#';
     <div class="contato-intro">
       <div class="kicker">CONTATO</div>
       <h2>Bora construir algo<span class="ponto-laranja" aria-hidden="true">?</span></h2>
-      <p>Projetos, dúvidas de Angular ou um convite para palestrar — respondo rápido.</p>
+      <p>Projetos, dúvidas de Angular ou um convite para palestrar</p>
       <div class="redes">
         <a class="rede" href="https://github.com/brunoredes" target="_blank" rel="noopener noreferrer" aria-label="GitHub (abre em nova aba)">github ↗</a>
         <a class="rede" href="https://linkedin.com/in/brunoldonatelli" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn (abre em nova aba)">linkedin ↗</a>
@@ -144,7 +159,7 @@ const curriculoUrl = import.meta.env.PUBLIC_CURRICULO_URL ?? '#';
 
     <form class="formulario" id="form-contato" novalidate>
       <div class="campo" id="campo-nome">
-        <label for="nome">Nome completo <em aria-hidden="true">*</em></label>
+        <label for="nome">Seu nome<em aria-hidden="true">*</em></label>
         <input type="text" id="nome" name="nome" placeholder="Como você se chama?" required aria-required="true" aria-describedby="erro-nome">
         <span class="erro" id="erro-nome" role="alert">Me diz seu nome :)</span>
       </div>
@@ -165,7 +180,7 @@ const curriculoUrl = import.meta.env.PUBLIC_CURRICULO_URL ?? '#';
     <div class="sucesso" id="sucesso" role="status" aria-live="polite" tabindex="-1">
       <div class="check" aria-hidden="true">✓</div>
       <h3>Mensagem enviada!</h3>
-      <p>Valeu, <span id="primeiro-nome">você</span> — respondo em até 48h.</p>
+      <p>Valeu, <span id="primeiro-nome">você</span></p>
       <button class="reenviar" id="btn-reenviar">enviar outra mensagem</button>
     </div>
 

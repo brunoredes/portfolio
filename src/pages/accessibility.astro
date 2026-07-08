@@ -29,10 +29,8 @@ const accessibilitySchema = {
       description={description}
       canonical="/accessibility"
       robots="index, follow, max-image-preview:large"
-      summary="Controles de acessibilidade do donatelli.dev: tamanho do texto, tema, alto contraste e fonte para dislexia."
-      expertise={["Acessibilidade web", "WCAG", "Contraste", "Tipografia acessível"]}
       openGraph={{ type: 'article', title, description, url: '/accessibility' }}
-      twitter={{ card: 'summary', title, description }}
+      twitter={{ title, description }}
       jsonLd={[accessibilitySchema]}
     />
   </head>
@@ -88,11 +86,21 @@ const accessibilitySchema = {
 
     <!-- Fonte para dislexia -->
     <section class="card-controle" aria-labelledby="t-dislexia">
-      <div class="icone" aria-hidden="true">Dd</div>
+      <div class="icone" aria-hidden="true">Aa</div>
       <h3 id="t-dislexia">Fonte para dislexia</h3>
       <p>Troca a tipografia por Inter, com letras mais abertas, maior espaçamento entre palavras e linhas mais espaçadas.</p>
       <div class="acoes">
         <button class="btn-a11y" id="btn-dislexia" aria-pressed="false">Ativar fonte Inter</button>
+      </div>
+    </section>
+
+    <!-- Reduzir movimento -->
+    <section class="card-controle" aria-labelledby="t-animacao">
+      <div class="icone" aria-hidden="true">⊘</div>
+      <h3 id="t-animacao">Reduzir movimento</h3>
+      <p>Remove animações, transições e a rolagem suave — útil para quem sente desconforto com movimento na tela.</p>
+      <div class="acoes">
+        <button class="btn-a11y" id="btn-animacao" aria-pressed="false">Remover animações</button>
       </div>
     </section>
 
@@ -124,10 +132,12 @@ const raiz = document.documentElement;
 const CHAVE = 'dd-a11y';
 const PASSO = 10, MIN = 80, MAX = 150;
 
-let prefs = { escala: 100, tema: 'auto', contraste: false, dislexia: false };
+let prefs = { escala: 100, tema: 'auto', contraste: false, dislexia: false, semAnimacao: false };
 try { prefs = Object.assign(prefs, JSON.parse(localStorage.getItem(CHAVE) || '{}')); } catch (e) {}
 
 const el = (id) => document.getElementById(id);
+const ac = new AbortController();
+const { signal } = ac;
 
 function aplicar() {
   raiz.style.fontSize = prefs.escala + '%';
@@ -135,6 +145,7 @@ function aplicar() {
   raiz.classList.toggle('light', prefs.tema === 'claro' && !prefs.contraste);
   raiz.classList.toggle('contraste', prefs.contraste);
   raiz.classList.toggle('dislexia', prefs.dislexia);
+  raiz.classList.toggle('sem-animacao', prefs.semAnimacao);
 
   el('status-fonte').textContent = prefs.escala + '%';
   [['btn-auto', 'auto'], ['btn-claro', 'claro'], ['btn-escuro', 'escuro']].forEach(([id, t]) => {
@@ -147,21 +158,30 @@ function aplicar() {
   el('btn-dislexia').classList.toggle('ativo', prefs.dislexia);
   el('btn-dislexia').setAttribute('aria-pressed', prefs.dislexia);
   el('btn-dislexia').textContent = prefs.dislexia ? 'Desativar fonte Inter' : 'Ativar fonte Inter';
+  el('btn-animacao').classList.toggle('ativo', prefs.semAnimacao);
+  el('btn-animacao').setAttribute('aria-pressed', prefs.semAnimacao);
+  el('btn-animacao').textContent = prefs.semAnimacao ? 'Restaurar animações' : 'Remover animações';
 
   localStorage.setItem(CHAVE, JSON.stringify(prefs));
 }
 
-el('btn-aumentar').addEventListener('click', () => { prefs.escala = Math.min(MAX, prefs.escala + PASSO); aplicar(); });
-el('btn-diminuir').addEventListener('click', () => { prefs.escala = Math.max(MIN, prefs.escala - PASSO); aplicar(); });
-el('btn-auto').addEventListener('click', () => { prefs.tema = 'auto'; aplicar(); });
-el('btn-claro').addEventListener('click', () => { prefs.tema = 'claro'; aplicar(); });
-el('btn-escuro').addEventListener('click', () => { prefs.tema = 'escuro'; aplicar(); });
-el('btn-contraste').addEventListener('click', () => { prefs.contraste = !prefs.contraste; aplicar(); });
-el('btn-dislexia').addEventListener('click', () => { prefs.dislexia = !prefs.dislexia; aplicar(); });
+el('btn-aumentar').addEventListener('click', () => { prefs.escala = Math.min(MAX, prefs.escala + PASSO); aplicar(); }, { signal });
+el('btn-diminuir').addEventListener('click', () => { prefs.escala = Math.max(MIN, prefs.escala - PASSO); aplicar(); }, { signal });
+el('btn-auto').addEventListener('click', () => { prefs.tema = 'auto'; aplicar(); }, { signal });
+el('btn-claro').addEventListener('click', () => { prefs.tema = 'claro'; aplicar(); }, { signal });
+el('btn-escuro').addEventListener('click', () => { prefs.tema = 'escuro'; aplicar(); }, { signal });
+el('btn-contraste').addEventListener('click', () => { prefs.contraste = !prefs.contraste; aplicar(); }, { signal });
+el('btn-dislexia').addEventListener('click', () => { prefs.dislexia = !prefs.dislexia; aplicar(); }, { signal });
+el('btn-animacao').addEventListener('click', () => { prefs.semAnimacao = !prefs.semAnimacao; aplicar(); }, { signal });
 el('btn-redefinir').addEventListener('click', () => {
-  prefs = { escala: 100, tema: 'auto', contraste: false, dislexia: false };
+  prefs = { escala: 100, tema: 'auto', contraste: false, dislexia: false, semAnimacao: false };
   aplicar();
-});
+}, { signal });
+
+// Cleanup: solta listeners ao sair (útil sob View Transitions; no-op em reload).
+const teardown = () => ac.abort();
+window.addEventListener('pagehide', teardown, { once: true });
+document.addEventListener('astro:before-swap', teardown, { once: true });
 
 aplicar();
     </script>
