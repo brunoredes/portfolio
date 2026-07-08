@@ -68,12 +68,8 @@ const faqSchema = {
       title={title}
       description={description}
       canonical="/"
-      summary="Portfólio de Bruno Donatelli com projetos, trajetória, stack e publicações sobre desenvolvimento web."
-      expertise={["Angular", "TypeScript", "Node.js", "Design systems", "Full stack development"]}
-      serviceArea="Brasil e remoto"
-      questions={questions}
       openGraph={{ type: 'profile', title, description, url: '/' }}
-      twitter={{ card: 'summary', title, description }}
+      twitter={{ title, description }}
       jsonLd={[personSchema, websiteSchema, profilePageSchema, faqSchema]}
     />
   </head>
@@ -86,6 +82,9 @@ const faqSchema = {
     <Footer />
     <CookieBanner />
     <script is:inline>
+const ac = new AbortController();
+const { signal } = ac;
+
 // ===== Trajetória: expandir/recolher =====
 const btnExpandir = document.getElementById('btn-expandir');
 const extras = document.querySelectorAll('.trajetoria-extra');
@@ -94,7 +93,7 @@ btnExpandir.addEventListener('click', () => {
   extras.forEach((extra) => extra.classList.toggle('aberto', aberto));
   btnExpandir.textContent = aberto ? 'recolher ↑' : 'ver tudo →';
   btnExpandir.setAttribute('aria-expanded', String(aberto));
-});
+}, { signal });
 
 // ===== Formulário de contato =====
 const form = document.getElementById('form-contato');
@@ -142,12 +141,12 @@ form.addEventListener('submit', async (e) => {
     btnEnviar.disabled = false;
     btnEnviar.textContent = 'Enviar mensagem →';
   }
-});
+}, { signal });
 ['nome', 'assunto', 'mensagem'].forEach(id =>
   document.getElementById(id).addEventListener('input', () => {
     document.getElementById('campo-' + id).classList.remove('invalido');
     document.getElementById(id).setAttribute('aria-invalid', 'false');
-  })
+  }, { signal })
 );
 document.getElementById('btn-reenviar').addEventListener('click', () => {
   form.reset();
@@ -155,7 +154,12 @@ document.getElementById('btn-reenviar').addEventListener('click', () => {
   sucesso.classList.remove('visivel');
   btnEnviar.disabled = false;
   btnEnviar.textContent = 'Enviar mensagem →';
-});
+}, { signal });
+
+// Cleanup: solta listeners ao sair (útil sob View Transitions; no-op em reload).
+const teardown = () => ac.abort();
+window.addEventListener('pagehide', teardown, { once: true });
+document.addEventListener('astro:before-swap', teardown, { once: true });
     </script>
   </body>
 </html>

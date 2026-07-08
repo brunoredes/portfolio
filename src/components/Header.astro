@@ -26,6 +26,8 @@ const homePrefix = active === 'home' ? '' : '/';
 </nav>
 
 <script>
+const ac = new AbortController();
+const { signal } = ac;
 const btnMenu = document.getElementById('btn-menu');
 const menuMobile = document.getElementById('menu-mobile');
 const updateMenuState = (aberto) => {
@@ -45,11 +47,11 @@ const updateMenuState = (aberto) => {
 btnMenu?.addEventListener('click', () => {
   const aberto = !(menuMobile?.classList.contains('aberto') ?? false);
   updateMenuState(aberto);
-});
+}, { signal });
 menuMobile?.querySelectorAll('a').forEach((a) =>
   a.addEventListener('click', () => {
     updateMenuState(false);
-  })
+  }, { signal })
 );
 
 // Scrollspy: marca a seção visível com aria-current="page" nos links de navegação.
@@ -58,8 +60,9 @@ menuMobile?.querySelectorAll('a').forEach((a) =>
 const spyLinks = [...document.querySelectorAll('.nav a[href^="#"], .menu-mobile a[href^="#"]')];
 const secoesSpy = [...new Set(spyLinks.map((a) => document.getElementById(a.getAttribute('href').slice(1))).filter(Boolean))];
 
+let spy;
 if (secoesSpy.length) {
-  const spy = new IntersectionObserver((entries) => {
+  spy = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (!entry.isIntersecting) return;
       spyLinks.forEach((a) => {
@@ -72,4 +75,9 @@ if (secoesSpy.length) {
   }, { rootMargin: '-30% 0px -60% 0px' });
   secoesSpy.forEach((secao) => spy.observe(secao));
 }
+
+// Cleanup: solta listeners/observer ao sair (útil sob View Transitions; no-op em reload).
+const teardown = () => { ac.abort(); spy?.disconnect(); };
+window.addEventListener('pagehide', teardown, { once: true });
+document.addEventListener('astro:before-swap', teardown, { once: true });
 </script>

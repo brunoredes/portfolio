@@ -1,0 +1,30 @@
+/* ============================================================
+   Linguagem de forma (importado por último — vence a cascata)
+   - Botões: cantos assimétricos (sup-dir + inf-esq 14px, resto reto)
+   - Cards: 8px
+   - Chips/badges/pills e painéis (hero, contato) mantêm o padrão
+   ============================================================ */
+
+.btn-primario,
+.btn-secundario,
+.btn-contato,
+.menu-mobile .btn-contato,
+.btn-a11y,
+.btn-redefinir,
+.btn-aceitar,
+.btn-essenciais {
+  border-radius: 0;
+  border-top-right-radius: 14px;
+  border-bottom-left-radius: 14px;
+}
+
+.card-projeto,
+.card-bloco,
+.card-artigo,
+.card-controle,
+.card-secao,
+.sumario,
+.amostra,
+.cookie-banner {
+  border-radius: 8px;
+}

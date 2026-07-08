@@ -33,15 +33,29 @@
   --header-bg: #000;
 }
 
+/* Ajustes de componente que valem quando o tema escuro está ativo — por classe
+   (html.dark) ou pelo padrão do sistema. Emitido nos dois contextos. */
+@mixin dark-component-tweaks {
+  /* botão "Não quero" no modal de cookies: hover legível */
+  .btn-essenciais:hover { color: var(--roxo); }
+  /* texto do painel de contato */
+  .contato { color: var(--ink); }
+  /* botões laranja (Ver projetos, Enviar mensagem): texto escuro p/ contraste */
+  .btn-primario { color: #1b1730; }
+  /* trajetória: separador visível + ponto neutro no escuro */
+  .timeline-linha { background: #f4f4f491; }
+  // .timeline-ponto:not(.passado) { background: var(--faded); box-shadow: 0 0 0 4px rgba(115, 109, 138, .2); }
+}
+
 :root { color-scheme: light dark; }
 
 /* OS default — only until the user makes an explicit choice */
 @media (prefers-color-scheme: dark) {
-  :root:not(.light):not(.contraste) { @include tema-escuro; }
+  :root:not(.light):not(.contraste) { @include tema-escuro; @include dark-component-tweaks; }
 }
 
 /* Explicit overrides */
-html.dark { @include tema-escuro; }
+html.dark { @include tema-escuro; @include dark-component-tweaks; }
 html.contraste { @include tema-contraste; }
 
 /* ---------- Alto contraste: branded panels/controls ---------- */
@@ -70,6 +84,39 @@ html.contraste .chip,
 html.contraste .btn-a11y,
 html.contraste .cookie-banner { border: 2px solid #fff; }
 html.contraste .btn-a11y.ativo { background: #fff; color: #000; }
+
+/* Chips/badges que ficariam branco-no-branco quando os tokens colapsam */
+html.contraste .card-controle .icone { border: 1px solid #fff; }
+html.contraste .chip.principal { color: #000; }
+html.contraste .card-projeto.destaque .tag { background: #fff; color: #000; }
+html.contraste .card-projeto.destaque .badge-destaque { background: #000; color: #fff; border: 1px solid #fff; }
+html.contraste .badge-atual { color: #000; }
+
+/* Modal de cookies */
+html.contraste .btn-aceitar { color: #000; }
+html.contraste .btn-essenciais { border: 1px solid #fff; }
+html.contraste .btn-essenciais:hover { background: #fff; color: #000; }
+
+/* Privacidade: bloco de nota */
+html.contraste .nota { background: #fff; color: #000; }
+html.contraste .nota span:last-child { color: #000; }
+html.contraste .nota .rotulo { background: #000; color: #fff; }
+
+/* ---------- Reduzir movimento ---------- */
+/* Aplicado pela preferência do sistema E pelo toggle manual (html.sem-animacao). */
+@mixin sem-movimento {
+  *, *::before, *::after {
+    animation-duration: .001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: .001ms !important;
+    transition-delay: 0 !important;
+    scroll-behavior: auto !important;
+  }
+  /* neutraliza o "pulo" de translate/scale nos hovers (só interação, não posicionamento) */
+  *:hover, *:focus-visible { transform: none !important; }
+}
+@media (prefers-reduced-motion: reduce) { @include sem-movimento; }
+html.sem-animacao { @include sem-movimento; }
 
 /* ---------- Fonte para dislexia ---------- */
 html.dislexia body,

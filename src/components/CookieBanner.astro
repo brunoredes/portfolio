@@ -36,6 +36,8 @@ function revokeGA() {
 }
 
 if (dialog) {
+  const ac = new AbortController();
+  const { signal } = ac;
   const status = localStorage.getItem(KEY);
   if (!status) dialog.showModal();
   else if (status === 'accepted') loadGA();
@@ -44,12 +46,12 @@ if (dialog) {
     localStorage.setItem(KEY, 'accepted');
     loadGA();
     dialog.close();
-  });
+  }, { signal });
   document.getElementById('btn-essenciais')?.addEventListener('click', () => {
     localStorage.setItem(KEY, 'rejected');
     revokeGA();
     dialog.close();
-  });
+  }, { signal });
 
   // Mantém aria-expanded dos gatilhos em sincronia com o estado do <dialog>.
   // Cobre todos os caminhos: command API, fallback, abertura automática e Esc.
@@ -58,13 +60,19 @@ if (dialog) {
     document.getElementById('link-cookies'),
   ].filter(Boolean) as HTMLElement[];
   const syncExpanded = () => gatilhos.forEach((t) => t.setAttribute('aria-expanded', String(dialog.open)));
-  new MutationObserver(syncExpanded).observe(dialog, { attributes: true, attributeFilter: ['open'] });
+  const mo = new MutationObserver(syncExpanded);
+  mo.observe(dialog, { attributes: true, attributeFilter: ['open'] });
   syncExpanded();
 
   // Fallback for browsers without the Invoker Commands API (command/commandfor)
   if (!('command' in HTMLButtonElement.prototype)) {
-    document.querySelector('.cookie-fab')?.addEventListener('click', () => dialog.showModal());
-    document.getElementById('link-cookies')?.addEventListener('click', () => dialog.showModal());
+    document.querySelector('.cookie-fab')?.addEventListener('click', () => dialog.showModal(), { signal });
+    document.getElementById('link-cookies')?.addEventListener('click', () => dialog.showModal(), { signal });
   }
+
+  // Cleanup: solta listeners/observer ao sair (útil sob View Transitions; no-op em reload).
+  const teardown = () => { ac.abort(); mo.disconnect(); };
+  window.addEventListener('pagehide', teardown, { once: true });
+  document.addEventListener('astro:before-swap', teardown, { once: true });
 }
 </script>

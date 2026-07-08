@@ -1,4 +1,7 @@
 /* Buttons */
+@mixin dark-component-tweaks {
+  .btn-contato { color: #1b1730 }
+}
 .btn-contato {
   background: var(--laranja);
   color: var(--ink);
@@ -11,6 +14,9 @@
   transition: transform .15s;
 }
 .btn-contato:hover { transform: scale(1.05); }
+@media (prefers-color-scheme: dark) {
+  :root:not(.light):not(.contraste) { @include dark-component-tweaks; }
+}
 
 .btn-primario {
   background: var(--laranja);
