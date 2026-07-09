@@ -24,6 +24,7 @@ const formatPeriod = (startDate: string, endDate: string) =>
 	`${startDate} — ${endDate === 'current' ? 'atual' : endDate}`;
 const platformLabel = (language: string) => (language === 'pt-BR' ? 'BR' : 'US');
 const curriculoUrl = import.meta.env.PUBLIC_CURRICULO_URL ?? '#';
+const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
 ---
 <div class="container">
 
@@ -173,9 +174,12 @@ const curriculoUrl = import.meta.env.PUBLIC_CURRICULO_URL ?? '#';
         <textarea id="mensagem" name="mensagem" rows="4" placeholder="Conta tudo..." required aria-required="true" aria-describedby="erro-mensagem"></textarea>
         <span class="erro" id="erro-mensagem" role="alert">Conta um pouco mais — pelo menos 10 caracteres.</span>
       </div>
+      {turnstileSiteKey && <div class="cf-turnstile" data-sitekey={turnstileSiteKey} data-theme="auto" data-language="pt-BR"></div>}
       <button type="submit" class="btn-primario" id="btn-enviar">Enviar mensagem →</button>
       <p class="form-erro" id="form-erro" role="alert" hidden>Não consegui enviar agora — tenta de novo ou me chama no LinkedIn.</p>
     </form>
+
+    {turnstileSiteKey && <script is:inline async defer src="https://challenges.cloudflare.com/turnstile/v0/api.js"></script>}
 
     <div class="sucesso" id="sucesso" role="status" aria-live="polite" tabindex="-1">
       <div class="check" aria-hidden="true">✓</div>
