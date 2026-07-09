@@ -174,7 +174,7 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
         <textarea id="mensagem" name="mensagem" rows="4" placeholder="Conta tudo..." required aria-required="true" aria-describedby="erro-mensagem"></textarea>
         <span class="erro" id="erro-mensagem" role="alert">Conta um pouco mais — pelo menos 10 caracteres.</span>
       </div>
-      {turnstileSiteKey && <div class="cf-turnstile" data-sitekey={turnstileSiteKey} data-theme="auto" data-language="pt-BR"></div>}
+      {turnstileSiteKey && <div class="cf-turnstile" data-sitekey={turnstileSiteKey} data-theme="auto" data-language="pt-br"></div>}
       <button type="submit" class="btn-primario" id="btn-enviar">Enviar mensagem →</button>
       <p class="form-erro" id="form-erro" role="alert" hidden>Não consegui enviar agora — tenta de novo ou me chama no LinkedIn.</p>
     </form>
