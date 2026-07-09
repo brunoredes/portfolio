@@ -122,6 +122,7 @@ form.addEventListener('submit', async (e) => {
   btnEnviar.disabled = true;
   btnEnviar.textContent = 'Enviando…';
   try {
+    const token = form.querySelector('[name="cf-turnstile-response"]')?.value || '';
     const res = await fetch('/api/contact', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
@@ -129,6 +130,7 @@ form.addEventListener('submit', async (e) => {
         nome: nome.value.trim(),
         assunto: assunto.value.trim(),
         mensagem: mensagem.value.trim(),
+        token,
       }),
     });
     if (!res.ok) throw new Error('request failed');
@@ -140,6 +142,7 @@ form.addEventListener('submit', async (e) => {
     formErro.hidden = false;
     btnEnviar.disabled = false;
     btnEnviar.textContent = 'Enviar mensagem →';
+    window.turnstile?.reset(); // token é de uso único — renova para nova tentativa
   }
 }, { signal });
 ['nome', 'assunto', 'mensagem'].forEach(id =>
@@ -154,6 +157,7 @@ document.getElementById('btn-reenviar').addEventListener('click', () => {
   sucesso.classList.remove('visivel');
   btnEnviar.disabled = false;
   btnEnviar.textContent = 'Enviar mensagem →';
+  window.turnstile?.reset();
 }, { signal });
 
 // Cleanup: solta listeners ao sair (útil sob View Transitions; no-op em reload).

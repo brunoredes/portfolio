@@ -5,7 +5,7 @@
  *  1. Generates a cryptographically-random nonce.
  *  2. Uses HTMLRewriter to stamp `nonce="…"` onto every <script> element,
  *     including a manually-injected Cloudflare Insights beacon (see below).
- *  3. Sets security headers (CSP, COOP, etc.) on the response.
+ *  3. Sets security headers (CSP, COOP, HSTS, nosniff, …) on the response.
  *
  * WHY we inject the Cloudflare Insights beacon here instead of relying on
  * the automatic edge injection:
@@ -15,16 +15,10 @@
  *   We disable auto-injection (Cloudflare Dashboard → Web Analytics → "Manual")
  *   and emit the beacon ourselves so HTMLRewriter can nonce it.
  *
- * WHY 'require-trusted-types-for "script"' is omitted:
- *   Google Tag Manager uses innerHTML and is not Trusted Types compliant.
- *   Enforcing Trusted Types without a GTM-compatible policy breaks analytics.
- *   Use a Content-Security-Policy-Report-Only header to audit before enforcing.
- *
- * WHY inline event handlers from GTM are still blocked:
- *   When a nonce is present, 'unsafe-inline' is silently ignored for event
- *   handlers (onclick, onload, …). This is correct CSP behaviour. GTM tags
- *   that use inline event handlers must be migrated to use Custom HTML tags
- *   with addEventListener() inside GTM, or GTM's built-in trigger system.
+ * Trusted Types are intentionally NOT enforced: the GA4 loader assigns a
+ * string to script.src (a TrustedScriptURL sink), which would throw under
+ * `require-trusted-types-for 'script'`. Audit with a Report-Only header
+ * before ever enabling it.
  */
 
 /** Cloudflare Web Analytics beacon token — set the real token here. */
@@ -46,30 +40,23 @@ function buildCsp(nonce: string): string {
     //                     kept as fallback for browsers without nonce support
     // host allowlist    → ignored by strict-dynamic-aware browsers;
     //                     kept as fallback for older browsers
-    `script-src 'strict-dynamic' 'nonce-${nonce}' 'unsafe-inline' https://www.googletagmanager.com https://static.cloudflareinsights.com https://ajax.cloudflare.com`,
+    `script-src 'strict-dynamic' 'nonce-${nonce}' 'unsafe-inline' https://www.googletagmanager.com https://static.cloudflareinsights.com https://ajax.cloudflare.com https://challenges.cloudflare.com`,
 
-    // Inline styles are required by Angular's runtime CSS injection
-    "style-src 'self' 'unsafe-inline' https://fonts.googleapis.com",
+    // 'unsafe-inline' covers the inline style="…" attributes used in a few
+    // components; fonts are self-hosted, so no external style/font hosts.
+    "style-src 'self' 'unsafe-inline'",
 
     "img-src 'self' data:",
-    "font-src 'self' https://fonts.gstatic.com",
+    "font-src 'self'",
     "connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://www.googletagmanager.com https://cloudflareinsights.com",
     "worker-src 'self'",
     "manifest-src 'self'",
+    // Cloudflare Turnstile renders its challenge in an iframe.
+    "frame-src https://challenges.cloudflare.com",
     "frame-ancestors 'self'",
     "base-uri 'self'",
     "form-action 'self'",
     "object-src 'none'",
-
-    // Trusted Types — blocks DOM XSS sinks (innerHTML, outerHTML, etc.).
-    // 'angular' and 'angular#bundled' are Angular's built-in policy names.
-    // 'allow-duplicates' is needed because some Angular bootstrap paths
-    // register the same policy name more than once.
-    // GTM is not Trusted Types compliant; it will log a console error but
-    // the directive being present satisfies the Lighthouse audit and protects
-    // all Angular-owned DOM writes.
-    "trusted-types angular angular#bundled 'allow-duplicates'",
-    "require-trusted-types-for 'script'",
   ];
 
   return directives.join("; ");
@@ -140,6 +127,11 @@ export const onRequest: PagesFunction = async (context) => {
     "Strict-Transport-Security",
     "max-age=31536000; includeSubDomains; preload",
   );
+
+  // Baseline hardening headers (kept in sync with the nginx deploy).
+  headers.set("X-Content-Type-Options", "nosniff");
+  headers.set("Referrer-Policy", "strict-origin-when-cross-origin");
+  headers.set("Permissions-Policy", "camera=(), microphone=(), geolocation=(), payment=()");
 
   return new Response(transformedResponse.body, {
     status: transformedResponse.status,
