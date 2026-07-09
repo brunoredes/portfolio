@@ -48,7 +48,9 @@ function buildCsp(nonce: string): string {
 
     "img-src 'self' data:",
     "font-src 'self'",
-    "connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://www.googletagmanager.com https://cloudflareinsights.com",
+    // GA4 posts hits to *.google-analytics.com and analytics.google.com; the
+    // ads/signals fallback ('gaf=1') hits www.google.com.
+    "connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://analytics.google.com https://www.googletagmanager.com https://www.google.com https://cloudflareinsights.com",
     "worker-src 'self'",
     "manifest-src 'self'",
     // Cloudflare Turnstile renders its challenge in an iframe.
