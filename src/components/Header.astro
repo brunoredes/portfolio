@@ -37,6 +37,8 @@ const updateMenuState = (aberto) => {
   if (aberto) {
     menuMobile?.removeAttribute('hidden');
     menuMobile?.classList.add('aberto');
+    // Leva o foco ao primeiro item focável do menu recém-aberto.
+    menuMobile?.querySelector('a[href], button:not([disabled]), [tabindex]:not([tabindex="-1"])')?.focus();
     return;
   }
 
