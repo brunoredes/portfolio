@@ -60,14 +60,15 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
     <div class="grid-projetos">
       {renderedProjects.map(({ data, Content }) => (
         <article class:list={["card-projeto", { destaque: data.featured }]}>
-          {/* Link em bloco: o TalkBack lê destaque, título e resumo num único foco; as tags ficam fora, como lista própria. */}
+          {/* Link em bloco: o TalkBack lê título, destaque e resumo num único foco; as tags ficam fora, como lista própria. */}
           <a class="card-link" href={data.liveUrl ?? data.repoUrl} target="_blank" rel="noopener noreferrer">
             <div class="topo">
               <span class="numero" aria-hidden="true">{data.number}</span>
-              {data.featured && <span class="badge-destaque">destaque</span>}
+              {data.featured && <span class="badge-destaque" aria-hidden="true">destaque</span>}
             </div>
             <div class="texto">
               <h3>{data.title}</h3>
+              {data.featured && <span class="sr-only">Projeto em destaque.</span>}
               <Content />
               <span class="sr-only">(abre em nova guia)</span>
             </div>
@@ -137,6 +138,7 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
       {renderedBlogPosts.map(({ data, Content }) => (
         <article class="card-artigo">
           <h3>{data.title}</h3>
+              {data.featured && <span class="sr-only">Projeto em destaque.</span>}
           <time class="quando" datetime={data.date.toISOString()}>{data.date.toLocaleDateString('pt-BR', { month: 'short', year: 'numeric' })}</time>
           <Content />
           <div class="fontes">
