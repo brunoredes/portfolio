@@ -60,10 +60,10 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
     <div class="grid-projetos">
       {renderedProjects.map(({ data, Content }) => (
         <article class:list={["card-projeto", { destaque: data.featured }]}>
-          {/* Link em bloco: o TalkBack lê número, destaque, título e resumo num único foco; as tags ficam fora, como lista própria. */}
+          {/* Link em bloco: o TalkBack lê destaque, título e resumo num único foco; as tags ficam fora, como lista própria. */}
           <a class="card-link" href={data.liveUrl ?? data.repoUrl} target="_blank" rel="noopener noreferrer">
             <div class="topo">
-              <span class="numero">{data.number}</span>
+              <span class="numero" aria-hidden="true">{data.number}</span>
               {data.featured && <span class="badge-destaque">destaque</span>}
             </div>
             <div class="texto">
