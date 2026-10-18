@@ -224,14 +224,22 @@
   .grid-projetos { grid-template-columns: 1fr 1fr; gap: 18px; }
   .card-projeto { min-height: 240px; padding: 28px; }
   .card-projeto .numero { font-size: 40px; }
+  /* Grid + subgrid: o link (topo | texto) ocupa a 1ª linha e as tags ficam sob o texto. */
   .card-projeto.destaque {
     grid-column: 1 / -1;
-    flex-direction: row;
-    align-items: center;
-    gap: 32px;
+    display: grid;
+    grid-template-columns: auto 1fr;
+    column-gap: 32px;
     min-height: 0;
   }
-  .card-projeto.destaque .topo { flex: none; align-self: flex-start; }
+  .card-projeto.destaque .card-link {
+    grid-column: 1 / -1;
+    display: grid;
+    grid-template-columns: subgrid;
+    align-items: center;
+  }
+  .card-projeto.destaque .tags { grid-column: 2; }
+  .card-projeto.destaque .topo { align-self: flex-start; }
   .card-projeto.destaque h3 { font-size: 24px; }
   .card-projeto.destaque p { max-width: 480px; }
 
@@ -272,8 +280,10 @@
   .grid-duplo,
   .grid-artigos { grid-template-columns: 1fr; gap: 16px; }
 
-  .card-projeto { min-height: 0; gap: 24px; }
-  .card-projeto.destaque { flex-direction: column; align-items: stretch; gap: 24px; }
+  .card-projeto { min-height: 0; }
+  .card-projeto .card-link { gap: 24px; }
+  .card-projeto.destaque { display: flex; flex-direction: column; }
+  .card-projeto.destaque .card-link { display: flex; }
   .card-projeto.destaque h3 { font-size: 22px; }
 
   .card-bloco { padding: 28px 24px; }
