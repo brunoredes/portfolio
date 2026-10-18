@@ -1,42 +1,68 @@
 ---
-import { getCollection, render } from 'astro:content';
+import { getCollection, render } from "astro:content";
 
 const [projects, experiences, blogPosts] = await Promise.all([
-	getCollection('projects'),
-	getCollection('experience'),
-	getCollection('blog'),
+  getCollection("projects"),
+  getCollection("experience"),
+  getCollection("blog"),
 ]);
 
-const sortedProjects = projects.sort((a, b) => a.data.number.localeCompare(b.data.number));
-const sortedExperiences = experiences.sort((a, b) => b.data.startDate.localeCompare(a.data.startDate));
-const latestBlogPosts = blogPosts.sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf()).slice(0, 3);
+const sortedProjects = projects.sort((a, b) =>
+  a.data.number.localeCompare(b.data.number),
+);
+const sortedExperiences = experiences.sort((a, b) =>
+  b.data.startDate.localeCompare(a.data.startDate),
+);
+const latestBlogPosts = blogPosts
+  .sort((a, b) => b.data.date.valueOf() - a.data.date.valueOf())
+  .slice(0, 3);
 const renderedProjects = await Promise.all(
-	sortedProjects.map(async (project) => ({ ...project, Content: (await render(project)).Content })),
+  sortedProjects.map(async (project) => ({
+    ...project,
+    Content: (await render(project)).Content,
+  })),
 );
 const renderedExperiences = await Promise.all(
-	sortedExperiences.map(async (experience) => ({ ...experience, Content: (await render(experience)).Content })),
+  sortedExperiences.map(async (experience) => ({
+    ...experience,
+    Content: (await render(experience)).Content,
+  })),
 );
 const renderedBlogPosts = await Promise.all(
-	latestBlogPosts.map(async (post) => ({ ...post, Content: (await render(post)).Content })),
+  latestBlogPosts.map(async (post) => ({
+    ...post,
+    Content: (await render(post)).Content,
+  })),
 );
 
 const formatPeriod = (startDate: string, endDate: string) =>
-	`${startDate} — ${endDate === 'current' ? 'atual' : endDate}`;
-const platformLabel = (language: string) => (language === 'pt-BR' ? 'BR' : 'US');
-const curriculoUrl = import.meta.env.PUBLIC_CURRICULO_URL ?? '#';
+  `${startDate} — ${endDate === "current" ? "atual" : endDate}`;
+const platformLabel = (language: string) =>
+  language === "pt-BR" ? "BR" : "US";
+const curriculoUrl = import.meta.env.PUBLIC_CURRICULO_URL ?? "#";
 const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
 ---
-<div class="container">
 
+<div class="container">
   <!-- ================= Hero ================= -->
   <section class="hero">
     <div class="hero-texto">
       <div class="kicker">BRUNO DONATELLI</div>
       <h1>Criando experiências digitais <em>incríveis</em>.</h1>
-      <p>Full stack · Angular · React · Lit · C# · Node · arquiteturas escaláveis. Atualmente no Itaú Unibanco.</p>
+      <p>
+        Full stack · Angular · React · Lit · C# · Node · arquiteturas
+        escaláveis. Atualmente no Itaú Unibanco.
+      </p>
       <div class="acoes">
         <a class="btn-primario" href="#sec-projetos">Ver projetos</a>
-        <a class="btn-secundario" href={curriculoUrl} target="_blank" rel="noopener" aria-label="Ver currículo - Abe em nova aba">Currículo <span aria-hidden="true">↓</span></a>
+        <a
+          class="btn-secundario"
+          href={curriculoUrl}
+          target="_blank"
+          rel="noopener"
+          aria-label="Ver currículo - Abe em nova aba"
+          >Currículo <span aria-hidden="true">↓</span></a
+        >
       </div>
     </div>
     <div class="hero-foto">
@@ -58,141 +84,299 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
   <section class="secao" id="sec-projetos">
     <h2>Projetos<span class="ponto-roxo" aria-hidden="true">.</span></h2>
     <div class="grid-projetos">
-      {renderedProjects.map(({ data, Content }) => (
-        <article class:list={["card-projeto", { destaque: data.featured }]}>
-          {/* Link em bloco: o TalkBack lê título, destaque e resumo num único foco; as tags ficam fora, como lista própria. */}
-          <a class="card-link" href={data.liveUrl ?? data.repoUrl} target="_blank" rel="noopener noreferrer">
-            <div class="topo">
-              <span class="numero" aria-hidden="true">{data.number}</span>
-              {data.featured && <span class="badge-destaque" aria-hidden="true">destaque</span>}
-            </div>
-            <div class="texto">
-              <h3>{data.title}</h3>
-              {data.featured && <span class="sr-only">Projeto em destaque.</span>}
-              <Content />
-              <span class="sr-only">(abre em nova guia)</span>
-            </div>
-          </a>
-          <ul class="tags" role="list" aria-label={`Tecnologias usadas em ${data.title}`}>
-            {data.technologies.map((technology: string) => <li class="tag">{technology.toLowerCase()}</li>)}
-          </ul>
-        </article>
-      ))}
+      {
+        renderedProjects.map(({ data, Content }) => (
+          <article class:list={["card-projeto", { destaque: data.featured }]}>
+            {/* Link em bloco: o TalkBack lê título, destaque e resumo num único foco; as tags ficam fora, como lista própria. */}
+            <a
+              class="card-link"
+              href={data.liveUrl ?? data.repoUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              <div class="topo">
+                <span class="numero" aria-hidden="true">
+                  {data.number}
+                </span>
+                {data.featured && (
+                  <span class="badge-destaque" aria-hidden="true">
+                    destaque
+                  </span>
+                )}
+              </div>
+              <div class="texto">
+                <h3>{data.title}</h3>
+                {data.featured && (
+                  <span class="sr-only">Projeto em destaque.</span>
+                )}
+                <Content />
+                <span class="sr-only">(abre em nova guia)</span>
+              </div>
+            </a>
+            <ul
+              class="tags"
+              role="list"
+              aria-label={`Tecnologias usadas em ${data.title}`}
+            >
+              {data.technologies.map((technology: string) => (
+                <li class="tag">{technology.toLowerCase()}</li>
+              ))}
+            </ul>
+          </article>
+        ))
+      }
     </div>
   </section>
 
   <!-- ================= Trajetória + Stack ================= -->
   <section class="secao" id="sec-trajetoria">
     <div class="grid-duplo">
-
       <div class="card-bloco">
-        <h2>Trajetória<span class="ponto-laranja" aria-hidden="true">.</span></h2>
-        {renderedExperiences.map(({ data, Content }, index) => (
-          <div class:list={["timeline-item", { "trajetoria-extra": index > 0 }]} id={index === 1 ? 'trajetoria-extra' : undefined}>
-            <div class="timeline-eixo" aria-hidden="true">
-              <div class:list={["timeline-ponto", { passado: index > 0 }]}></div>
-              {index < renderedExperiences.length - 1 && <div class="timeline-linha"></div>}
-            </div>
-            <div class="timeline-corpo">
-              <div class="timeline-titulo">
-                <strong>{data.company}</strong>
-                {data.endDate === 'current' && <span class="badge-atual">ATUAL</span>}
+        <h2>
+          Trajetória<span class="ponto-laranja" aria-hidden="true">.</span>
+        </h2>
+        {
+          renderedExperiences.map(({ data, Content }, index) => (
+            <div
+              class:list={["timeline-item", { "trajetoria-extra": index > 0 }]}
+              id={index === 1 ? "trajetoria-extra" : undefined}
+            >
+              <div class="timeline-eixo" aria-hidden="true">
+                <div class:list={["timeline-ponto", { passado: index > 0 }]} />
+                {index < renderedExperiences.length - 1 && (
+                  <div class="timeline-linha" />
+                )}
               </div>
-              <div class="timeline-meta">
-                {data.role} {data.roleLevel} · {formatPeriod(data.startDate, data.endDate)}
-                {data.location && <> · {data.location}</>}
+              <div class="timeline-corpo">
+                <div class="timeline-titulo">
+                  <strong>{data.company}</strong>
+                  {data.endDate === "current" && (
+                    <span class="badge-atual">ATUAL</span>
+                  )}
+                </div>
+                <div class="timeline-meta">
+                  {data.role} {data.roleLevel} ·{" "}
+                  {formatPeriod(data.startDate, data.endDate)}
+                  {data.location && <> · {data.location}</>}
+                </div>
+                <Content />
               </div>
-              <Content />
             </div>
-          </div>
-        ))}
-        {renderedExperiences.length > 1 && <button class="link-expandir" id="btn-expandir" aria-expanded="false" aria-controls="trajetoria-extra">ver tudo →</button>}
+          ))
+        }
+        {
+          renderedExperiences.length > 1 && (
+            <button
+              class="link-expandir"
+              id="btn-expandir"
+              aria-expanded="false"
+              aria-controls="trajetoria-extra"
+            >
+              ver tudo →
+            </button>
+          )
+        }
       </div>
 
       <div class="card-bloco">
         <h2>Stack<span class="ponto-roxo" aria-hidden="true">.</span></h2>
-        <div class="chips-stack">
-          <span class="chip principal">Angular</span>
-          <span class="chip principal">TypeScript</span>
-          <span class="chip">React</span>
-          <span class="chip">Node.js</span>
-          <span class="chip">C#</span>
-          <span class="chip">Docker</span>
-          <span class="chip">PostgreSQL</span>
-          <span class="chip">SCSS</span>
-          <span class="chip">Git</span>
+        <div class="chips-stack" role="list" aria-label="Stack favorita">
+          <span role="listitem" class="chip principal">Angular</span>
+          <span role="listitem" class="chip principal">TypeScript</span>
+          <span role="listitem" class="chip">React</span>
+          <span role="listitem" class="chip">Node.js</span>
+          <span role="listitem" class="chip">C#</span>
+          <span role="listitem" class="chip">Docker</span>
+          <span role="listitem" class="chip">PostgreSQL</span>
+          <span role="listitem" class="chip">SCSS</span>
+          <span role="listitem" class="chip">Git</span>
         </div>
         <!-- <p class="legenda-stack">roxo = primeira língua</p> -->
       </div>
-
     </div>
   </section>
 
   <!-- ================= Publicações ================= -->
   <section class="secao" id="sec-artigos">
     <div class="secao-cabecalho">
-      <h2>Publicações<span class="ponto-laranja" aria-hidden="true">.</span></h2>
-      <a class="link-externo" href="https://dev.to/brunoredes" target="_blank" rel="noopener noreferrer" aria-label="dev.to e Medium (abre em nova aba)">dev.to + medium ↗</a>
+      <h2>
+        Publicações<span class="ponto-laranja" aria-hidden="true">.</span>
+      </h2>
+      <a
+        class="link-externo"
+        href="https://dev.to/brunoredes"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="dev.to e Medium (abre em nova aba)">dev.to + medium ↗</a
+      >
     </div>
     <div class="grid-artigos">
-      {renderedBlogPosts.map(({ data, Content }) => (
-        <article class="card-artigo">
-          <h3>{data.title}</h3>
-              {data.featured && <span class="sr-only">Projeto em destaque.</span>}
-          <time class="quando" datetime={data.date.toISOString()}>{data.date.toLocaleDateString('pt-BR', { month: 'short', year: 'numeric' })}</time>
-          <Content />
-          <div class="fontes">
-            {data.platforms.map((platform) => (
-              <a class="fonte" href={platform.url} target="_blank" rel="noopener noreferrer" aria-label={`Ler "${data.title}" no ${platform.name} (abre em nova aba)`}>{platform.name} · {platformLabel(platform.language)}</a>
-            ))}
-          </div>
-        </article>
-      ))}
+      {
+        renderedBlogPosts.map(({ data, Content }) => (
+          <article class="card-artigo">
+            <h3>{data.title}</h3>
+            {data.featured && <span class="sr-only">Projeto em destaque.</span>}
+            <time class="quando" datetime={data.date.toISOString()}>
+              {data.date.toLocaleDateString("pt-BR", {
+                month: "short",
+                year: "numeric",
+              })}
+            </time>
+            <Content />
+            <div class="fontes">
+              {data.platforms.map((platform) => (
+                <a
+                  class="fonte"
+                  href={platform.url}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`Ler "${data.title}" no ${platform.name} (abre em nova aba)`}
+                >
+                  {platform.name} · {platformLabel(platform.language)}
+                </a>
+              ))}
+            </div>
+          </article>
+        ))
+      }
     </div>
   </section>
 
   <!-- ================= Contato ================= -->
   <section class="contato" id="sec-contato">
-
     <div class="contato-intro">
       <div class="kicker">CONTATO</div>
-      <h2>Bora construir algo<span class="ponto-laranja" aria-hidden="true">?</span></h2>
+      <h2>
+        Bora construir algo<span class="ponto-laranja" aria-hidden="true"
+          >?</span>
+      </h2>
       <p>Projetos, dúvidas de Angular ou um convite para palestrar</p>
       <div class="redes">
-        <a class="rede" href="https://github.com/brunoredes" target="_blank" rel="noopener noreferrer" aria-label="GitHub (abre em nova aba)">github ↗</a>
-        <a class="rede" href="https://linkedin.com/in/brunoldonatelli" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn (abre em nova aba)">linkedin ↗</a>
+        <a
+          class="rede"
+          href="https://github.com/brunoredes"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="GitHub (abre em nova aba)">github ↗</a
+        >
+        <a
+          class="rede"
+          href="https://linkedin.com/in/brunoldonatelli"
+          target="_blank"
+          rel="noopener noreferrer"
+          aria-label="LinkedIn (abre em nova aba)">linkedin ↗</a
+        >
       </div>
     </div>
 
     <form class="formulario" id="form-contato" novalidate>
       <div class="campo" id="campo-nome">
         <label for="nome">Seu nome<em aria-hidden="true">*</em></label>
-        <input type="text" id="nome" name="nome" placeholder="Como você se chama?" required aria-required="true" aria-describedby="erro-nome">
+        <input
+          type="text"
+          id="nome"
+          name="nome"
+          placeholder="Como você se chama?"
+          required
+          aria-required="true"
+          aria-errormessage="erro-nome"
+        />
         <span class="erro" id="erro-nome" role="alert">Me diz seu nome :)</span>
       </div>
       <div class="campo" id="campo-assunto">
         <label for="assunto">Assunto <em aria-hidden="true">*</em></label>
-        <input type="text" id="assunto" name="assunto" placeholder="Sobre o que vamos falar?" required aria-required="true" aria-describedby="erro-assunto">
-        <span class="erro" id="erro-assunto" role="alert">Qual é o assunto?</span>
+        <input
+          type="text"
+          id="assunto"
+          name="assunto"
+          placeholder="Sobre o que vamos falar?"
+          required
+          aria-required="true"
+          aria-errormessage="erro-assunto"
+        />
+        <span class="erro" id="erro-assunto" role="alert"
+          >Qual é o assunto?</span
+        >
       </div>
       <div class="campo" id="campo-mensagem">
         <label for="mensagem">Mensagem <em aria-hidden="true">*</em></label>
-        <textarea id="mensagem" name="mensagem" rows="4" placeholder="Conta tudo..." required aria-required="true" aria-describedby="erro-mensagem"></textarea>
-        <span class="erro" id="erro-mensagem" role="alert">Conta um pouco mais — pelo menos 10 caracteres.</span>
+        <textarea
+          id="mensagem"
+          name="mensagem"
+          rows="4"
+          placeholder="Conta tudo..."
+          required
+          aria-required="true"
+          aria-errormessage="erro-mensagem"></textarea>
+        <span class="erro" id="erro-mensagem" role="alert"
+          >Conta um pouco mais — pelo menos 10 caracteres.</span
+        >
       </div>
-      {turnstileSiteKey && <div class="cf-turnstile" data-sitekey={turnstileSiteKey} data-theme="auto" data-language="pt-br"></div>}
-      <button type="submit" class="btn-primario" id="btn-enviar">Enviar mensagem →</button>
-      <p class="form-erro" id="form-erro" role="alert" hidden>Não consegui enviar agora — tenta de novo ou me chama no LinkedIn.</p>
+      {
+        turnstileSiteKey && (
+          <div
+            class="cf-turnstile"
+            data-sitekey={turnstileSiteKey}
+            data-theme="auto"
+            data-language="pt-br"
+          />
+        )
+      }
+      <button type="submit" class="btn-primario" id="btn-enviar"
+        >Enviar mensagem
+        <!--?xml version="1.0" encoding="utf-8"?-->
+
+        <!-- Uploaded to: SVG Repo, www.svgrepo.com, Generator: SVG Repo Mixer Tools -->
+        <svg
+          width="15px"
+          height="15px"
+          viewBox="-19.04 0 75.804 75.804"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <g
+            id="Group_65"
+            data-name="Group 65"
+            transform="translate(-831.568 -384.448)"
+          >
+            <path
+              id="Path_57"
+              data-name="Path 57"
+              d="M833.068,460.252a1.5,1.5,0,0,1-1.061-2.561l33.557-33.56a2.53,2.53,0,0,0,0-3.564l-33.557-33.558a1.5,1.5,0,0,1,2.122-2.121l33.556,33.558a5.53,5.53,0,0,1,0,7.807l-33.557,33.56A1.5,1.5,0,0,1,833.068,460.252Z"
+              fill="#0c2c67"></path>
+          </g>
+        </svg>
+      </button>
+      <p class="form-erro" id="form-erro" role="alert" hidden>
+        Não consegui enviar agora — tenta de novo ou me chama no LinkedIn.
+      </p>
     </form>
 
-    {turnstileSiteKey && <script is:inline async defer src="https://challenges.cloudflare.com/turnstile/v0/api.js"></script>}
+    {
+      turnstileSiteKey && (
+        <script
+          is:inline
+          async
+          defer
+          src="https://challenges.cloudflare.com/turnstile/v0/api.js"
+        />
+      )
+    }
 
-    <div class="sucesso" id="sucesso" role="status" aria-live="polite" tabindex="-1">
+    <div
+      class="sucesso"
+      id="sucesso"
+      role="status"
+      aria-live="polite"
+      tabindex="-1"
+    >
       <div class="check" aria-hidden="true">✓</div>
       <h3>Mensagem enviada!</h3>
       <p>Valeu, <span id="primeiro-nome">você</span></p>
-      <button class="reenviar" id="btn-reenviar">enviar outra mensagem</button>
+      <button
+        class="reenviar"
+        id="btn-reenviar"
+        aria-label="Enviar outra mensagem">Enviar outra mensagem</button
+      >
     </div>
-
   </section>
 </div>

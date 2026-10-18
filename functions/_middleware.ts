@@ -40,7 +40,7 @@ function buildCsp(nonce: string): string {
     //                     kept as fallback for browsers without nonce support
     // host allowlist    → ignored by strict-dynamic-aware browsers;
     //                     kept as fallback for older browsers
-    `script-src 'strict-dynamic' 'nonce-${nonce}' 'unsafe-inline' https://www.googletagmanager.com https://static.cloudflareinsights.com https://ajax.cloudflare.com https://challenges.cloudflare.com`,
+    `script-src 'strict-dynamic' 'nonce-${nonce}' 'unsafe-inline' https://www.googletagmanager.com https://static.cloudflareinsights.com https://ajax.cloudflare.com https://challenges.cloudflare.com https://hagen.challenges.cloudflare.com https://brunhild.challenges.cloudflare.com https://valid.alg13.dnstest.challenges.cloudflare.com https://invalid.alg13.dnstest.challenges.cloudflare.com https://dual-valid.mldsa44.dnstest.challenges.cloudflare.com https://valid.mldsa44.dnstest.challenges.cloudflare.com https://dnstest.dev`,
 
     // 'unsafe-inline' covers the inline style="…" attributes used in a few
     // components; fonts are self-hosted, so no external style/font hosts.
@@ -50,7 +50,7 @@ function buildCsp(nonce: string): string {
     "font-src 'self'",
     // GA4 posts hits to *.google-analytics.com and analytics.google.com; the
     // ads/signals fallback ('gaf=1') hits www.google.com.
-    "connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://analytics.google.com https://www.googletagmanager.com https://www.google.com https://cloudflareinsights.com",
+    "connect-src 'self' https://www.google-analytics.com https://*.google-analytics.com https://analytics.google.com https://www.googletagmanager.com https://www.google.com https://cloudflareinsights.com https://hagen.challenges.cloudflare.com https://brunhild.challenges.cloudflare.com https://valid.alg13.dnstest.challenges.cloudflare.com https://invalid.alg13.dnstest.challenges.cloudflare.com https://dual-valid.mldsa44.dnstest.challenges.cloudflare.com https://valid.mldsa44.dnstest.challenges.cloudflare.com https://dnstest.dev",
     "worker-src 'self'",
     "manifest-src 'self'",
     // Cloudflare Turnstile renders its challenge in an iframe.

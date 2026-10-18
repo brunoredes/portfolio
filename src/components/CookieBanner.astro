@@ -11,7 +11,7 @@
   </div>
 </dialog>
 
-<button type="button" class="cookie-fab" command="show-modal" commandfor="cookie-dialog" aria-label="Preferências de cookies" aria-haspopup="dialog" aria-expanded="false">🍪</button>
+<button type="button" class="cookie-fab" command="show-modal" commandfor="cookie-dialog" aria-label="Preferências de cookies" aria-haspopup="dialog" aria-controls="cookie-dialog">🍪</button>
 
 <script>
 const GA_ID = import.meta.env.PUBLIC_GA_TAG;
@@ -53,17 +53,6 @@ if (dialog) {
     dialog.close();
   }, { signal });
 
-  // Mantém aria-expanded dos gatilhos em sincronia com o estado do <dialog>.
-  // Cobre todos os caminhos: command API, fallback, abertura automática e Esc.
-  const gatilhos = [
-    document.querySelector('.cookie-fab'),
-    document.getElementById('link-cookies'),
-  ].filter(Boolean) as HTMLElement[];
-  const syncExpanded = () => gatilhos.forEach((t) => t.setAttribute('aria-expanded', String(dialog.open)));
-  const mo = new MutationObserver(syncExpanded);
-  mo.observe(dialog, { attributes: true, attributeFilter: ['open'] });
-  syncExpanded();
-
   // Fallback for browsers without the Invoker Commands API (command/commandfor)
   if (!('command' in HTMLButtonElement.prototype)) {
     document.querySelector('.cookie-fab')?.addEventListener('click', () => dialog.showModal(), { signal });
@@ -71,7 +60,7 @@ if (dialog) {
   }
 
   // Cleanup: solta listeners/observer ao sair (útil sob View Transitions; no-op em reload).
-  const teardown = () => { ac.abort(); mo.disconnect(); };
+  const teardown = () => { ac.abort(); };
   window.addEventListener('pagehide', teardown, { once: true });
   document.addEventListener('astro:before-swap', teardown, { once: true });
 }
