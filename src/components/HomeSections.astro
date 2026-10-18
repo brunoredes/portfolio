@@ -60,17 +60,21 @@ const turnstileSiteKey = import.meta.env.PUBLIC_TURNSTILE_SITE_KEY;
     <div class="grid-projetos">
       {renderedProjects.map(({ data, Content }) => (
         <article class:list={["card-projeto", { destaque: data.featured }]}>
-          <div class="topo">
-            <span class="numero">{data.number}</span>
-            {data.featured && <span class="badge-destaque">destaque</span>}
-          </div>
-          <div>
-            <h3><a href={data.liveUrl ?? data.repoUrl} aria-label={`Link para ${data.title} - Abre em nova guia`} target="_blank" rel="noopener noreferrer">{data.title}</a></h3>
-            <Content />
-            <div class="tags">
-              {data.technologies.map((technology: string) => <span class="tag">{technology.toLowerCase()}</span>)}
+          {/* Link em bloco: o TalkBack lê número, destaque, título e resumo num único foco; as tags ficam fora, como lista própria. */}
+          <a class="card-link" href={data.liveUrl ?? data.repoUrl} target="_blank" rel="noopener noreferrer">
+            <div class="topo">
+              <span class="numero">{data.number}</span>
+              {data.featured && <span class="badge-destaque">destaque</span>}
             </div>
-          </div>
+            <div class="texto">
+              <h3>{data.title}</h3>
+              <Content />
+              <span class="sr-only">(abre em nova guia)</span>
+            </div>
+          </a>
+          <ul class="tags" role="list" aria-label={`Tecnologias usadas em ${data.title}`}>
+            {data.technologies.map((technology: string) => <li class="tag">{technology.toLowerCase()}</li>)}
+          </ul>
         </article>
       ))}
     </div>
